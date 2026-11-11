@@ -16,7 +16,7 @@
 <style>
 /* Pixelify Sans joins "fi" into one glyph that reads as an A, so ligatures are off. */
 *{font-variant-ligatures:none}
-:root{--wood0:#3d1f0b;--wood1:#6b3a17;--wood2:#99602c;--wood3:#d39a55;--paper:#fcebbd;--paper2:#f1d596;--ink:#43270f;--soft:#7a5630;--leaf:#3f7d3a;--pix:'Pixelify Sans',ui-monospace,monospace;--body:'Inter',system-ui,sans-serif}
+:root{--wood0:#3d1f0b;--wood1:#6b3a17;--wood2:#99602c;--wood3:#d39a55;--paper:#fcebbd;--paper2:#f1d596;--ink:#43270f;--soft:#7a5630;--leaf:#2f6b2c;--pix:'Pixelify Sans',ui-monospace,monospace;--body:'Inter',system-ui,sans-serif}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:#1f4a1c;color:var(--ink);font-family:var(--body);overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
@@ -27,9 +27,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   background:repeating-linear-gradient(180deg,#7a4520 0 11px,#6c3b19 11px 12px,#804a23 12px 23px,#6c3b19 23px 24px);
   box-shadow:inset 0 -4px 0 var(--wood0),inset 0 3px 0 #a8672f,0 4px 0 rgba(0,0,0,.25)}
 .bar h1{font-family:var(--pix);font-weight:600;font-size:26px;line-height:1;margin:0;letter-spacing:.01em;text-shadow:2px 2px 0 var(--wood0)}
-.bar p{margin:5px 0 0;font-family:var(--pix);font-size:14px;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0)}
-.bar .hint{font-family:var(--pix);font-size:14px;line-height:1.25;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0);text-align:right;min-width:0}
-.bar .who{flex:none;display:flex;align-items:center;gap:14px}
+.bar p{margin:4px 0 0;font-family:var(--pix);font-size:14px;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0)}
+.bar .who{flex:0 1 auto;min-width:0;display:flex;align-items:center;gap:14px}
+.bar .who > div{min-width:0}
 .bar .face{flex:none;width:56px;height:56px;image-rendering:pixelated;border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);background:#74b0e8}
 
 /* map */
@@ -44,6 +44,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* The note beside a bird is dark with the yellow of the bird's outline and a pair of binoculars, so it cannot be taken for one of the cream section labels. */
 #tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:13px;line-height:1.3;color:#fff3d2;background:#16241a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffe66a' d='M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM7 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1z'/%3E%3C/svg%3E") 9px 50%/22px 14px no-repeat;border:2px solid #ffe66a;padding:5px 10px 6px 40px;visibility:hidden;max-width:260px}
 #tip.on{visibility:visible}
+#how{position:absolute;left:10px;bottom:10px;z-index:2;margin:0;max-width:calc(100% - 20px);pointer-events:none;font-family:var(--pix);font-size:13.5px;line-height:1.3;color:#f1cf8e;background:#6b3a17;border:3px solid #3d1f0b;padding:4px 10px 5px}
+#how[hidden]{display:none}
+body.portrait #how{left:0;right:0;bottom:0;max-width:none;text-align:center;border-width:3px 0 0;font-size:12.5px}
 #tip i{font-family:var(--body);font-size:12px;color:#cfe3b8}
 #tip small{display:block;font-size:12px;color:var(--soft)}
 
@@ -54,10 +57,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .dock button.here{background:#ffe9a3}
 
 /* the field notebook button, a bird's card, and the notebook's list */
-.bar .side{display:flex;align-items:center;gap:18px;min-width:0}
+.bar .side{flex:none;display:flex;align-items:center;gap:18px}
+.bar .nw{white-space:nowrap}
 .nb{flex:none;font-family:var(--pix);font-weight:600;font-size:15px;line-height:1;padding:7px 11px 8px;color:var(--ink);background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);white-space:nowrap}
 .nb:hover,.nb:focus-visible{background:#fffbe8;outline:none}
-.tools{display:flex;gap:9px;flex:none}
+.tools{display:flex;gap:9px;flex:none;flex-wrap:wrap;justify-content:flex-end}
 .nb[aria-pressed="true"]{background:#dff0b4}
 .card.wide{width:min(760px,100%)}
 .card.wide footer{display:none}
@@ -81,6 +85,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pen.up::after{bottom:3px}
 .card .body p{font-family:var(--body);font-size:15.5px;line-height:1.55;margin:12px 0 0}
 .card .body p.src{font-size:13px;color:var(--soft)}
+.card .body p.src + p.src{margin-top:5px}
 .card .body a{color:var(--leaf);font-weight:600}
 .card .body .go{font-family:var(--pix);font-weight:600;font-size:14px;padding:4px 9px 5px;margin-left:6px;color:#fff3d2;background:var(--wood2);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0)}
 .card footer button[hidden]{display:block;visibility:hidden}
@@ -89,8 +94,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .list button:hover,.list button:focus-visible{border-color:var(--wood2);outline:none}
 .list button:disabled{cursor:default;color:var(--soft);background:none;border-style:dashed;border-color:#d9b876}
 .list small{display:block;font-size:12px}
+.card .body .more{font-family:var(--pix);font-weight:600;font-size:13.5px;padding:3px 9px 4px;color:var(--ink);background:#fff6d6;border:3px solid #d9b876}
+.card .body .more:hover,.card .body .more:focus-visible{border-color:var(--wood2);outline:none}
+.credits{margin:10px 0 0;font-size:13px;color:var(--soft)}
+.credits summary{cursor:pointer;font-family:var(--pix);font-size:13.5px;color:var(--ink)}
+.credits ul{margin:8px 0 0;padding-left:18px;line-height:1.55}
 .list canvas{flex:none;width:52px;height:40px;image-rendering:pixelated}
-@media (max-width:1180px){.bar .hint{display:none}}
 
 /* the page that opens */
 .veil{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(18,32,14,.45);visibility:hidden}
@@ -107,6 +116,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .book figure i{font-family:var(--body);font-size:11.5px}
 .book .x:hover,.book .x:focus-visible{background:#cf5b38;outline:none}
 .book .body{flex:1;overflow:auto;padding:8px 30px 18px;overscroll-behavior:contain}
+.book .body:focus{outline:none}
+.book .body:focus-visible{box-shadow:inset 0 0 0 3px #e0791c}
+.book .part{font-family:var(--pix);font-weight:700;font-size:24px;line-height:1.1;margin:26px 0 0;padding-top:16px;border-top:3px dashed #d9b876;color:var(--ink)}
+.book .part:first-child{margin-top:8px;padding-top:0;border-top:0}
 article{padding:16px 0;border-bottom:2px solid #ecd49a}
 article:last-child{border-bottom:0}
 article header{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
@@ -120,16 +133,18 @@ article li::marker{color:#b5803a}
 article a{color:#2c5f8a;font-weight:500}
 .book footer{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px 16px;border-top:3px dashed #d9b876;font-family:var(--pix)}
 .book footer button{font-family:var(--pix);font-weight:600;font-size:15px;padding:7px 12px 8px;color:#fff3d2;background:var(--wood2);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0),inset 0 2px 0 var(--wood3)}
-.book footer button:hover,.book footer button:focus-visible{background:#b27434;outline:none}
+.book footer button:hover,.book footer button:focus-visible{background:#85501f;outline:none}
+.book footer button:focus-visible{box-shadow:0 0 0 2px var(--wood0),0 0 0 5px #e0791c}
+.book footer button[hidden]{display:none}
 .book footer span{font-size:14px;color:var(--soft)}
 
 body.portrait .bar{padding:8px 14px 10px}
 body.portrait .bar h1{font-size:20px}
 body.portrait .bar p{font-size:12px}
-body.portrait .bar .hint{display:none}
 body.portrait .nb{font-size:13px;padding:6px 8px 7px}
 body.portrait .bar{flex-wrap:wrap;row-gap:9px}
 body.portrait .bar .side{margin-left:auto}
+body.portrait .bar .who{flex:1 1 100%}
 body.portrait .dock{display:flex}
 @media (max-width:640px){
   .veil{padding:10px}
@@ -141,19 +156,27 @@ body.portrait .dock{display:flex}
   .book .body{padding:4px 18px 14px}
   article header{flex-direction:column;gap:6px;align-items:flex-start}
 }
+@media print{
+  html,body{height:auto}
+  body{display:block;overflow:visible;background:#fff}
+  .bar,.stage,.dock,#bveil,.book footer,.x,#pic{display:none!important}
+  .veil{position:static;visibility:visible;display:block;padding:0;background:none}
+  .book{width:auto;max-height:none;border:0;box-shadow:none;background:none}
+  .book .body{overflow:visible}
+}
 </style>
 </head>
 <body>
 <header class="bar">
-  <div class="who"><img class="face" id="face" src="assets/portrait.png" width="56" height="56" alt="Pixel-art portrait of Chiara"><div><h1>Chiara Martina Casadei</h1><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div></div>
-  <div class="side"><div class="hint" id="hint">Arrow keys to walk · walk into a place or click it · click a bird to observe it</div><div class="tools"><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
+  <div class="who"><img class="face" id="face" src="assets/portrait.png" width="56" height="56" alt="Pixel-art portrait of Chiara"><div><h1>Chiara Martina Casadei</h1><p id="role">Biological Sciences student, University of Buenos Aires · Division of Ornithology, MACN-CONICET</p><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div></div>
+  <div class="side"><div class="tools"><button class="nb" id="all">Read all</button><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
 </header>
-<div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div></div>
+<div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div><p id="how"></p></div>
 <nav class="dock" id="dock" aria-label="Sections"></nav>
 <div class="veil" id="veil">
   <section class="book" role="dialog" aria-modal="true" aria-labelledby="title">
     <header><div><div class="place" id="place"></div><h2 id="title"></h2></div><figure id="pic" hidden><img alt=""><figcaption></figcaption></figure><button class="x" id="close" aria-label="Close">×</button></header>
-    <div class="body" id="body"></div>
+    <div class="body" id="body" tabindex="0"></div>
     <footer><button id="prev"></button><span id="count"></span><button id="next"></button></footer>
   </section>
 </div>
@@ -161,7 +184,7 @@ body.portrait .dock{display:flex}
   <section class="book card" role="dialog" aria-modal="true" aria-labelledby="bname">
     <div class="lens"><div class="glass" id="glass"><img id="lphoto" alt=""><canvas id="shade" width="400" height="200"></canvas><canvas id="lens" width="80" height="40"></canvas></div></div>
     <header><canvas class="hand" id="hand" width="20" height="25"></canvas><div><div class="place" id="bflag"></div><h2 id="bname"></h2><p class="sci" id="bsub"><i id="bsci"></i> · <span id="bes"></span></p></div><button class="x" id="bclose" aria-label="Close">×</button></header>
-    <div class="body" id="bbody"></div>
+    <div class="body" id="bbody" tabindex="0"></div>
     <footer><button id="bbook">Field notebook</button><span id="bcount"></span><button hidden></button></footer>
   </section>
 </div>
@@ -183,8 +206,11 @@ const ES = (() => {
 })();
 const L = (en, es) => ES ? es : en;
 document.documentElement.lang = ES ? 'es' : 'en';
+$('role').innerHTML = L('Biological Sciences student, University of Buenos Aires · Division of Ornithology, <span class="nw">MACN-CONICET</span>', 'Estudiante de Ciencias Biológicas, Universidad de Buenos Aires · División Ornitología, <span class="nw">MACN-CONICET</span>'); $('all').textContent = L('Read all', 'Leer todo');
 $('sub').textContent = L('Evolutionary ecology, bioacoustics & conservation', 'Ecología evolutiva, bioacústica y conservación');
-$('hint').textContent = L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
+// How to play, on the map until the first page or bird card opens. Touch screens get their own wording.
+$('how').textContent = matchMedia('(pointer:coarse)').matches ? L('Tap a place to read it · tap a bird to observe it', 'Tocar un lugar para leerlo · tocar un ave para observarla')
+  : L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
 $('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
 $('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
 $('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
@@ -192,7 +218,7 @@ document.querySelector('meta[name=description]').content = L('Chiara Martina Cas
 $('lang').textContent = L('Español', 'English'); $('lang').lang = ES ? 'en' : 'es';
 $('lang').addEventListener('click', () => {
   try { localStorage.setItem('chiara-lang', ES ? 'en' : 'es'); } catch (e) {}
-  const u = new URL(location.href); u.searchParams.delete('lang'); if (u.href === location.href) location.reload(); else location.replace(u.href);
+  const u = new URL(location.href); u.searchParams.set('lang', ES ? 'en' : 'es'); location.replace(u.href);
 });
 /* ------------------------------------------------------------ content */
 const entry = (t, where, when, items = [], note = '') =>
@@ -217,7 +243,7 @@ const SECTIONS_EN = [
     entry('Field Sampling Intern', 'ECoMa Lab, Dept. of Ecology, Genetics & Evolution, FCEyN-UBA', '2023',
       ['Field sampling of avian species, systematic bird censusing and field data logging']) +
     entry('Wildlife Rehabilitation', 'SO.CO.BIO.MA, Maldonado, Uruguay', 'Upcoming, Jan – Feb 2027',
-      ['Wildlife center team: hands-on animal care, diet preparation, enclosure maintenance, species rehabilitation and public environmental education']) },
+      ['Planned work with the wildlife center team: hands-on animal care, diet preparation, enclosure maintenance, species rehabilitation and public environmental education']) },
  { id:'presentations', label:'Presentations', html:
     entry('Poster: Geographic song differentiation in <i>Poecilotriccus plumbeiceps</i> suggests recognizing two species', 'XXI Argentine Ornithology Meeting, UNMdP, Mar del Plata, Argentina', '2026',
       ['Bioacoustics, PCA, statistical tests and taxonomic revision']) },
@@ -258,7 +284,7 @@ const SECTIONS_ES = [
     entry('Pasante de muestreo a campo', 'Laboratorio ECoMa, Departamento de Ecología, Genética y Evolución, FCEyN-UBA', '2023',
       ['Muestreo de aves a campo, censos sistemáticos de aves y registro de datos de campo']) +
     entry('Rehabilitación de fauna silvestre', 'SO.CO.BIO.MA, Maldonado, Uruguay', 'Próximamente, ene. – feb. de 2027',
-      ['Equipo del centro de fauna: cuidado directo de animales, preparación de dietas, mantenimiento de recintos, rehabilitación de especies y educación ambiental para el público']) },
+      ['Tareas previstas con el equipo del centro de fauna: cuidado directo de animales, preparación de dietas, mantenimiento de recintos, rehabilitación de especies y educación ambiental para el público']) },
  { id:'presentations', label:'Presentaciones', html:
     entry('Póster: La diferenciación geográfica del canto en <i>Poecilotriccus plumbeiceps</i> sugiere reconocer dos especies', 'XXI Reunión Argentina de Ornitología, UNMdP, Mar del Plata, Argentina', '2026',
       ['Bioacústica, análisis de componentes principales (PCA), pruebas estadísticas y revisión taxonómica']) },
@@ -333,7 +359,7 @@ const PLACES = {
   presentations: { name:'Conference',                 box:[244, 8, 88, 68],    sign:[283, 10],  stand:[312, 38],  face:'down', floor:[256, 32, 73, 10] },
   memberships:   { name:'Bird club watchtower',       box:[224, 132, 62, 80],  sign:[259, 135], stand:[258, 220], face:'up' },
   outreach:      { name:'Discovery stand',            box:[308, 93, 52, 80],   sign:[334, 94],  stand:[335, 133], face:'down', floor:[320, 110, 34, 27] },
-  skills:        { name:'Mist net and banding table', box:[160, 33, 74, 40],   sign:[197, 32],  stand:[219, 80],  face:'up' },
+  skills:        { name:'Mist net and banding table', box:[160, 33, 74, 40],   sign:[220, 48],  stand:[219, 80],  face:'up' },
   contact:       { name:'Mailbox',                    box:[204, 188, 16, 24],  sign:[212, 188], stand:[212, 223], face:'up' },
 };
 SECTIONS.forEach(s => Object.assign(s, PLACES[s.id]));
@@ -469,8 +495,8 @@ function drawChiara() {
    on the lawn (they fly off when she walks up), walkers on their strip of grass, ducks and divers on the lagoon, herons at its
    edge, the swallow over the water, the caracara across the sky, the hummingbird at the flowers. All of it is whole pixels
    and whole ticks. A bird under the pointer, or one she is watching, keeps still and gets a light edge.
-   23 of the species have research-grade iNaturalist records within 600 m of the Ciudad Universitaria-Costanera Norte reserve
-   (n is the count in November 2026). The other two are the species she studies. The notes are from each Wikipedia introduction. */
+   25 of the species have research-grade iNaturalist observations within 600 m of the Ciudad Universitaria-Costanera Norte
+   reserve (n is the count of all dates, made in November 2026). Two more are the species she studies and two are from Central America. The notes are from each Wikipedia introduction. */
 const BW = 26, BH = 20, AX = 13, AY = 18, FLY = 2, FLAP = 6;
 const SP = [
  {"en": "Straight-billed Reedhaunter", "sci": "Limnoctites rectirostris", "es": "Pajonalera pico recto", "kind": "reed", "hint": "In the reeds", "note": "A South American bird in the ovenbird family, Furnariidae.", "n": 0, "wiki": "Straight-billed_reedhaunter", "inat": 72986, "ph": ["Diego Caballero", "CC BY-NC", 105401861], "box": [-7, -7, 5, 0], "star": ["education", "Chiara's licentiate thesis is a study of this species.", "Thesis species"], "noteEs": "Ave sudamericana de la familia de los horneros, Furnariidae.", "starEs": ["La tesis de licenciatura de Chiara estudia esta especie.", "Especie de la tesis"]},
@@ -525,7 +551,7 @@ addBird(1, 'high', SPOTS.high[4]); [7, 8, 9, 10, 11, 12, 25, 26].forEach(sp => a
 put(14, 128, 122); put(15, 168, 108); put(16, 196, 134); put(17, 152, 142);                    // on the lagoon
 put(18, 247, 106, { flip:true }); put(19, 92, 126, { flip:false }); put(21, 222, 112);          // heron on the bank, egret in the shallows, jacana on a lily pad
 put(6, 50, 66, { zone:[30, 74] }); put(20, 214, 170, { zone:[198, 230] });                     // lapwing on the school lawn, limpkin along the shore
-put(22, 170, 120, { to:[120, 100] }); put(23, 0, 0, { state:'away', t:rint(240, 700) });       // swallow, caracara
+put(22, 170, 120, { to:[120, 100] }); if (reduce) put(23, 300, 196, {}); else put(23, 0, 0, { state:'away', t:rint(240, 700) });       // swallow, caracara
 put(24, 75, 100, { spot:SPOTS.flower[0] });
 const notes = [];
 let water = null, hot = null, watch = null, watchAt = 0;                       // hot = the bird under the pointer, watch = the one she has her binoculars on
@@ -553,7 +579,8 @@ function stepBirds() {
     if (b === hot) continue;                                                 // held still while the pointer is on it
     const k = b.kind;
     if (k === 'soar') {                                                      // across the sky in a straight line, then gone for a while
-      if (b.state === 'away') { if (reduce || --b.t > 0) continue; b.flip = Math.random() < .5; b.x = b.flip ? MAPW + 12 : -12; b.y = rint(40, 200); b.state = 'sit'; b.n = 0; continue; }
+      if (reduce) continue;
+      if (b.state === 'away') { if (--b.t > 0) continue; b.flip = Math.random() < .5; b.x = b.flip ? MAPW + 12 : -12; b.y = rint(40, 200); b.state = 'sit'; b.n = 0; continue; }
       if (++b.n & 1) b.x += b.flip ? -1 : 1;
       if (b.x < -14 || b.x > MAPW + 14) { b.state = 'away'; b.t = rint(900, 2400); }
       continue;
@@ -660,6 +687,7 @@ let W = 0, H = 0, S = 1, n = 1, VW = MAPW, VH = MAPH, left = 0, top = 0, portrai
 function resize() {
   const DPR = Math.min(3, devicePixelRatio || 1);
   portrait = innerWidth < 700 || innerWidth / innerHeight < .9; document.body.classList.toggle('portrait', portrait);
+  for (const b of document.querySelectorAll('.sign')) b.tabIndex = portrait ? -1 : 0;   // on a phone the dock below is the way in by keyboard, and labels off the edge take no focus
   W = stage.clientWidth; H = stage.clientHeight;
   const fit = Math.min(W / MAPW, H / MAPH); S = portrait ? Math.max(fit, Math.min(H / MAPH, W / 176)) : fit;      // phones zoom in and the view follows her
   VW = Math.min(MAPW, Math.ceil(W / S)); VH = Math.min(MAPH, Math.ceil(H / S)); left = Math.round((W - VW * S) / 2); top = Math.round((H - VH * S) / 2);
@@ -755,6 +783,7 @@ function setSound(on) {
   $('snd').textContent = ok ? L('Sound on', 'Con sonido') : L('Sound off', 'Sin sonido'); $('snd').setAttribute('aria-pressed', ok ? 'true' : 'false');
   try { sessionStorage.setItem('chiara-sound', ok ? '1' : ''); } catch (e) {}
 }
+$('snd').title = L('Music and sound effects made by this page. The bird sounds are not recordings.', 'Música y efectos generados por esta página. Los sonidos de las aves no son grabaciones.');
 $('snd').textContent = L('Sound off', 'Sin sonido'); $('snd').addEventListener('click', () => setSound(!audio.on));
 // A browser only lets sound start from a click or a key. After a change of language the page reloads with the sound still
 // chosen, so it starts again at the first one.
@@ -806,7 +835,7 @@ function frame(now) {
 
 /* ---------------------------------------------------- signs, clicks, keys, page */
 SECTIONS.forEach(s => {
-  const b = document.createElement('button'); b.className = 'sign'; b.textContent = s.short || s.label; b.setAttribute('aria-label', `${s.label} (${s.name})`);
+  const b = document.createElement('button'); b.className = 'sign'; b.tabIndex = portrait ? -1 : 0; b.textContent = s.short || s.label; b.setAttribute('aria-label', `${s.label} (${s.name})`);
   b.addEventListener('click', () => choose(s.id)); b.addEventListener('pointerenter', () => setHover(s)); b.addEventListener('pointerleave', () => setHover(null));
   b.addEventListener('focus', () => setHover(s)); b.addEventListener('blur', () => setHover(null));
   signs.appendChild(b); s.el = b;
@@ -869,9 +898,22 @@ function show(id) {
   $('count').textContent = `${i + 1} / ${order.length}`;
   const pic = $('pic'), sp = PORTRAIT[id]; pic.hidden = !sp;
   if (sp) { pic.firstChild.src = `assets/${sp[0]}.png`; pic.firstChild.alt = SP[sp[1]].name; pic.lastChild.innerHTML = `${SP[sp[1]].name}<br><i>${SP[sp[1]].sci}</i><br>${SP[sp[1]].star[2]}`; }
-  sfx(current ? 'page' : 'open');
-  if (!current) { returnTo = document.activeElement; veil.classList.add('open'); setTimeout(() => $('close').focus({ preventScroll:true }), 60); }
+  $('prev').hidden = $('next').hidden = false; unveil();
   current = id; keys.clear(); document.title = `${s.label} · Chiara Martina Casadei`;
+}
+// The page opens (or turns) and the keyboard goes to its text, so arrow keys and a screen reader start there.
+function unveil() {
+  sfx(current ? 'page' : 'open'); $('how').hidden = true;
+  if (!current) { returnTo = document.activeElement; carry = keys.size > 0; veil.classList.add('open'); }
+  setTimeout(() => $('body').focus({ preventScroll:true }), 60);
+}
+// Every section on one page, for reading straight through or printing.
+function showAll() {
+  look = 0; showTip(null); unwatch();
+  $('place').textContent = $('role').textContent; $('title').textContent = 'Chiara Martina Casadei'; $('body').scrollTop = 0;
+  $('body').innerHTML = SECTIONS.map(s => `<h3 class="part">${s.label}</h3>${s.html}`).join('');
+  $('prev').hidden = $('next').hidden = true; $('count').textContent = ''; $('pic').hidden = true; unveil();
+  current = 'all'; keys.clear(); document.title = 'Chiara Martina Casadei';
 }
 function hide() { if (!current) return; sfx('close'); current = null; veil.classList.remove('open'); document.title = 'Chiara Martina Casadei'; if (returnTo && returnTo.focus) returnTo.focus({ preventScroll:true }); }
 // ---- the field notebook: which species have been observed (kept in the browser), a card for each, and the list of all of them
@@ -879,10 +921,15 @@ const bveil = $('bveil'), seen = new Set(); let bopen = null, bback = null;
 try { for (const i of JSON.parse(localStorage.getItem('chiara-birds') || '[]')) if (SP[i]) seen.add(i); } catch (e) {}
 const tally = () => { $('nbn').textContent = `${seen.size}/${SP.length}`; }; tally();
 function paint(c, sp, dark) { const g = c.getContext('2d'); g.imageSmoothingEnabled = false; g.clearRect(0, 0, BW, BH); const im = dark ? darkImg : birdImg; if (im && ready(birdImg)) g.drawImage(im, 0, sp * BH, BW, BH, 0, 0, BW, BH); }
-function openB(mode) { bveil.firstElementChild.classList.toggle('wide', mode === 'book'); bveil.classList.toggle('scope', mode === 'card'); if (!bopen) { bback = document.activeElement; bveil.classList.add('open'); setTimeout(() => $('bclose').focus({ preventScroll:true }), 60); } bopen = mode; keys.clear(); $('bbody').scrollTop = 0; }
+function openB(mode) { $('how').hidden = true; bveil.firstElementChild.classList.toggle('wide', mode === 'book'); bveil.classList.toggle('scope', mode === 'card'); if (!bopen) { bback = document.activeElement; bveil.classList.add('open'); } setTimeout(() => $('bbody').focus({ preventScroll:true }), 60); bopen = mode; keys.clear(); $('bbody').scrollTop = 0; }
 function closeB() { if (!bopen) return; sfx('close'); bopen = null; bveil.classList.remove('open'); unwatch(); if (bback && bback.focus) bback.focus({ preventScroll:true }); }
-function showBird(sp, fresh) {
-  const s = SP[sp], isNew = !seen.has(sp);
+// The search behind each count, so anyone can run it again, and each photograph's credit with its exact licence.
+const LAT = -34.5399, LNG = -58.4441, KM = 0.6;
+const query = s => `https://www.inaturalist.org/observations?taxon_id=${s.inat}&lat=${LAT}&lng=${LNG}&radius=${KM}&quality_grade=research`;
+const licence = n => n === 'CC0' ? ['CC0 1.0', 'https://creativecommons.org/publicdomain/zero/1.0/'] : [n + ' 4.0', `https://creativecommons.org/licenses/${n.slice(3).toLowerCase()}/4.0/`];
+const credit = s => { const l = licence(s.ph[1]); return `<a href="https://www.inaturalist.org/photos/${s.ph[2]}" target="_blank" rel="noopener">${L('Photo', 'Foto')} © ${s.ph[0]}</a>, <a href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>, ${L('cropped', 'recortada')}`; };
+function showBird(sp, fresh, peek) {
+  const s = SP[sp], isNew = !seen.has(sp) && !peek, q = query(s);
   if (isNew) { seen.add(sp); tally(); try { localStorage.setItem('chiara-birds', JSON.stringify([...seen])); } catch (e) {} }
   if (!fresh) {                                                              // opened from the notebook's list: the lens finds one on the map
     unwatch(); const b = birds.find(b => b.sp === sp);
@@ -895,9 +942,9 @@ function showBird(sp, fresh) {
   $('bflag').textContent = !fresh ? L('Field notebook', 'Libreta de campo') : isNew ? L('New in the notebook', 'Nueva en la libreta') : L('Seen before', 'Ya observada'); $('bname').textContent = s.name; if (fresh) sfx(isNew ? 'found' : 'known');
   $('bsub').hidden = false; $('bsub').innerHTML = '<i id="bsci"></i> · <span id="bes"></span>'; $('bsci').textContent = s.sci; $('bes').textContent = s.other;
   $('bbody').innerHTML = `<p>${s.note}</p>` + (s.star ? `<p><b>${s.star[1]}</b><button class="go" data-go="${s.star[0]}">${byId[s.star[0]].label} ›</button></p>` : '') +
-    `<p class="src">${s.n ? L(`${s.n} research-grade records on iNaturalist within 600 m of the RECUCN reserve, Buenos Aires (November 2026).`, `${s.n} registros con grado de investigación en iNaturalist a menos de 600 m de la reserva RECUCN, Buenos Aires (noviembre de 2026).`)
-      : L('No records at the RECUCN reserve. ', 'Sin registros en la reserva RECUCN. ') + (s.far ? L('This is a Central American species.', 'Es una especie de América Central.') : L('It is on this map as one of Chiara\'s study species.', 'Figura en este mapa por ser una de las especies que estudia Chiara.'))} ` +
-    `<a href="https://${ES ? 'es' : 'en'}.wikipedia.org/wiki/${ES ? s.wikiEs || s.sci.replace(/ /g, '_') : s.wiki}" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.inaturalist.org/taxa/${s.inat}" target="_blank" rel="noopener">iNaturalist</a> · <a href="https://www.inaturalist.org/photos/${s.ph[2]}" target="_blank" rel="noopener">${L('Photo', 'Foto')} © ${s.ph[0]}, ${s.ph[1]}</a></p>`;
+    `<p class="src">${s.n ? L(`<a href="${q}" target="_blank" rel="noopener">${s.n} research-grade observations</a> on iNaturalist within 600 m of the RECUCN reserve, Buenos Aires. All dates, counted in November 2026.`, `<a href="${q}" target="_blank" rel="noopener">${s.n} observaciones con grado de investigación</a> en iNaturalist a menos de 600 m de la reserva RECUCN, Buenos Aires. Todas las fechas, contadas en noviembre de 2026.`)
+      : L(`<a href="${q}" target="_blank" rel="noopener">No research-grade observations</a> on iNaturalist within 600 m of the RECUCN reserve (searched in November 2026). `, `<a href="${q}" target="_blank" rel="noopener">Sin observaciones con grado de investigación</a> en iNaturalist a menos de 600 m de la reserva RECUCN (búsqueda de noviembre de 2026). `) + (s.far ? L('This is a Central American species.', 'Es una especie de América Central.') : L('It is on this map as one of Chiara\'s study species.', 'Figura en este mapa por ser una de las especies que estudia Chiara.'))}</p>` +
+    `<p class="src"><a href="https://${ES ? 'es' : 'en'}.wikipedia.org/wiki/${ES ? s.wikiEs || s.sci.replace(/ /g, '_') : s.wiki}" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.inaturalist.org/taxa/${s.inat}" target="_blank" rel="noopener">iNaturalist</a> · ${credit(s)}</p>`;
   $('bcount').textContent = L(`${seen.size} of ${SP.length} seen`, `${seen.size} de ${SP.length} observadas`); $('bbook').hidden = false; openB('card'); startInk(!fresh || reduce);
 }
 
@@ -960,16 +1007,20 @@ function writeInk() {
 }
 function finishInk() { if (!ink) return; for (const p of ink.parts) { p.a.textContent = p.text; p.r.textContent = ''; if (p.box) p.box.style.visibility = ''; } pen.remove(); ink = null; }
 bveil.addEventListener('click', e => { if (ink && !e.target.closest('button,a')) finishInk(); });
+let bare = false;                                                            // the notebook shows every species, seen or not
 function showBook() {
   sfx(bopen ? 'page' : 'open'); unwatch(); bveil.firstElementChild.style.width = ''; $('bsub').hidden = true; $('bflag').textContent = L(`${seen.size} of ${SP.length} species seen`, `${seen.size} de ${SP.length} especies observadas`); $('bname').textContent = L('Field notebook', 'Libreta de campo');
-  $('bbody').innerHTML = `<p class="src">${L(`${SP.filter(s => s.n).length} species recorded at the RECUCN reserve in Buenos Aires, the two species Chiara studies and two from Central America. Click a bird on the map to observe it.`, `${SP.filter(s => s.n).length} especies registradas en la reserva RECUCN de Buenos Aires, las dos especies que estudia Chiara y dos de América Central. Hacer clic en un ave del mapa para observarla.`)}</p><div class="list">` +
-    SP.map((s, i) => `<button data-sp="${i}"${seen.has(i) ? '' : ' disabled'}><canvas width="${BW}" height="${BH}"></canvas><span>${seen.has(i) ? s.name : L('Not seen yet', 'Aún no observada') + '<small>' + s.hint + '</small>'}</span></button>`).join('') + '</div>';
-  $('bbody').querySelectorAll('canvas').forEach((c, i) => paint(c, i, !seen.has(i)));
+  $('bbody').innerHTML = `<p class="src">${L(`${SP.filter(s => s.n).length} species with iNaturalist observations at the RECUCN reserve in Buenos Aires, the two species Chiara studies and two from Central America. Click a bird on the map to observe it.`, `${SP.filter(s => s.n).length} especies con observaciones en iNaturalist en la reserva RECUCN de Buenos Aires, las dos especies que estudia Chiara y dos de América Central. Hacer clic en un ave del mapa para observarla.`)} ` +
+    `<button class="more" id="ball" aria-pressed="${bare}">${bare ? L('Hide species not seen yet', 'Ocultar las no observadas') : L('Show all species', 'Mostrar todas las especies')}</button></p><div class="list">` +
+    SP.map((s, i) => { const ok = seen.has(i); return `<button data-sp="${i}"${ok || bare ? '' : ' disabled'}><canvas width="${BW}" height="${BH}"></canvas><span>${ok || bare ? s.name : L('Not seen yet', 'Aún no observada')}${ok ? '' : '<small>' + (bare ? L('Not seen yet', 'Aún no observada') : s.hint) + '</small>'}</span></button>`; }).join('') + '</div>' +
+    `<details class="credits"><summary>${L('Photo credits', 'Créditos de las fotos')}</summary><ul>${SP.map(s => `<li>${s.name}: ${credit(s)}</li>`).join('')}</ul></details>` +
+    `<p class="src">${L('The list of species seen is kept in this browser only.', 'La lista de especies observadas se guarda solo en este navegador.')}</p>`;
+  $('bbody').querySelectorAll('canvas').forEach((c, i) => paint(c, i, !seen.has(i) && !bare));
   $('bcount').textContent = ''; $('bbook').hidden = true; openB('book');
 }
 $('nb').addEventListener('click', showBook); $('bbook').addEventListener('click', showBook); $('bclose').addEventListener('click', closeB);
 bveil.addEventListener('pointerdown', e => { if (e.target === bveil) closeB(); });
-$('bbody').addEventListener('click', e => { const go = e.target.closest('[data-go]'), sp = e.target.closest('[data-sp]'); if (go) { closeB(); choose(go.dataset.go); } else if (sp && !sp.disabled) showBird(+sp.dataset.sp, false); });
+$('bbody').addEventListener('click', e => { const go = e.target.closest('[data-go]'), sp = e.target.closest('[data-sp]'); if (go) { closeB(); choose(go.dataset.go); } else if (e.target.id === 'ball') { bare = !bare; showBook(); } else if (sp && !sp.disabled) showBird(+sp.dataset.sp, false, !seen.has(+sp.dataset.sp)); });
 // Choosing a place sends her there at her normal pace. The page opens when she arrives, or after a short beat if it is a long walk,
 // so nobody waits on the walk. With a page already open, the next one shows at once.
 function choose(id) { if (location.hash.slice(1) === id) visit(id); else location.hash = id; }
@@ -979,22 +1030,32 @@ function visit(id, instant) {
   walkTo(s.stand[0], s.stand[1], id); ch.seen = id;
   show(id);                                                                  // the page opens at once, and she walks over behind it
 }
-function route(first) { const id = location.hash.slice(1); if (byId[id]) visit(id, first === true); else hide(); }
+function route(first) { const id = location.hash.slice(1); if (id === 'all') showAll(); else if (byId[id]) visit(id, first === true); else hide(); }
+$('all').addEventListener('click', () => { location.hash = 'all'; });
+addEventListener('beforeprint', () => { if (!current) showAll(); });
 const home = () => { history.pushState(null, '', location.pathname + location.search); route(); };
 $('close').addEventListener('click', home);
 veil.addEventListener('pointerdown', e => { if (e.target === veil) home(); });
 addEventListener('hashchange', () => route()); addEventListener('popstate', () => route());
+let carry = false;                                                           // a key still held from walking into a place
+addEventListener('keyup', () => { carry = false; });
+function scrollKey(e, el) {
+  const h = el.clientHeight, d = { ArrowDown:48, ArrowUp:-48, PageDown:h - 40, PageUp:40 - h, Home:-1e6, End:1e6, ' ':e.shiftKey ? 40 - h : h - 40 }[e.key];
+  if (d === undefined || e.metaKey || e.ctrlKey || e.altKey) return false;
+  const f = document.activeElement; if (e.key === ' ' && f && (f.tagName === 'BUTTON' || f.tagName === 'A' || f.tagName === 'SUMMARY')) return false;
+  el.scrollTop += d; e.preventDefault(); return true;
+}
 const KEY = { ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down', a:'left', d:'right', w:'up', s:'down', A:'left', D:'right', W:'up', S:'down' };
 addEventListener('keydown', e => {
   if (bopen) {
-    if (e.key === 'Escape') closeB(); else if (KEY[e.key] || e.key === ' ') { if (!(document.activeElement && document.activeElement.tagName === 'BUTTON' && e.key === ' ')) e.preventDefault(); }
-    else if (e.key === 'Tab') { const f = [...bveil.querySelectorAll('button:not([disabled]):not([hidden]),a[href]')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
+    if (e.key === 'Escape') closeB(); else if (scrollKey(e, $('bbody'))) {} else if (KEY[e.key] && !(e.metaKey || e.ctrlKey || e.altKey)) e.preventDefault();
+    else if (e.key === 'Tab') { const f = [...bveil.querySelectorAll('button:not([disabled]):not([hidden]),a[href],summary,.body')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
     return;
   }
   if (current) {
-    if (e.repeat) { if (KEY[e.key]) e.preventDefault(); return; }             // a key still held from walking into the place must not start turning pages
-    if (e.key === 'Escape') home(); else if (e.key === 'ArrowRight') $('next').click(); else if (e.key === 'ArrowLeft') $('prev').click();
-    else if (e.key === 'Tab') { const f = [...veil.querySelectorAll('button,a[href]')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
+    if (e.repeat && (carry || e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { if (KEY[e.key]) e.preventDefault(); return; }   // a key still held from walking into the place must not scroll or turn pages
+    if (e.key === 'Escape') home(); else if (scrollKey(e, $('body'))) {} else if (e.key === 'ArrowRight') { if (current !== 'all') $('next').click(); } else if (e.key === 'ArrowLeft') { if (current !== 'all') $('prev').click(); }
+    else if (e.key === 'Tab') { const f = [...veil.querySelectorAll('button:not([hidden]),a[href],.body')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
     return;
   }
   if (e.metaKey || e.ctrlKey || e.altKey) return;

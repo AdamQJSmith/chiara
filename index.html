@@ -44,9 +44,31 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* The note beside a bird is dark with the yellow of the bird's outline and a pair of binoculars, so it cannot be taken for one of the cream section labels. */
 #tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:13px;line-height:1.3;color:#fff3d2;background:#16241a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffe66a' d='M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM7 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1z'/%3E%3C/svg%3E") 9px 50%/22px 14px no-repeat;border:2px solid #ffe66a;padding:5px 10px 6px 40px;visibility:hidden;max-width:260px}
 #tip.on{visibility:visible}
-#how{position:absolute;left:10px;bottom:10px;z-index:2;margin:0;max-width:calc(100% - 20px);pointer-events:none;font-family:var(--pix);font-size:13.5px;line-height:1.3;color:#f1cf8e;background:#6b3a17;border:3px solid #3d1f0b;padding:4px 10px 5px}
+#how{position:absolute;left:158px;bottom:12px;z-index:2;margin:0;max-width:calc(100% - 170px);pointer-events:none;font-family:var(--pix);font-size:13.5px;line-height:1.3;color:#f1cf8e;background:#6b3a17;border:3px solid #3d1f0b;padding:4px 10px 5px}
 #how[hidden]{display:none}
-body.portrait #how{left:0;right:0;bottom:0;max-width:none;text-align:center;border-width:3px 0 0;font-size:12.5px}
+body.touch #how{left:144px;max-width:calc(100% - 156px)}
+body.portrait #how{left:0;right:0;top:0;bottom:auto;max-width:none;text-align:center;border-width:0 0 3px;font-size:12.5px}
+/* Walking by hand. A touch screen gets a thumb stick in the corner of the map. A computer gets the four arrow keys, which light
+   while they are held and can be pressed with the mouse. Nothing here fades or slides: a key is up or down. */
+#stick,#keys{position:absolute;left:12px;bottom:12px;z-index:2;user-select:none;-webkit-user-select:none;touch-action:none;-webkit-tap-highlight-color:transparent}
+#stick{display:none;width:120px;height:120px}
+#stick canvas{position:absolute;image-rendering:pixelated;pointer-events:none}
+#base{left:0;top:0;width:120px;height:120px}
+#knob{left:36px;top:36px;width:48px;height:48px}
+#keys{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(2,32px);gap:11px 7px;padding:2px 2px 6px}
+.key{position:relative;display:block;cursor:pointer;touch-action:none;background:var(--paper);border:3px solid var(--wood1);box-shadow:0 4px 0 0 var(--wood2),0 0 0 2px var(--wood0),0 4px 0 2px var(--wood0)}
+.key::before{content:'';position:absolute;left:50%;top:50%;width:21px;height:12px;margin:-6px 0 0 -11px;image-rendering:pixelated;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 4' shape-rendering='crispEdges'%3E%3Cpath fill='%2343270f' d='M3 0h1v1h-1zM2 1h3v1h-3zM1 2h5v1h-5zM0 3h7v1h-7z'/%3E%3C/svg%3E") no-repeat;background-size:21px 12px}
+.key[data-k=up]{grid-column:2;grid-row:1}
+.key[data-k=left]{grid-column:1;grid-row:2}
+.key[data-k=down]{grid-column:2;grid-row:2}
+.key[data-k=right]{grid-column:3;grid-row:2}
+.key[data-k=left]::before{transform:rotate(-90deg)}
+.key[data-k=down]::before{transform:rotate(180deg)}
+.key[data-k=right]::before{transform:rotate(90deg)}
+.key:hover{background:#fff6d6}
+.key.on{background:#ffe66a;border-color:#b06a2c;transform:translateY(4px);box-shadow:0 0 0 2px var(--wood0)}
+body.touch #stick{display:block}
+body.touch #keys{display:none}
 #tip i{font-family:var(--body);font-size:12px;color:#cfe3b8}
 #tip small{display:block;font-size:12px;color:var(--soft)}
 
@@ -171,7 +193,10 @@ body.portrait .dock{display:flex}
   <div class="who"><img class="face" id="face" src="assets/portrait.png" width="56" height="56" alt="Pixel-art portrait of Chiara"><div><h1>Chiara Martina Casadei</h1><p id="role">Biological Sciences student, University of Buenos Aires · Division of Ornithology, MACN-CONICET</p><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div></div>
   <div class="side"><div class="tools"><button class="nb" id="all">Read all</button><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
 </header>
-<div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div><p id="how"></p></div>
+<div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div><p id="how"></p>
+  <div id="stick" aria-hidden="true"><canvas id="base" width="40" height="40"></canvas><canvas id="knob" width="16" height="16"></canvas></div>
+  <div id="keys" aria-hidden="true"><i class="key" data-k="up"></i><i class="key" data-k="left"></i><i class="key" data-k="down"></i><i class="key" data-k="right"></i></div>
+</div>
 <nav class="dock" id="dock" aria-label="Sections"></nav>
 <div class="veil" id="veil">
   <section class="book" role="dialog" aria-modal="true" aria-labelledby="title">
@@ -209,8 +234,13 @@ document.documentElement.lang = ES ? 'es' : 'en';
 $('role').innerHTML = L('Biological Sciences student, University of Buenos Aires · Division of Ornithology, <span class="nw">MACN-CONICET</span>', 'Estudiante de Ciencias Biológicas, Universidad de Buenos Aires · División Ornitología, <span class="nw">MACN-CONICET</span>'); $('all').textContent = L('Read all', 'Leer todo');
 $('sub').textContent = L('Evolutionary ecology, bioacoustics & conservation', 'Ecología evolutiva, bioacústica y conservación');
 // How to play, on the map until the first page or bird card opens. Touch screens get their own wording.
-$('how').textContent = matchMedia('(pointer:coarse)').matches ? L('Tap a place to read it · tap a bird to observe it', 'Tocar un lugar para leerlo · tocar un ave para observarla')
-  : L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
+// A touch screen walks with the thumb stick and a computer with the keys. Whichever was used last is the one shown.
+function setTouch(on) {
+  document.body.classList.toggle('touch', on);
+  $('how').textContent = on ? L('Walk with the joystick · tap a place or a bird', 'Caminar con el joystick · tocar un lugar o un ave')
+    : L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
+}
+setTouch(matchMedia('(pointer:coarse)').matches);
 $('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
 $('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
 $('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
@@ -453,6 +483,7 @@ function stepChiara() {
   let dx = 0, dy = 0;
   if (!current) { if (keys.has('left')) dx--; if (keys.has('right')) dx++; if (keys.has('up')) dy--; if (keys.has('down')) dy++; }
   if (dx || dy) {                                                            // walking by hand
+    look = 0;
     ch.dir = dx && !dy ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
     let moved = false;
     if (dx && free(ch.x + dx, ch.y)) { ch.x += dx; moved = true; }
@@ -824,6 +855,7 @@ function draw() {
   if (DEBUG) { for (let y = 0; y < GR; y++) for (let x = 0; x < GC; x++) { const c = GRID[y][x]; ctx.fillStyle = c === '#' ? 'rgba(255,0,0,.35)' : c === 'p' ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,0)'; ctx.fillRect(x * C, y * C, C, C); }
     ctx.fillStyle = '#00f'; for (const s of SECTIONS) ctx.fillRect(s.stand[0] - 1, s.stand[1] - 1, 2, 2); ctx.fillStyle = '#f0f'; for (const k in SPOTS) for (const p of SPOTS[k]) ctx.fillRect(p[0], p[1], 1, 1); }
   place();
+  for (const k of keyEls) k.classList.toggle('on', keys.has(k.dataset.k));
   if (bopen === 'card') drawLens();
 }
 function frame(now) {
@@ -865,7 +897,7 @@ function showTip(b, sx, sy) {
 // and then she writes the bird up in her notebook. The bird stays where it is meanwhile.
 function observe(b) {
   if (current || bopen) return;
-  sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); look = 0; keys.clear();
+  sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); look = 0; letGo();
   ch.route = []; ch.goal = null; ch.moving = false; ch.walked = 0; ch.push = 0; ch.scope = true;
   const dx = b.x - ch.x, dy = (b.y - (b.state === 'fly' ? b.z : 0) - 5) - (ch.y - 14);
   ch.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down';
@@ -899,7 +931,7 @@ function show(id) {
   const pic = $('pic'), sp = PORTRAIT[id]; pic.hidden = !sp;
   if (sp) { pic.firstChild.src = `assets/${sp[0]}.png`; pic.firstChild.alt = SP[sp[1]].name; pic.lastChild.innerHTML = `${SP[sp[1]].name}<br><i>${SP[sp[1]].sci}</i><br>${SP[sp[1]].star[2]}`; }
   $('prev').hidden = $('next').hidden = false; unveil();
-  current = id; keys.clear(); document.title = `${s.label} · Chiara Martina Casadei`;
+  current = id; letGo(); document.title = `${s.label} · Chiara Martina Casadei`;
 }
 // The page opens (or turns) and the keyboard goes to its text, so arrow keys and a screen reader start there.
 function unveil() {
@@ -913,7 +945,7 @@ function showAll() {
   $('place').textContent = $('role').textContent; $('title').textContent = 'Chiara Martina Casadei'; $('body').scrollTop = 0;
   $('body').innerHTML = SECTIONS.map(s => `<h3 class="part">${s.label}</h3>${s.html}`).join('');
   $('prev').hidden = $('next').hidden = true; $('count').textContent = ''; $('pic').hidden = true; unveil();
-  current = 'all'; keys.clear(); document.title = 'Chiara Martina Casadei';
+  current = 'all'; letGo(); document.title = 'Chiara Martina Casadei';
 }
 function hide() { if (!current) return; sfx('close'); current = null; veil.classList.remove('open'); document.title = 'Chiara Martina Casadei'; if (returnTo && returnTo.focus) returnTo.focus({ preventScroll:true }); }
 // ---- the field notebook: which species have been observed (kept in the browser), a card for each, and the list of all of them
@@ -1059,19 +1091,55 @@ addEventListener('keydown', e => {
     return;
   }
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  if (KEY[e.key]) { if (!e.repeat) keys.add(KEY[e.key]); e.preventDefault(); const f = document.activeElement; if (f && f.classList.contains('sign')) f.blur(); }   // walking by hand: Enter now means "open what she is at", not the label that last had focus
+  if (KEY[e.key]) { if (!e.repeat) { keys.add(KEY[e.key]); if (document.body.classList.contains('touch')) setTouch(false); } e.preventDefault(); const f = document.activeElement; if (f && f.classList.contains('sign')) f.blur(); }   // walking by hand: Enter now means "open what she is at", not the label that last had focus
   else if ((e.key === 'Enter' || e.key === ' ' || e.key === 'e' || e.key === 'E') && !(document.activeElement && document.activeElement.tagName === 'BUTTON')) { const s = nearPlace(), b = s ? null : birdAt(ch.x, ch.y - 10, 60); if (s) { e.preventDefault(); enter(s.id); } else if (b) { e.preventDefault(); observe(b); } }   // or, away from any place, she looks at the nearest bird
 });
 addEventListener('keyup', e => { if (KEY[e.key]) keys.delete(KEY[e.key]); });
 addEventListener('blur', () => keys.clear());
+
+/* ------------------------------------------------ the thumb stick and the keys on screen
+   Both only add to and take from `keys`, so she walks exactly as she does from the keyboard: one pixel a tick, eight ways.
+   The stick is drawn here on its own grid (one stick pixel is three screen pixels) and its knob moves in whole stick pixels.
+   Straight up, down, left and right each take 60 degrees of the circle and the diagonals 30, because walking into a place
+   only opens it when she walks straight at it. */
+const stickEl = $('stick'), knob = $('knob'), keyEls = [...document.querySelectorAll('.key')], stick = { id:null, dirs:[] };
+function disc(c, paint) { const g = c.getContext('2d'), w = c.width, m = w / 2 - .5; g.clearRect(0, 0, w, w); for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const col = paint(Math.hypot(x - m, y - m), x - m + y - m); if (col) { g.fillStyle = col; g.fillRect(x, y, 1, 1); } } return g; }
+function paintKnob(held) { disc(knob, (d, lit) => d > 7.9 ? null : d > 6.7 ? '#3d1f0b' : held ? (lit < -4 ? '#fff6d6' : lit > 5 ? '#e0a93a' : '#ffe66a') : (lit < -4 ? '#fffbe8' : lit > 5 ? '#d9b876' : '#fcebbd')); }
+{ // the base: a wooden ring round a dark well the map shows through, with an arrow head at each side
+  const g = disc($('base'), (d, lit) => d > 19.9 ? null : d > 18.6 ? '#3d1f0b' : d > 15.6 ? (lit < -5 ? '#c98a48' : lit > 14 ? '#7a4520' : '#99602c') : d > 14.6 ? '#3d1f0b' : 'rgba(20,34,22,.5)');
+  g.fillStyle = '#f1cf8e';
+  for (let i = 0; i < 3; i++) { g.fillRect(19 - i, 7 + i, 2 + 2 * i, 1); g.fillRect(19 - i, 32 - i, 2 + 2 * i, 1); g.fillRect(7 + i, 19 - i, 1, 2 + 2 * i); g.fillRect(32 - i, 19 - i, 1, 2 + 2 * i); }
+  paintKnob(false);
+}
+const WAYS = [['right'], ['right', 'down'], ['down'], ['down', 'left'], ['left'], ['left', 'up'], ['up'], ['up', 'right']];
+function lean(dirs) { for (const d of stick.dirs) if (!dirs.includes(d)) keys.delete(d); for (const d of dirs) keys.add(d); stick.dirs = dirs; }
+function stickTo(e) {
+  const r = stickEl.getBoundingClientRect(); let dx = (e.clientX - r.left - r.width / 2) / 3, dy = (e.clientY - r.top - r.height / 2) / 3;     // in stick pixels from the middle
+  const d = Math.hypot(dx, dy), far = 9; if (d > far) { dx *= far / d; dy *= far / d; }
+  knob.style.transform = `translate(${Math.round(dx) * 3}px,${Math.round(dy) * 3}px)`;
+  if (d <= 4) { lean([]); return; }                                          // a small dead middle
+  const a = Math.atan2(dy, dx) * 180 / Math.PI, q = Math.round(a / 90), off = a - q * 90;
+  lean(WAYS[(q * 2 + (off > 30 ? 1 : off < -30 ? -1 : 0) + 8) % 8]);
+}
+// A page or a bird card opening takes the keys and the stick out of her hands, so she is standing still when it closes.
+function letGo() { keys.clear(); stick.id = null; stick.dirs = []; knob.style.transform = ''; paintKnob(false); }
+stickEl.addEventListener('pointerdown', e => { e.preventDefault(); if (current || bopen) return; try { stickEl.setPointerCapture(e.pointerId); } catch (err) {} stick.id = e.pointerId; paintKnob(true); stickTo(e); });
+stickEl.addEventListener('pointermove', e => { if (e.pointerId === stick.id) stickTo(e); });
+for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) stickEl.addEventListener(t, e => { if (e.pointerId !== stick.id) return; lean([]); stick.id = null; knob.style.transform = ''; paintKnob(false); });
+for (const k of keyEls) {
+  const d = k.dataset.k, up = () => keys.delete(d);
+  k.addEventListener('pointerdown', e => { e.preventDefault(); if (current || bopen) return; try { k.setPointerCapture(e.pointerId); } catch (err) {} keys.add(d); });
+  for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) k.addEventListener(t, up);
+}
+addEventListener('pointerdown', e => { if (e.pointerType === 'touch' && !document.body.classList.contains('touch')) setTouch(true); }, true);
 addEventListener('resize', resize);
 
 resize();
 if (byId[location.hash.slice(1)]) route(true); else if (reduce) { ch.x = 169; ch.y = 220; arrive(); } else walkTo(169, 220);      // in through the gate and up to her own door
 follow(true);
 // ?still stops the clock so single frames can be checked: set <html data-run="ticks" data-keys="left up"> and fire a "run" event on document
-if (new URLSearchParams(location.search).has('still')) document.addEventListener('run', () => { const r = document.documentElement, k = +r.dataset.run || 1; keys.clear(); (r.dataset.keys || '').split(' ').filter(Boolean).forEach(x => keys.add(x));
-  for (let i = 0; i < k; i++) step(); draw(); keys.clear();
+if (new URLSearchParams(location.search).has('still')) document.addEventListener('run', () => { const r = document.documentElement, k = +r.dataset.run || 1, held = r.dataset.keys === 'held'; if (!held) { keys.clear(); (r.dataset.keys || '').split(' ').filter(Boolean).forEach(x => keys.add(x)); }
+  for (let i = 0; i < k; i++) step(); draw(); if (!held) keys.clear();
   r.dataset.at = ch.x + ',' + ch.y + ',' + ch.dir + ',' + (ch.moving ? 1 : 0) + ',' + ch.blink; r.dataset.fx = notes.length + ' notes, ' + dashes.length + ' dashes'; r.dataset.birds = birds.map(b => [b.sp, b.state, Math.round(b.x), Math.round(b.y), b.flip ? 1 : 0].join(':')).join(' '); r.dataset.watch = (watch ? watch.sp : '') + ',' + (ch.scope ? 1 : 0) + ',' + (bopen || ''); });
 else requestAnimationFrame(frame);
 })();

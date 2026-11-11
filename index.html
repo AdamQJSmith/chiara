@@ -40,33 +40,30 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sign{position:absolute;left:0;top:0;pointer-events:auto;font-family:var(--pix);font-weight:600;font-size:calc(15px*var(--k,1));line-height:1;color:var(--ink);white-space:nowrap;
   padding:.36em .6em .44em;background:#fbe3a4;border:calc(3px*var(--k,1)) solid #b06a2c;box-shadow:0 0 0 calc(2px*var(--k,1)) var(--wood0)}
 .sign:hover,.sign.hot,.sign:focus-visible{background:#fff6d6;outline:none}
-.sign.here{background:#fffbe8;border-color:#e0791c}
+/* The place she is standing at: its label is lit and one press opens it. On a computer it also names the key. */
+.sign.here{background:#ffe66a;border-color:#e0791c}
+.sign.here:hover,.sign.here:focus-visible{background:#fff2a8}
+body:not(.touch) .sign.here::after{content:'Enter';margin-left:.7em;padding:.05em .4em .15em;font-size:.74em;font-weight:500;color:var(--ink);background:#fff6d6;border:calc(2px*var(--k,1)) solid #b06a2c}
 /* The note beside a bird is dark with the yellow of the bird's outline and a pair of binoculars, so it cannot be taken for one of the cream section labels. */
 #tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:13px;line-height:1.3;color:#fff3d2;background:#16241a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffe66a' d='M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM7 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1z'/%3E%3C/svg%3E") 9px 50%/22px 14px no-repeat;border:2px solid #ffe66a;padding:5px 10px 6px 40px;visibility:hidden;max-width:260px}
 #tip.on{visibility:visible}
-#how{position:absolute;left:158px;bottom:12px;z-index:2;margin:0;max-width:calc(100% - 170px);pointer-events:none;font-family:var(--pix);font-size:13.5px;line-height:1.3;color:#f1cf8e;background:#6b3a17;border:3px solid #3d1f0b;padding:4px 10px 5px}
+#how{position:absolute;left:176px;bottom:20px;z-index:2;margin:0;max-width:calc(100% - 192px);pointer-events:none;font-family:var(--pix);font-size:13.5px;line-height:1.3;color:#f1cf8e;background:#6b3a17;border:3px solid #3d1f0b;padding:4px 10px 5px}
 #how[hidden]{display:none}
-body.touch #how{left:144px;max-width:calc(100% - 156px)}
+body.touch #how{left:150px;max-width:calc(100% - 166px)}
 body.portrait #how{left:0;right:0;top:0;bottom:auto;max-width:none;text-align:center;border-width:0 0 3px;font-size:12.5px}
 /* Walking by hand. A touch screen gets a thumb stick in the corner of the map. A computer gets the four arrow keys, which light
-   while they are held and can be pressed with the mouse. Nothing here fades or slides: a key is up or down. */
-#stick,#keys{position:absolute;left:12px;bottom:12px;z-index:2;user-select:none;-webkit-user-select:none;touch-action:none;-webkit-tap-highlight-color:transparent}
-#stick{display:none;width:120px;height:120px}
-#stick canvas{position:absolute;image-rendering:pixelated;pointer-events:none}
-#base{left:0;top:0;width:120px;height:120px}
-#knob{left:36px;top:36px;width:48px;height:48px}
-#keys{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(2,32px);gap:11px 7px;padding:2px 2px 6px}
-.key{position:relative;display:block;cursor:pointer;touch-action:none;background:var(--paper);border:3px solid var(--wood1);box-shadow:0 4px 0 0 var(--wood2),0 0 0 2px var(--wood0),0 4px 0 2px var(--wood0)}
-.key::before{content:'';position:absolute;left:50%;top:50%;width:21px;height:12px;margin:-6px 0 0 -11px;image-rendering:pixelated;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 4' shape-rendering='crispEdges'%3E%3Cpath fill='%2343270f' d='M3 0h1v1h-1zM2 1h3v1h-3zM1 2h5v1h-5zM0 3h7v1h-7z'/%3E%3C/svg%3E") no-repeat;background-size:21px 12px}
+   while they are held and can be pressed with the mouse. */
+#stick,#keys{position:absolute;left:16px;bottom:16px;z-index:2;user-select:none;-webkit-user-select:none;touch-action:none;-webkit-tap-highlight-color:transparent}
+#stick{display:none;width:118px;height:118px;border-radius:50%;background:rgba(252,235,189,.38);border:3px solid rgba(61,31,11,.8)}
+#stick i{position:absolute;left:50%;top:50%;width:50px;height:50px;margin:-25px 0 0 -25px;border-radius:50%;background:rgba(224,121,28,.94);border:2px solid #7c3d0c;box-shadow:2px 2px 0 rgba(0,0,0,.25);pointer-events:none}
+#keys{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:6px;padding-bottom:4px}
+.key{display:grid;place-items:center;width:44px;height:44px;cursor:pointer;touch-action:none;color:var(--ink);background:rgba(252,240,205,.94);border:2px solid var(--wood1);box-shadow:0 4px 0 var(--wood0)}
+.key svg{display:block;pointer-events:none}
 .key[data-k=up]{grid-column:2;grid-row:1}
 .key[data-k=left]{grid-column:1;grid-row:2}
 .key[data-k=down]{grid-column:2;grid-row:2}
 .key[data-k=right]{grid-column:3;grid-row:2}
-.key[data-k=left]::before{transform:rotate(-90deg)}
-.key[data-k=down]::before{transform:rotate(180deg)}
-.key[data-k=right]::before{transform:rotate(90deg)}
-.key:hover{background:#fff6d6}
-.key.on{background:#ffe66a;border-color:#b06a2c;transform:translateY(4px);box-shadow:0 0 0 2px var(--wood0)}
+.key.on{background:#e0791c;color:#fff6d6;border-color:#7c3d0c;box-shadow:0 1px 0 #5a2c08;transform:translateY(3px)}
 body.touch #stick{display:block}
 body.touch #keys{display:none}
 #tip i{font-family:var(--body);font-size:12px;color:#cfe3b8}
@@ -76,7 +73,7 @@ body.touch #keys{display:none}
 .dock::-webkit-scrollbar{display:none}
 .dock{display:none;flex:none;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 12px 12px;background:#6c3b19;box-shadow:inset 0 4px 0 var(--wood0);z-index:4}
 .dock button{flex:none;font-family:var(--pix);font-weight:600;font-size:15px;padding:8px 12px 9px;background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0)}
-.dock button.here{background:#ffe9a3}
+.dock button.here{background:#ffe66a;border-color:#e0791c}
 
 /* the field notebook button, a bird's card, and the notebook's list */
 .bar .side{flex:none;display:flex;align-items:center;gap:18px}
@@ -194,8 +191,8 @@ body.portrait .dock{display:flex}
   <div class="side"><div class="tools"><button class="nb" id="all">Read all</button><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
 </header>
 <div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div><p id="how"></p>
-  <div id="stick" aria-hidden="true"><canvas id="base" width="40" height="40"></canvas><canvas id="knob" width="16" height="16"></canvas></div>
-  <div id="keys" aria-hidden="true"><i class="key" data-k="up"></i><i class="key" data-k="left"></i><i class="key" data-k="down"></i><i class="key" data-k="right"></i></div>
+  <div id="stick" aria-hidden="true"><i></i></div>
+  <div id="keys" aria-hidden="true"><i class="key" data-k="up"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 13l5-6 5 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(0 10 10)"/></svg></i><i class="key" data-k="left"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 13l5-6 5 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(270 10 10)"/></svg></i><i class="key" data-k="down"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 13l5-6 5 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 10 10)"/></svg></i><i class="key" data-k="right"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M5 13l5-6 5 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 10 10)"/></svg></i></div>
 </div>
 <nav class="dock" id="dock" aria-label="Sections"></nav>
 <div class="veil" id="veil">
@@ -238,7 +235,7 @@ $('sub').textContent = L('Evolutionary ecology, bioacoustics & conservation', 'E
 function setTouch(on) {
   document.body.classList.toggle('touch', on);
   $('how').textContent = on ? L('Walk with the joystick · tap a place or a bird', 'Caminar con el joystick · tocar un lugar o un ave')
-    : L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
+    : L('Arrow keys to walk · at a place, press Enter or click it · click a bird to observe it', 'Flechas para caminar · en un lugar, presionar Enter o hacer clic · hacer clic en un ave para observarla');
 }
 setTouch(matchMedia('(pointer:coarse)').matches);
 $('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
@@ -380,7 +377,7 @@ const GRID = [
 // Each place is a different kind of thing, and each is what that part of her CV is. She takes her part when she gets there: up to
 // the schoolhouse door, onto the stage to face the audience, behind the counter of the discovery stand, to the work table in the
 // research tent, home to her cabin.
-// box = the thing on the map (click area, and what she can walk into), sign = where its label sits (on top of the thing),
+// box = the thing on the map (click area, and what she stands at for its label to light), sign = where its label sits (on top of the thing),
 // stand = where she stands, face = which way she looks, floor = ground that is part of the place itself
 const PLACES = {
   about:         { name:'Cabin',                      box:[144, 150, 50, 62],  sign:[169, 154], stand:[169, 220], face:'up' },
@@ -435,7 +432,7 @@ const SHADOW = ['  ######  ', '##########', '  ######  '], SHADOW_S = [' ### ', 
    tools/rig.py builds it so that everything above her hips is the same pixels in every frame of a row.
    She moves one pixel a tick. The arrow keys or WASD walk her; a click sends her along the shortest way. */
 const GW = 20, GH = 25, FEET = [23, 23, 22], ROW = { down:0, left:1, right:1, up:2 }, STRIDE = 6;
-const ch = { x:START[0], y:START[1], dir:'up', route:[], walked:0, moving:false, push:0, goal:null, seen:null, blink:300 };
+const ch = { x:START[0], y:START[1], dir:'up', route:[], walked:0, moving:false, goal:null, blink:300 };
 const keys = new Set();
 // her feet: a box 8 wide and 4 tall. A spot is free if none of the cells under the box is shut.
 const free = (x, y) => cellAt(x - 4, y - 3) !== '#' && cellAt(x + 3, y - 3) !== '#' && cellAt(x - 4, y) !== '#' && cellAt(x + 3, y) !== '#';
@@ -459,27 +456,17 @@ function slip(dx, dy) {
   }
   return false;
 }
-// Walking by hand, a place opens the moment she walks into it: up against any part of it from any side, or onto its floor
-// (the stage, the ground behind the stand's counter). The page shows at once and she goes on to her spot in the scene behind it.
-// A place that has just been open (ch.seen) does not open again while she is still at it, so closing the page never traps her
-// against it: it takes a firm push, or a few steps away and back.
-const NEAR = 12, PUSH = 20;
+// Walking never opens a page by itself, so she can go round a place, or stand right in it, without anything getting in the way.
+// The place she is at (within NEAR pixels of it, or on its floor: the stage, the ground behind the stand's counter) has its
+// label lit. Enter, Space or E opens it, and so does a click or a tap on the label or on the place.
+const NEAR = 12;
 const gap = (s, x, y) => Math.hypot(Math.max(s.box[0] - x, 0, x - s.box[0] - s.box[2]), Math.max(s.box[1] - y, 0, y - s.box[1] - s.box[3]));
 const onFloor = (s, x, y) => !!s.floor && x >= s.floor[0] && x <= s.floor[0] + s.floor[2] && y >= s.floor[1] && y <= s.floor[1] + s.floor[3];
 function nearPlace() { let best = null, bd = NEAR + .5; for (const s of SECTIONS) { const d = onFloor(s, ch.x, ch.y) ? -1 : gap(s, ch.x, ch.y); if (d < bd) { bd = d; best = s; } } return best; }
-// what she is up against: the place that owns the shut ground one pixel ahead of her feet. Head-on means the middle of her feet
-// meets it; with only a corner caught she is brushing past, and slips round it instead (see slip).
-function ahead(dx, dy, headOn) {
-  const ex = ch.x + (dx < 0 ? -5 : 4), ey = ch.y + (dy < 0 ? -4 : 1);
-  const pts = headOn ? [dx ? [ex, ch.y - 1] : [ch.x, ey]] : dx ? [[ex, ch.y - 3], [ex, ch.y]] : [[ch.x - 4, ey], [ch.x + 3, ey]];
-  for (const [x, y] of pts) if (cellAt(x, y) === '#') { const s = SECTIONS.find(s => gap(s, x, y) <= 4); if (s) return s; }
-  return null;
-}
-function enter(id) { ch.moving = false; ch.walked = 0; ch.push = 0; ch.seen = id; show(id); choose(id); }
+function enter(id) { ch.moving = false; ch.walked = 0; show(id); choose(id); }
 function stepChiara() {
   if (ch.scope) { if (keys.size && !bopen) unwatch(); else return; }             // she holds still while she has the binoculars up
   if (--ch.blink < -7) ch.blink = rint(150, 420);                              // standing still she blinks every few seconds
-  if (ch.seen && ch.goal !== ch.seen) { const s = byId[ch.seen]; if (!onFloor(s, ch.x, ch.y) && gap(s, ch.x, ch.y) > NEAR) ch.seen = null; }
   let dx = 0, dy = 0;
   if (!current) { if (keys.has('left')) dx--; if (keys.has('right')) dx++; if (keys.has('up')) dy--; if (keys.has('down')) dy++; }
   if (dx || dy) {                                                            // walking by hand
@@ -488,21 +475,10 @@ function stepChiara() {
     let moved = false;
     if (dx && free(ch.x + dx, ch.y)) { ch.x += dx; moved = true; }
     if (dy && free(ch.x, ch.y + dy)) { ch.y += dy; moved = true; }
-    const one = !(dx && dy); let hit = !moved && one ? ahead(dx, dy, true) : null;
-    if (hit && hit.id !== ch.seen) { enter(hit.id); return; }                // walked into a place
-    if (!moved && one) moved = slip(dx, dy);
-    if (moved) {
-      ch.route = []; ch.goal = null; ch.push = 0; ch.walked++; ch.moving = true;
-      const f = SECTIONS.find(s => onFloor(s, ch.x, ch.y)); if (f && f.id !== ch.seen) enter(f.id);   // stepped onto its floor
-      return;
-    }
-    if (!ch.route.length) {                                                  // up against something, and no way round
-      if (ch.moving) { ch.moving = false; ch.walked = 0; }
-      if (one && !hit) hit = ahead(dx, dy, false);
-      if (hit && (hit.id !== ch.seen || ++ch.push === PUSH)) enter(hit.id);  // a firm push opens the place she is still at
-      return;
-    }
-  } else ch.push = 0;
+    if (!moved && !(dx && dy)) moved = slip(dx, dy);
+    if (moved) { ch.route = []; ch.goal = null; ch.walked++; ch.moving = true; return; }
+    if (!ch.route.length) { if (ch.moving) { ch.moving = false; ch.walked = 0; } return; }   // up against something, and no way round
+  }
   if (!ch.route.length) { if (ch.moving) arrive(); return; }
   if (!ch.moving) { ch.moving = true; markHere(); }
   const t = ch.route[0], ex = t[0] - ch.x, ey = t[1] - ch.y;
@@ -898,7 +874,7 @@ function showTip(b, sx, sy) {
 function observe(b) {
   if (current || bopen) return;
   sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); look = 0; letGo();
-  ch.route = []; ch.goal = null; ch.moving = false; ch.walked = 0; ch.push = 0; ch.scope = true;
+  ch.route = []; ch.goal = null; ch.moving = false; ch.walked = 0; ch.scope = true;
   const dx = b.x - ch.x, dy = (b.y - (b.state === 'fly' ? b.z : 0) - 5) - (ch.y - 14);
   ch.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down';
 }
@@ -1058,8 +1034,8 @@ $('bbody').addEventListener('click', e => { const go = e.target.closest('[data-g
 function choose(id) { if (location.hash.slice(1) === id) visit(id); else location.hash = id; }
 function visit(id, instant) {
   const s = byId[id]; look = 0; showTip(null); unwatch();
-  if (instant) { ch.x = s.stand[0]; ch.y = s.stand[1]; ch.route = []; ch.goal = id; ch.seen = id; arrive(); follow(true); show(id); return; }
-  walkTo(s.stand[0], s.stand[1], id); ch.seen = id;
+  if (instant) { ch.x = s.stand[0]; ch.y = s.stand[1]; ch.route = []; ch.goal = id; arrive(); follow(true); show(id); return; }
+  walkTo(s.stand[0], s.stand[1], id);
   show(id);                                                                  // the page opens at once, and she walks over behind it
 }
 function route(first) { const id = location.hash.slice(1); if (id === 'all') showAll(); else if (byId[id]) visit(id, first === true); else hide(); }
@@ -1069,7 +1045,7 @@ const home = () => { history.pushState(null, '', location.pathname + location.se
 $('close').addEventListener('click', home);
 veil.addEventListener('pointerdown', e => { if (e.target === veil) home(); });
 addEventListener('hashchange', () => route()); addEventListener('popstate', () => route());
-let carry = false;                                                           // a key still held from walking into a place
+let carry = false;                                                           // a key still held from before the page opened
 addEventListener('keyup', () => { carry = false; });
 function scrollKey(e, el) {
   const h = el.clientHeight, d = { ArrowDown:48, ArrowUp:-48, PageDown:h - 40, PageUp:40 - h, Home:-1e6, End:1e6, ' ':e.shiftKey ? 40 - h : h - 40 }[e.key];
@@ -1085,7 +1061,7 @@ addEventListener('keydown', e => {
     return;
   }
   if (current) {
-    if (e.repeat && (carry || e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { if (KEY[e.key]) e.preventDefault(); return; }   // a key still held from walking into the place must not scroll or turn pages
+    if (e.repeat && (carry || e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { if (KEY[e.key]) e.preventDefault(); return; }   // a key still held from before the page opened must not scroll or turn pages
     if (e.key === 'Escape') home(); else if (scrollKey(e, $('body'))) {} else if (e.key === 'ArrowRight') { if (current !== 'all') $('next').click(); } else if (e.key === 'ArrowLeft') { if (current !== 'all') $('prev').click(); }
     else if (e.key === 'Tab') { const f = [...veil.querySelectorAll('button:not([hidden]),a[href],.body')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
     return;
@@ -1099,33 +1075,24 @@ addEventListener('blur', () => keys.clear());
 
 /* ------------------------------------------------ the thumb stick and the keys on screen
    Both only add to and take from `keys`, so she walks exactly as she does from the keyboard: one pixel a tick, eight ways.
-   The stick is drawn here on its own grid (one stick pixel is three screen pixels) and its knob moves in whole stick pixels.
-   Straight up, down, left and right each take 60 degrees of the circle and the diagonals 30, because walking into a place
-   only opens it when she walks straight at it. */
-const stickEl = $('stick'), knob = $('knob'), keyEls = [...document.querySelectorAll('.key')], stick = { id:null, dirs:[] };
-function disc(c, paint) { const g = c.getContext('2d'), w = c.width, m = w / 2 - .5; g.clearRect(0, 0, w, w); for (let y = 0; y < w; y++) for (let x = 0; x < w; x++) { const col = paint(Math.hypot(x - m, y - m), x - m + y - m); if (col) { g.fillStyle = col; g.fillRect(x, y, 1, 1); } } return g; }
-function paintKnob(held) { disc(knob, (d, lit) => d > 7.9 ? null : d > 6.7 ? '#3d1f0b' : held ? (lit < -4 ? '#fff6d6' : lit > 5 ? '#e0a93a' : '#ffe66a') : (lit < -4 ? '#fffbe8' : lit > 5 ? '#d9b876' : '#fcebbd')); }
-{ // the base: a wooden ring round a dark well the map shows through, with an arrow head at each side
-  const g = disc($('base'), (d, lit) => d > 19.9 ? null : d > 18.6 ? '#3d1f0b' : d > 15.6 ? (lit < -5 ? '#c98a48' : lit > 14 ? '#7a4520' : '#99602c') : d > 14.6 ? '#3d1f0b' : 'rgba(20,34,22,.5)');
-  g.fillStyle = '#f1cf8e';
-  for (let i = 0; i < 3; i++) { g.fillRect(19 - i, 7 + i, 2 + 2 * i, 1); g.fillRect(19 - i, 32 - i, 2 + 2 * i, 1); g.fillRect(7 + i, 19 - i, 1, 2 + 2 * i); g.fillRect(32 - i, 19 - i, 1, 2 + 2 * i); }
-  paintKnob(false);
-}
+   Straight up, down, left and right each take 60 degrees of the stick's circle and the diagonals 30, so a thumb that is a
+   little off still walks her in a straight line. */
+const stickEl = $('stick'), knob = stickEl.firstElementChild, keyEls = [...document.querySelectorAll('.key')], stick = { id:null, dirs:[] };
 const WAYS = [['right'], ['right', 'down'], ['down'], ['down', 'left'], ['left'], ['left', 'up'], ['up'], ['up', 'right']];
 function lean(dirs) { for (const d of stick.dirs) if (!dirs.includes(d)) keys.delete(d); for (const d of dirs) keys.add(d); stick.dirs = dirs; }
 function stickTo(e) {
-  const r = stickEl.getBoundingClientRect(); let dx = (e.clientX - r.left - r.width / 2) / 3, dy = (e.clientY - r.top - r.height / 2) / 3;     // in stick pixels from the middle
-  const d = Math.hypot(dx, dy), far = 9; if (d > far) { dx *= far / d; dy *= far / d; }
-  knob.style.transform = `translate(${Math.round(dx) * 3}px,${Math.round(dy) * 3}px)`;
-  if (d <= 4) { lean([]); return; }                                          // a small dead middle
+  const r = stickEl.getBoundingClientRect(), far = r.width / 2 * .62; let dx = e.clientX - r.left - r.width / 2, dy = e.clientY - r.top - r.height / 2;
+  const d = Math.hypot(dx, dy); if (d > far) { dx *= far / d; dy *= far / d; }
+  knob.style.transform = `translate(${Math.round(dx)}px,${Math.round(dy)}px)`;
+  if (d <= far * .3) { lean([]); return; }                                   // a small dead middle
   const a = Math.atan2(dy, dx) * 180 / Math.PI, q = Math.round(a / 90), off = a - q * 90;
   lean(WAYS[(q * 2 + (off > 30 ? 1 : off < -30 ? -1 : 0) + 8) % 8]);
 }
 // A page or a bird card opening takes the keys and the stick out of her hands, so she is standing still when it closes.
-function letGo() { keys.clear(); stick.id = null; stick.dirs = []; knob.style.transform = ''; paintKnob(false); }
-stickEl.addEventListener('pointerdown', e => { e.preventDefault(); if (current || bopen) return; try { stickEl.setPointerCapture(e.pointerId); } catch (err) {} stick.id = e.pointerId; paintKnob(true); stickTo(e); });
+function letGo() { keys.clear(); stick.id = null; stick.dirs = []; knob.style.transform = ''; }
+stickEl.addEventListener('pointerdown', e => { e.preventDefault(); if (current || bopen) return; try { stickEl.setPointerCapture(e.pointerId); } catch (err) {} stick.id = e.pointerId; stickTo(e); });
 stickEl.addEventListener('pointermove', e => { if (e.pointerId === stick.id) stickTo(e); });
-for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) stickEl.addEventListener(t, e => { if (e.pointerId !== stick.id) return; lean([]); stick.id = null; knob.style.transform = ''; paintKnob(false); });
+for (const t of ['pointerup', 'pointercancel', 'lostpointercapture']) stickEl.addEventListener(t, e => { if (e.pointerId !== stick.id) return; lean([]); stick.id = null; knob.style.transform = ''; });
 for (const k of keyEls) {
   const d = k.dataset.k, up = () => keys.delete(d);
   k.addEventListener('pointerdown', e => { e.preventDefault(); if (current || bopen) return; try { k.setPointerCapture(e.pointerId); } catch (err) {} keys.add(d); });

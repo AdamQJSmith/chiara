@@ -144,6 +144,10 @@ body.touch #keys{display:none}
 .book .body:focus-visible{box-shadow:inset 0 0 0 3px #e0791c}
 .book .part{font-family:var(--pix);font-weight:700;font-size:24px;line-height:1.1;margin:26px 0 0;padding-top:16px;border-top:3px dashed #d9b876;color:var(--ink)}
 .book .part:first-child{margin-top:8px;padding-top:0;border-top:0}
+/* her photograph on the About page: a paper print with square corners, beside the text, and above it on a narrow screen */
+.me{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:26px}
+.me > div{flex:1;min-width:0}
+.me > img{flex:none;display:block;width:165px;height:220px;object-fit:cover;margin:18px 4px 6px 0;background:#cfd6da;border:6px solid #fffaf0;box-shadow:0 0 0 3px var(--wood1),0 0 0 5px var(--wood0),5px 9px 0 rgba(61,31,11,.18)}
 article{padding:16px 0;border-bottom:2px solid #ecd49a}
 article:last-child{border-bottom:0}
 article header{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
@@ -161,13 +165,19 @@ article a{color:#2c5f8a;font-weight:500}
 .book footer button:focus-visible{box-shadow:0 0 0 2px var(--wood0),0 0 0 5px #e0791c}
 .book footer button[hidden]{display:none}
 .book footer span{font-size:14px;color:var(--soft)}
+.book footer .mid{display:flex;align-items:center;gap:14px}
+/* the whole CV on one page, from any section: paper, not wood, so it does not read as a third page turn */
+.book footer #whole{color:var(--ink);background:var(--paper);box-shadow:0 0 0 2px var(--wood0)}
+.book footer #whole:hover,.book footer #whole:focus-visible{background:#fffbe8}
+.book footer #whole:focus-visible{box-shadow:0 0 0 2px var(--wood0),0 0 0 5px #e0791c}
 
-body.portrait .bar{padding:8px 14px 10px}
+body.portrait .bar{padding:8px 10px 10px}
 body.portrait .bar h1{font-size:20px}
 body.portrait .bar p{font-size:12px}
-body.portrait .nb{font-size:13px;padding:6px 8px 7px}
+body.portrait .nb{font-size:12.5px;padding:6px 6px 7px}
+body.portrait .tools{gap:6px;flex:0 1 auto}   /* the four buttons fit one row on a 360 pixel phone, in Spanish too, and wrap to a second row on anything narrower */
 body.portrait .bar{flex-wrap:wrap;row-gap:9px}
-body.portrait .bar .side{margin-left:auto}
+body.portrait .bar .side{margin-left:auto;flex:0 1 auto;min-width:0}
 body.portrait .bar .who{flex:1 1 100%}
 body.portrait .dock{display:flex}
 @media (max-width:640px){
@@ -179,6 +189,11 @@ body.portrait .dock{display:flex}
   .book figure img{width:72px;height:52px}
   .book .body{padding:4px 18px 14px}
   article header{flex-direction:column;gap:6px;align-items:flex-start}
+  .me{flex-direction:column;align-items:center;gap:4px}
+  .me > div{align-self:stretch}
+  .me > img{width:126px;height:168px;margin:16px 0 2px}
+  .book footer{flex-wrap:wrap;row-gap:10px;padding:10px 14px 14px}
+  .book footer .mid{order:3;flex:1 1 100%;justify-content:center}
 }
 @media print{
   html,body{height:auto}
@@ -204,7 +219,7 @@ body.portrait .dock{display:flex}
   <section class="book" role="dialog" aria-modal="true" aria-labelledby="title">
     <header><div><div class="place" id="place"></div><h2 id="title"></h2></div><figure id="pic" hidden><img alt=""><figcaption></figcaption></figure><button class="x" id="close" aria-label="Close">×</button></header>
     <div class="body" id="body" tabindex="0"></div>
-    <footer><button id="prev"></button><span id="count"></span><button id="next"></button></footer>
+    <footer><button id="prev"></button><div class="mid"><span id="count"></span><button id="whole"></button></div><button id="next"></button></footer>
   </section>
 </div>
 <div class="veil" id="bveil">
@@ -245,7 +260,7 @@ function setTouch(on) {
 setTouch(matchMedia('(pointer:coarse)').matches);
 document.body.style.setProperty('--tap', L("'Tap'", "'Tocar'")); document.body.style.setProperty('--click', L("'Click'", "'Clic'"));
 $('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
-$('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
+$('whole').textContent = L('Read the whole CV', 'Leer el CV completo'); $('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
 $('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
 document.querySelector('meta[name=description]').content = L('Chiara Martina Casadei. Evolutionary ecology, bioacoustics and conservation.', 'Chiara Martina Casadei. Ecología evolutiva, bioacústica y conservación.');
 $('lang').textContent = L('Español', 'English'); $('lang').lang = ES ? 'en' : 'es';
@@ -258,11 +273,14 @@ const entry = (t, where, when, items = [], note = '') =>
   `<article><header><h3>${t}</h3>${when ? `<span class="when">${when}</span>` : ''}</header>` +
   (where ? `<div class="where">${where}</div>` : '') + (note ? `<p>${note}</p>` : '') +
   (items.length ? `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>` : '') + `</article>`;
+// The About page: her photograph beside its entries. The file is her profile picture, cut to leave out the ring that was drawn round it.
+const PHOTO = 'assets/chiara-photo.jpg';
+const me = (alt, html) => `<div class="me"><img src="${PHOTO}" width="210" height="280" alt="${alt}"><div>${html}</div></div>`;
 
 const SECTIONS_EN = [
- { id:'about', label:'About', html:
+ { id:'about', label:'About', html: me('Photograph of Chiara Martina Casadei',
     entry('Chiara Martina Casadei', 'Buenos Aires, Argentina', '', [], 'Biological Sciences student at the University of Buenos Aires (FCEyN-UBA), specializing in Ecology and Evolutionary Biology. Undergraduate researcher at the Division of Ornithology, MACN-CONICET.') +
-    entry('Languages', '', '', ['Spanish (native)', 'English (fluent)', 'Italian (basic)']) },
+    entry('Languages', '', '', ['Spanish (native)', 'English (fluent)', 'Italian (basic)'])) },
  { id:'education', label:'Education', html:
     entry('Licentiate in Biological Sciences', 'Faculty of Exact and Natural Sciences, University of Buenos Aires (FCEyN-UBA)', '2021 – present',
       ['Specialization: Ecology and Evolutionary Biology', 'Core coursework: Population Genetics, Evolutionary Theory, Systematics & Phylogenetics, Community Ecology, Experimental Design, coding in R and Python']) +
@@ -301,9 +319,9 @@ const SECTIONS_EN = [
 /* The same pages in Spanish. Names of institutions and events are the ones they use themselves. Titles of the thesis and the
    poster are translated from the English CV, so Chiara should replace them with the titles as registered. */
 const SECTIONS_ES = [
- { id:'about', label:'Perfil', html:
+ { id:'about', label:'Perfil', html: me('Fotografía de Chiara Martina Casadei',
     entry('Chiara Martina Casadei', 'Buenos Aires, Argentina', '', [], 'Estudiante de Ciencias Biológicas en la Universidad de Buenos Aires (FCEyN-UBA), con orientación en Ecología y Biología Evolutiva. Tesista de licenciatura en la División Ornitología, MACN-CONICET.') +
-    entry('Idiomas', '', '', ['Español (nativo)', 'Inglés (fluido)', 'Italiano (básico)']) },
+    entry('Idiomas', '', '', ['Español (nativo)', 'Inglés (fluido)', 'Italiano (básico)'])) },
  { id:'education', label:'Formación', html:
     entry('Licenciatura en Ciencias Biológicas', 'Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires (FCEyN-UBA)', '2021 – actualidad',
       ['Orientación: Ecología y Biología Evolutiva', 'Materias principales: Genética de Poblaciones, Teoría Evolutiva, Sistemática y Filogenética, Ecología de Comunidades, Diseño Experimental, programación en R y Python']) +
@@ -513,8 +531,8 @@ function drawChiara() {
    reserve (n is the count of all dates, made in November 2026). Two more are the species she studies and two are from Central America. The notes are from each Wikipedia introduction. */
 const BW = 26, BH = 20, AX = 13, AY = 18, FLY = 2, FLAP = 6;
 const SP = [
- {"en": "Straight-billed Reedhaunter", "sci": "Limnoctites rectirostris", "es": "Pajonalera pico recto", "kind": "reed", "hint": "In the reeds", "note": "A South American bird in the ovenbird family, Furnariidae.", "n": 0, "wiki": "Straight-billed_reedhaunter", "inat": 72986, "ph": ["Diego Caballero", "CC BY-NC", 105401861], "box": [-7, -7, 5, 0], "star": ["education", "Chiara's licentiate thesis is a study of this species.", "Thesis species"], "noteEs": "Ave sudamericana de la familia de los horneros, Furnariidae.", "starEs": ["La tesis de licenciatura de Chiara estudia esta especie.", "Especie de la tesis"]},
- {"en": "Ochre-faced Tody-Flycatcher", "sci": "Poecilotriccus plumbeiceps", "es": "Mosqueta cabeza canela", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher found in Argentina, Bolivia, Brazil, Paraguay, Peru and Uruguay.", "n": 0, "wiki": "Ochre-faced_tody-flycatcher", "inat": 17050, "ph": ["Juan Diego Döke", "CC BY-NC", 89733641], "box": [-6, -7, 3, -1], "star": ["presentations", "Chiara's 2026 poster is on the song of this species.", "Poster species"], "noteEs": "Tiránido presente en Argentina, Bolivia, Brasil, Paraguay, Perú y Uruguay.", "starEs": ["El póster de Chiara de 2026 trata sobre el canto de esta especie.", "Especie del póster"]},
+ {"en": "Straight-billed Reedhaunter", "sci": "Limnoctites rectirostris", "es": "Pajonalera pico recto", "kind": "reed", "hint": "In the reeds", "note": "A South American bird in the ovenbird family, Furnariidae.", "n": 0, "wiki": "Straight-billed_reedhaunter", "inat": 72986, "ph": ["Diego Caballero", "CC BY-NC", 105401861], "box": [-7, -7, 5, 0], "star": ["education", "My licentiate thesis studies this species.", "Thesis species"], "noteEs": "Ave sudamericana de la familia de los horneros, Furnariidae.", "starEs": ["Mi tesis de licenciatura estudia esta especie.", "Especie de la tesis"]},
+ {"en": "Ochre-faced Tody-Flycatcher", "sci": "Poecilotriccus plumbeiceps", "es": "Mosqueta cabeza canela", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher found in Argentina, Bolivia, Brazil, Paraguay, Peru and Uruguay.", "n": 0, "wiki": "Ochre-faced_tody-flycatcher", "inat": 17050, "ph": ["Juan Diego Döke", "CC BY-NC", 89733641], "box": [-6, -7, 3, -1], "star": ["presentations", "My 2026 poster is on the song of this species.", "Poster species"], "noteEs": "Tiránido presente en Argentina, Bolivia, Brasil, Paraguay, Perú y Uruguay.", "starEs": ["Mi póster de 2026 trata sobre el canto de esta especie.", "Especie del póster"]},
  {"en": "Rufous Hornero", "sci": "Furnarius rufus", "es": "Hornero", "kind": "ground", "hint": "On the ground", "note": "A medium-sized ovenbird and the national bird of Argentina. It is common in pastures, scrub and farmland, and lives close to people.", "n": 142, "wiki": "Rufous_hornero", "inat": 11275, "ph": ["Ron Knight", "CC BY", 182076045], "box": [-7, -7, 3, 0], "noteEs": "Furnárido de tamaño mediano y ave nacional de la Argentina. Es común en pasturas, matorrales y campos cultivados, y vive cerca de las personas."},
  {"en": "Rufous-collared Sparrow", "sci": "Zonotrichia capensis", "es": "Chingolo", "kind": "ground", "hint": "On the ground", "note": "A sparrow found from the south-east of Mexico to Tierra del Fuego, often near people. Its varied songs have been studied closely since the 1970s, including by researchers at UBA.", "n": 216, "wiki": "Rufous-collared_sparrow", "inat": 9183, "ph": ["Esteban Poveda", "CC BY", 112061150], "box": [-7, -7, 3, 0], "noteEs": "Paseriforme presente desde el sudeste de México hasta Tierra del Fuego, a menudo cerca de las personas. Sus variados cantos se estudian en detalle desde la década de 1970, también por investigadores de la UBA."},
  {"en": "Eared Dove", "sci": "Zenaida auriculata", "es": "Torcaza común", "kind": "ground", "hint": "On the ground", "note": "A dove that breeds across South America, from Colombia to southern Argentina and Chile. It moves around with its food supply.", "n": 93, "wiki": "Eared_dove", "inat": 3439, "ph": ["Juan Felipe Restrepo Mesa", "CC BY", 237159], "box": [-7, -7, 4, 0], "noteEs": "Paloma que nidifica en toda Sudamérica, desde Colombia hasta el sur de la Argentina y Chile. Se desplaza según la disponibilidad de alimento."},
@@ -693,7 +711,7 @@ function drawWater() {
 }
 
 /* ------------------------------------------------------ view and drawing */
-const stage = $('stage'), cv = $('cv'), signs = $('signs'), dock = $('dock'), tip = $('tip');
+const stage = $('stage'), cv = $('cv'), signs = $('signs'), dock = $('dock'), tip = $('tip'), howEl = $('how');
 let ctx = cv.getContext('2d'), inLens = false;
 const DEBUG = new URLSearchParams(location.search).has('grid');
 const TICK = 1000 / 60;
@@ -719,8 +737,11 @@ function follow(snap) {
 const toScreen = (x, y) => [left + (x - cam.x) * S, top + (y - cam.y) * S], toMap = (x, y) => [x / S + cam.x, y / S + cam.y];
 let placed = '', hereNow, litNow, litFar = false, litAt = 0;                 // hereNow = the place she is at, litNow = the one place that is lit, litFar = it is not where she is, litAt = the tick it lit up
 function place() {
-  const key = cam.x + ',' + cam.y + ',' + S.toFixed(4) + ',' + left + ',' + top; if (key === placed) return; placed = key;
-  for (const s of SECTIONS) { const p = toScreen(s.sign[0], s.sign[1]); s.el.style.transform = `translate(${Math.round(p[0])}px,${Math.round(Math.max(p[1], s.el.offsetHeight + 3))}px) translate(-50%,-100%)`; }
+  // A label near the top of the map is held below the top edge, with room for its lit rim. On a phone the how-to note lies across
+  // the top until the first page opens, and the label is held below that (it used to sit under the note, where it could not be read).
+  const roof = (portrait && !howEl.hidden ? howEl.offsetHeight : 0) + 7;
+  const key = cam.x + ',' + cam.y + ',' + S.toFixed(4) + ',' + left + ',' + top + ',' + roof; if (key === placed) return; placed = key;
+  for (const s of SECTIONS) { const p = toScreen(s.sign[0], s.sign[1]); s.el.style.transform = `translate(${Math.round(p[0])}px,${Math.round(Math.max(p[1], s.el.offsetHeight + roof))}px) translate(-50%,-100%)`; }
 }
 /* ---------------------------------------------------------------- sound
    Off until the visitor turns it on, and off again on the next visit. Nothing is downloaded: the tune and the effects are
@@ -943,7 +964,7 @@ function show(id) {
   $('count').textContent = `${i + 1} / ${order.length}`;
   const pic = $('pic'), sp = PORTRAIT[id]; pic.hidden = !sp;
   if (sp) { pic.firstChild.src = `assets/${sp[0]}.png`; pic.firstChild.alt = SP[sp[1]].name; pic.lastChild.innerHTML = `${SP[sp[1]].name}<br><i>${SP[sp[1]].sci}</i><br>${SP[sp[1]].star[2]}`; }
-  $('prev').hidden = $('next').hidden = false; unveil();
+  $('prev').hidden = $('next').hidden = $('whole').hidden = false; unveil();
   current = id; letGo(); document.title = `${s.label} · Chiara Martina Casadei`;
 }
 // The page opens (or turns) and the keyboard goes to its text, so arrow keys and a screen reader start there.
@@ -957,7 +978,7 @@ function showAll() {
   look = 0; showTip(null); unwatch();
   $('place').textContent = $('role').textContent; $('title').textContent = 'Chiara Martina Casadei'; $('body').scrollTop = 0;
   $('body').innerHTML = SECTIONS.map(s => `<h3 class="part">${s.label}</h3>${s.html}`).join('');
-  $('prev').hidden = $('next').hidden = true; $('count').textContent = ''; $('pic').hidden = true; unveil();
+  $('prev').hidden = $('next').hidden = $('whole').hidden = true; $('count').textContent = ''; $('pic').hidden = true; unveil();
   current = 'all'; letGo(); document.title = 'Chiara Martina Casadei';
 }
 function hide() { if (!current) return; sfx('close'); current = null; veil.classList.remove('open'); document.title = 'Chiara Martina Casadei'; if (returnTo && returnTo.focus) returnTo.focus({ preventScroll:true }); }
@@ -988,7 +1009,7 @@ function showBird(sp, fresh, peek) {
   $('bsub').hidden = false; $('bsub').innerHTML = '<i id="bsci"></i> · <span id="bes"></span>'; $('bsci').textContent = s.sci; $('bes').textContent = s.other;
   $('bbody').innerHTML = `<p>${s.note}</p>` + (s.star ? `<p><b>${s.star[1]}</b><button class="go" data-go="${s.star[0]}">${byId[s.star[0]].label} ›</button></p>` : '') +
     `<p class="src">${s.n ? L(`<a href="${q}" target="_blank" rel="noopener">${s.n} research-grade observations</a> on iNaturalist within 600 m of the RECUCN reserve, Buenos Aires. All dates, counted in November 2026.`, `<a href="${q}" target="_blank" rel="noopener">${s.n} observaciones con grado de investigación</a> en iNaturalist a menos de 600 m de la reserva RECUCN, Buenos Aires. Todas las fechas, contadas en noviembre de 2026.`)
-      : L(`<a href="${q}" target="_blank" rel="noopener">No research-grade observations</a> on iNaturalist within 600 m of the RECUCN reserve (searched in November 2026). `, `<a href="${q}" target="_blank" rel="noopener">Sin observaciones con grado de investigación</a> en iNaturalist a menos de 600 m de la reserva RECUCN (búsqueda de noviembre de 2026). `) + (s.far ? L('This is a Central American species.', 'Es una especie de América Central.') : L('It is on this map as one of Chiara\'s study species.', 'Figura en este mapa por ser una de las especies que estudia Chiara.'))}</p>` +
+      : L(`<a href="${q}" target="_blank" rel="noopener">No research-grade observations</a> on iNaturalist within 600 m of the RECUCN reserve (searched in November 2026). `, `<a href="${q}" target="_blank" rel="noopener">Sin observaciones con grado de investigación</a> en iNaturalist a menos de 600 m de la reserva RECUCN (búsqueda de noviembre de 2026). `) + (s.far ? L('This is a Central American species.', 'Es una especie de América Central.') : L('It is on this map because I study it.', 'Figura en este mapa porque la estudio.'))}</p>` +
     `<p class="src"><a href="https://${ES ? 'es' : 'en'}.wikipedia.org/wiki/${ES ? s.wikiEs || s.sci.replace(/ /g, '_') : s.wiki}" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.inaturalist.org/taxa/${s.inat}" target="_blank" rel="noopener">iNaturalist</a> · ${credit(s)}</p>`;
   $('bcount').textContent = L(`${seen.size} of ${SP.length} seen`, `${seen.size} de ${SP.length} observadas`); $('bbook').hidden = false; openB('card'); startInk(!fresh || reduce);
 }
@@ -1055,7 +1076,7 @@ bveil.addEventListener('click', e => { if (ink && !e.target.closest('button,a'))
 let bare = false;                                                            // the notebook shows every species, seen or not
 function showBook() {
   sfx(bopen ? 'page' : 'open'); unwatch(); bveil.firstElementChild.style.width = ''; $('bsub').hidden = true; $('bflag').textContent = L(`${seen.size} of ${SP.length} species seen`, `${seen.size} de ${SP.length} especies observadas`); $('bname').textContent = L('Field notebook', 'Libreta de campo');
-  $('bbody').innerHTML = `<p class="src">${L(`${SP.filter(s => s.n).length} species with iNaturalist observations at the RECUCN reserve in Buenos Aires, the two species Chiara studies and two from Central America. Click a bird on the map to observe it.`, `${SP.filter(s => s.n).length} especies con observaciones en iNaturalist en la reserva RECUCN de Buenos Aires, las dos especies que estudia Chiara y dos de América Central. Hacer clic en un ave del mapa para observarla.`)} ` +
+  $('bbody').innerHTML = `<p class="src">${L(`${SP.filter(s => s.n).length} species recorded at the RECUCN reserve, the two I study and two from Central America. ${document.body.classList.contains('touch') ? 'Tap' : 'Click'} a bird to observe it.`, `${SP.filter(s => s.n).length} especies registradas en la reserva RECUCN, las dos que estudio y dos de América Central. ${document.body.classList.contains('touch') ? 'Tocar' : 'Hacer clic en'} un ave para observarla.`)} ` +
     `<button class="more" id="ball" aria-pressed="${bare}">${bare ? L('Hide species not seen yet', 'Ocultar las no observadas') : L('Show all species', 'Mostrar todas las especies')}</button></p><div class="list">` +
     SP.map((s, i) => { const ok = seen.has(i); return `<button data-sp="${i}"${ok || bare ? '' : ' disabled'}><canvas width="${BW}" height="${BH}"></canvas><span>${ok || bare ? s.name : L('Not seen yet', 'Aún no observada')}${ok ? '' : '<small>' + (bare ? L('Not seen yet', 'Aún no observada') : s.hint) + '</small>'}</span></button>`; }).join('') + '</div>' +
     `<details class="credits"><summary>${L('Photo credits', 'Créditos de las fotos')}</summary><ul>${SP.map(s => `<li>${s.name}: ${credit(s)}</li>`).join('')}</ul></details>` +
@@ -1076,7 +1097,7 @@ function visit(id, instant) {
   show(id);                                                                  // the page opens at once, and she walks over behind it
 }
 function route(first) { const id = location.hash.slice(1); if (id === 'all') showAll(); else if (byId[id]) visit(id, first === true); else hide(); }
-$('all').addEventListener('click', () => { location.hash = 'all'; });
+$('all').addEventListener('click', () => { location.hash = 'all'; }); $('whole').addEventListener('click', () => { location.hash = 'all'; });
 addEventListener('beforeprint', () => { if (!current) showAll(); });
 const home = () => { history.pushState(null, '', location.pathname + location.search); route(); };
 $('close').addEventListener('click', home);

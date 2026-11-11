@@ -29,7 +29,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .bar h1{font-family:var(--pix);font-weight:600;font-size:26px;line-height:1;margin:0;letter-spacing:.01em;text-shadow:2px 2px 0 var(--wood0)}
 .bar p{margin:5px 0 0;font-family:var(--pix);font-size:14px;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0)}
 .bar .hint{font-family:var(--pix);font-size:14px;line-height:1.25;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0);text-align:right;min-width:0}
-.bar > div:first-child{flex:none}
+.bar .who{flex:none;display:flex;align-items:center;gap:14px}
+.bar .face{flex:none;width:56px;height:56px;image-rendering:pixelated;border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);background:#74b0e8}
 
 /* map */
 /* beside the map the wood goes on: one tree top from the map's own border, repeated */
@@ -144,7 +145,7 @@ body.portrait .dock{display:flex}
 </head>
 <body>
 <header class="bar">
-  <div><h1>Chiara Martina Casadei</h1><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div>
+  <div class="who"><img class="face" id="face" src="assets/portrait.png" width="56" height="56" alt="Pixel-art portrait of Chiara"><div><h1>Chiara Martina Casadei</h1><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div></div>
   <div class="side"><div class="hint" id="hint">Arrow keys to walk · walk into a place or click it · click a bird to observe it</div><div class="tools"><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
 </header>
 <div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div></div>
@@ -184,7 +185,7 @@ const L = (en, es) => ES ? es : en;
 document.documentElement.lang = ES ? 'es' : 'en';
 $('sub').textContent = L('Evolutionary ecology, bioacoustics & conservation', 'Ecología evolutiva, bioacústica y conservación');
 $('hint').textContent = L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
-$('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
+$('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
 $('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
 $('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
 document.querySelector('meta[name=description]').content = L('Chiara Martina Casadei. Evolutionary ecology, bioacoustics and conservation.', 'Chiara Martina Casadei. Ecología evolutiva, bioacústica y conservación.');
@@ -422,7 +423,7 @@ function enter(id) { ch.moving = false; ch.walked = 0; ch.push = 0; ch.seen = id
 function stepChiara() {
   if (ch.scope) { if (keys.size && !bopen) unwatch(); else return; }             // she holds still while she has the binoculars up
   if (--ch.blink < -7) ch.blink = rint(150, 420);                              // standing still she blinks every few seconds
-  if (ch.seen && ch.goal !== ch.seen && !(pending && pending.id === ch.seen)) { const s = byId[ch.seen]; if (!onFloor(s, ch.x, ch.y) && gap(s, ch.x, ch.y) > NEAR) ch.seen = null; }
+  if (ch.seen && ch.goal !== ch.seen) { const s = byId[ch.seen]; if (!onFloor(s, ch.x, ch.y) && gap(s, ch.x, ch.y) > NEAR) ch.seen = null; }
   let dx = 0, dy = 0;
   if (!current) { if (keys.has('left')) dx--; if (keys.has('right')) dx++; if (keys.has('up')) dy--; if (keys.has('down')) dy++; }
   if (dx || dy) {                                                            // walking by hand
@@ -434,7 +435,7 @@ function stepChiara() {
     if (hit && hit.id !== ch.seen) { enter(hit.id); return; }                // walked into a place
     if (!moved && one) moved = slip(dx, dy);
     if (moved) {
-      ch.route = []; ch.goal = null; pending = null; ch.push = 0; ch.walked++; ch.moving = true;
+      ch.route = []; ch.goal = null; ch.push = 0; ch.walked++; ch.moving = true;
       const f = SECTIONS.find(s => onFloor(s, ch.x, ch.y)); if (f && f.id !== ch.seen) enter(f.id);   // stepped onto its floor
       return;
     }
@@ -655,7 +656,7 @@ const stage = $('stage'), cv = $('cv'), signs = $('signs'), dock = $('dock'), ti
 let ctx = cv.getContext('2d'), inLens = false;
 const DEBUG = new URLSearchParams(location.search).has('grid');
 const TICK = 1000 / 60;
-let W = 0, H = 0, S = 1, n = 1, VW = MAPW, VH = MAPH, left = 0, top = 0, portrait = false, cam = { x:0, y:0 }, drag = null, look = 0, hover = null, last = 0, acc = 0, pending = null, current = null;
+let W = 0, H = 0, S = 1, n = 1, VW = MAPW, VH = MAPH, left = 0, top = 0, portrait = false, cam = { x:0, y:0 }, drag = null, look = 0, hover = null, last = 0, acc = 0, current = null;
 function resize() {
   const DPR = Math.min(3, devicePixelRatio || 1);
   portrait = innerWidth < 700 || innerWidth / innerHeight < .9; document.body.classList.toggle('portrait', portrait);
@@ -777,7 +778,6 @@ function step() {
   markHere(); stepBirds(); if (look > 0) look--; follow(false);
   if (watch && watchAt && tick >= watchAt) { watchAt = 0; showBird(watch.sp, true); }      // a beat with the binoculars up, then the view through them
   writeInk();
-  if (pending && (tick >= pending.at || (!ch.moving && placeHere() === byId[pending.id]))) { const id = pending.id; pending = null; if (location.hash.slice(1) === id) show(id); }
   tick++;
 }
 // Everything on the map, back to front. The view through the binoculars draws it a second time, round the bird.
@@ -836,7 +836,7 @@ function showTip(b, sx, sy) {
 // and then she writes the bird up in her notebook. The bird stays where it is meanwhile.
 function observe(b) {
   if (current || bopen) return;
-  sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); pending = null; look = 0; keys.clear();
+  sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); look = 0; keys.clear();
   ch.route = []; ch.goal = null; ch.moving = false; ch.walked = 0; ch.push = 0; ch.scope = true;
   const dx = b.x - ch.x, dy = (b.y - (b.state === 'fly' ? b.z : 0) - 5) - (ch.y - 14);
   ch.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down';
@@ -855,7 +855,7 @@ cv.addEventListener('pointerup', e => {
   if (watch && !bopen) unwatch();
   const b = birdAt(x, y, e.pointerType === 'touch' ? 9 : 3); if (b) { observe(b); return; }
   const s = placeAt(x, y); if (s) { choose(s.id); return; }
-  look = 0; pending = null; walkTo(Math.floor(x), Math.floor(y));                       // anywhere else: she walks there
+  look = 0; walkTo(Math.floor(x), Math.floor(y));                       // anywhere else: she walks there
 });
 cv.addEventListener('pointercancel', () => { drag = null; });
 cv.addEventListener('pointerleave', () => { showTip(null); setHover(null); hot = null; });
@@ -977,9 +977,9 @@ function visit(id, instant) {
   const s = byId[id]; look = 0; showTip(null); unwatch();
   if (instant) { ch.x = s.stand[0]; ch.y = s.stand[1]; ch.route = []; ch.goal = id; ch.seen = id; arrive(); follow(true); show(id); return; }
   walkTo(s.stand[0], s.stand[1], id); ch.seen = id;
-  if (current) show(id); else pending = { id, at:tick + 90 };
+  show(id);                                                                  // the page opens at once, and she walks over behind it
 }
-function route(first) { const id = location.hash.slice(1); if (byId[id]) visit(id, first === true); else { pending = null; hide(); } }
+function route(first) { const id = location.hash.slice(1); if (byId[id]) visit(id, first === true); else hide(); }
 const home = () => { history.pushState(null, '', location.pathname + location.search); route(); };
 $('close').addEventListener('click', home);
 veil.addEventListener('pointerdown', e => { if (e.target === veil) home(); });

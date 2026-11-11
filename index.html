@@ -40,9 +40,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   padding:.36em .6em .44em;background:#fbe3a4;border:calc(3px*var(--k,1)) solid #b06a2c;box-shadow:0 0 0 calc(2px*var(--k,1)) var(--wood0)}
 .sign:hover,.sign.hot,.sign:focus-visible{background:#fff6d6;outline:none}
 .sign.here{background:#fffbe8;border-color:#e0791c}
-#tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:14px;line-height:1.35;color:var(--ink);background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);padding:6px 10px 7px;visibility:hidden;max-width:260px}
+/* The note beside a bird is dark with the yellow of the bird's outline and a pair of binoculars, so it cannot be taken for one of the cream section labels. */
+#tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:13px;line-height:1.3;color:#fff3d2;background:#16241a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffe66a' d='M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM7 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1z'/%3E%3C/svg%3E") 9px 50%/22px 14px no-repeat;border:2px solid #ffe66a;padding:5px 10px 6px 40px;visibility:hidden;max-width:260px}
 #tip.on{visibility:visible}
-#tip i{font-family:var(--body);font-size:12.5px}
+#tip i{font-family:var(--body);font-size:12px;color:#cfe3b8}
 #tip small{display:block;font-size:12px;color:var(--soft)}
 
 /* section list for phones */
@@ -829,7 +830,7 @@ function birdAt(x, y, pad) {
 function showTip(b, sx, sy) {
   if (!b) { tip.classList.remove('on'); return; } const s = SP[b.sp];
   tip.innerHTML = seen.has(b.sp) ? `${s.name}<br><i>${s.sci}</i>` : L('Click to observe', 'Clic para observar'); tip.classList.add('on');
-  tip.style.transform = `translate(${Math.round(clamp(left + sx + 14, 6, W - 270))}px,${Math.round(Math.max(6, top + sy - 78))}px)`;
+  tip.style.transform = `translate(${Math.round(clamp(left + sx + 14, 6, W - 270))}px,${Math.round(Math.max(6, top + sy - tip.offsetHeight - 24))}px)`;
 }
 // Clicking a bird: she stops, turns to it and raises her binoculars. After a beat the screen cuts to what she sees through them,
 // and then she writes the bird up in her notebook. The bird stays where it is meanwhile.

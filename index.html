@@ -40,10 +40,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sign{position:absolute;left:0;top:0;pointer-events:auto;font-family:var(--pix);font-weight:600;font-size:calc(15px*var(--k,1));line-height:1;color:var(--ink);white-space:nowrap;
   padding:.36em .6em .44em;background:#fbe3a4;border:calc(3px*var(--k,1)) solid #b06a2c;box-shadow:0 0 0 calc(2px*var(--k,1)) var(--wood0)}
 .sign:hover,.sign.hot,.sign:focus-visible{background:#fff6d6;outline:none}
-/* The place she is standing at: its label is lit and one press opens it. On a computer it also names the key. */
-.sign.here{background:#ffe66a;border-color:#e0791c}
+/* One place at a time is lit: the one the pointer is on, or else the one she is standing at. Its label is lit with a yellow
+   rim, the place itself gets a yellow edge on the map, and one press opens it. The label also says how: Enter at the place she
+   is at, a click on one the pointer picked out somewhere else (.aim), a tap on a touch screen. The rim and the soft light
+   round it fade in and out with the glow round the place (--glow, 0 to 1, set by the game on every frame). */
+.sign.here{background:#ffe66a;border-color:#e0791c;box-shadow:0 0 0 calc(2px*var(--k,1)) var(--wood0),0 0 0 calc(5px*var(--k,1)) rgb(255 230 106/calc(.45 + .55*var(--glow,1))),0 0 calc(16px*var(--k,1)) calc(6px*var(--k,1)) rgb(255 230 106/calc(.7*var(--glow,1)))}
 .sign.here:hover,.sign.here:focus-visible{background:#fff2a8}
-body:not(.touch) .sign.here::after{content:'Enter';margin-left:.7em;padding:.05em .4em .15em;font-size:.74em;font-weight:500;color:var(--ink);background:#fff6d6;border:calc(2px*var(--k,1)) solid #b06a2c}
+body.touch .sign.here::after{content:var(--tap,'Tap')}
+.sign.here.aim::after{content:var(--click,'Click')}
+.sign.here::after{content:'Enter';margin-left:.7em;padding:.05em .4em .15em;font-size:.74em;font-weight:500;color:var(--ink);background:#fff6d6;border:calc(2px*var(--k,1)) solid #b06a2c}
 /* The note beside a bird is dark with the yellow of the bird's outline and a pair of binoculars, so it cannot be taken for one of the cream section labels. */
 #tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:13px;line-height:1.3;color:#fff3d2;background:#16241a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffe66a' d='M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM2 1h1v1h-1zM3 1h1v1h-1zM4 1h1v1h-1zM6 1h1v1h-1zM7 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM10 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM7 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1z'/%3E%3C/svg%3E") 9px 50%/22px 14px no-repeat;border:2px solid #ffe66a;padding:5px 10px 6px 40px;visibility:hidden;max-width:260px}
 #tip.on{visibility:visible}
@@ -238,6 +243,7 @@ function setTouch(on) {
     : L('Arrow keys to walk · at a place, press Enter or click it · click a bird to observe it', 'Flechas para caminar · en un lugar, presionar Enter o hacer clic · hacer clic en un ave para observarla');
 }
 setTouch(matchMedia('(pointer:coarse)').matches);
+document.body.style.setProperty('--tap', L("'Tap'", "'Tocar'")); document.body.style.setProperty('--click', L("'Click'", "'Clic'"));
 $('face').alt = L('Pixel-art portrait of Chiara', 'Retrato de Chiara en pixel art'); $('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
 $('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
 $('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
@@ -378,23 +384,24 @@ const GRID = [
 // the schoolhouse door, onto the stage to face the audience, behind the counter of the discovery stand, to the work table in the
 // research tent, home to her cabin.
 // box = the thing on the map (click area, and what she stands at for its label to light), sign = where its label sits (on top of the thing),
-// stand = where she stands, face = which way she looks, floor = ground that is part of the place itself
+// stand = where she stands, face = which way she looks, floor = ground that is part of the place itself,
+// edge = the box of its outline and glow in edges.png and glow.png (printed by tools/edges.py)
 const PLACES = {
-  about:         { name:'Cabin',                      box:[144, 150, 50, 62],  sign:[169, 154], stand:[169, 220], face:'up' },
-  education:     { name:'Schoolhouse',                box:[57, 1, 89, 75],     sign:[102, 47],   stand:[101, 79],  face:'up' },
-  experience:    { name:'Research camp',              box:[66, 134, 80, 78],   sign:[95, 161],  stand:[95, 220],  face:'up' },
-  presentations: { name:'Conference',                 box:[244, 8, 88, 68],    sign:[283, 10],  stand:[312, 38],  face:'down', floor:[256, 32, 73, 10] },
-  memberships:   { name:'Bird club watchtower',       box:[224, 132, 62, 80],  sign:[259, 135], stand:[258, 220], face:'up' },
-  outreach:      { name:'Discovery stand',            box:[308, 93, 52, 80],   sign:[334, 94],  stand:[335, 133], face:'down', floor:[320, 110, 34, 27] },
-  skills:        { name:'Mist net and banding table', box:[160, 33, 74, 40],   sign:[220, 48],  stand:[219, 80],  face:'up' },
-  contact:       { name:'Mailbox',                    box:[204, 188, 16, 24],  sign:[212, 188], stand:[212, 223], face:'up' },
+  about:         { name:'Cabin',                      box:[144, 150, 50, 62],  sign:[169, 154], stand:[169, 220], face:'up', edge:[142, 150, 54, 65] },
+  education:     { name:'Schoolhouse',                box:[57, 1, 89, 75],     sign:[102, 47],   stand:[101, 79],  face:'up', edge:[53, 0, 96, 79] },
+  experience:    { name:'Research camp',              box:[66, 134, 80, 78],   sign:[95, 161],  stand:[95, 220],  face:'up', edge:[65, 153, 74, 60] },
+  presentations: { name:'Conference',                 box:[244, 8, 88, 68],    sign:[283, 10],  stand:[312, 38],  face:'down', floor:[256, 32, 73, 10], edge:[241, 7, 92, 72] },
+  memberships:   { name:'Bird club watchtower',       box:[224, 132, 62, 80],  sign:[259, 135], stand:[258, 220], face:'up', edge:[221, 130, 64, 82] },
+  outreach:      { name:'Discovery stand',            box:[308, 93, 52, 80],   sign:[334, 94],  stand:[335, 133], face:'down', floor:[320, 110, 34, 27], edge:[307, 92, 54, 63] },
+  skills:        { name:'Mist net and banding table', box:[160, 33, 74, 40],   sign:[220, 48],  stand:[219, 80],  face:'up', edge:[157, 31, 79, 43] },
+  contact:       { name:'Mailbox',                    box:[204, 188, 16, 24],  sign:[212, 188], stand:[212, 223], face:'up', edge:[204, 188, 15, 24] },
 };
 SECTIONS.forEach(s => Object.assign(s, PLACES[s.id]));
 const PLACE_ES = { about:'Cabaña', education:'Escuela', experience:'Campamento de investigación', presentations:'Congreso', memberships:'Mirador del club de observadores de aves', outreach:'Stand de divulgación', skills:'Red de niebla y mesa de anillado', contact:'Buzón' };
 if (ES) SECTIONS.forEach(s => { s.name = PLACE_ES[s.id]; });
 const byId = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
 const img = src => { const i = new Image(); i.src = src; return i; };
-const mapImg = img('assets/map.png'), girl = img('assets/chiara.png'), birdImg = img('assets/birds.png'), frontImg = img('assets/front.png');
+const mapImg = img('assets/map.png'), girl = img('assets/chiara.png'), birdImg = img('assets/birds.png'), frontImg = img('assets/front.png'), edgeImg = img('assets/edges.png'), glowImg = img('assets/glow.png');
 const ready = i => i.complete && i.naturalWidth > 0, dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
 const cellAt = (x, y) => (x < 0 || y < 0 || x >= MAPW || y >= MAPH) ? '#' : GRID[y >> 3][x >> 3];
 // cells she can actually get to from the gate; a click anywhere else sends her to the nearest of these
@@ -652,8 +659,8 @@ function frameOf(b) {
 }
 // the sheet again with every pixel one colour: yellow for the edge round a bird that is being looked at, brown for the notebook's unseen birds
 let litImg = null, darkImg = null;
-function tint(colour) { const c = document.createElement('canvas'); c.width = birdImg.naturalWidth; c.height = birdImg.naturalHeight; const g = c.getContext('2d'); g.drawImage(birdImg, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = colour; g.fillRect(0, 0, c.width, c.height); return c; }
-birdImg.addEventListener('load', () => { litImg = tint('#ffe66a'); darkImg = tint('#b98d4f'); });
+function tint(im, colour) { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const g = c.getContext('2d'); g.drawImage(im, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = colour; g.fillRect(0, 0, c.width, c.height); return c; }
+birdImg.addEventListener('load', () => { litImg = tint(birdImg, '#ffe66a'); darkImg = tint(birdImg, '#b98d4f'); });
 function drawBird(b) {
   if (!ready(birdImg) || b.state === 'away') return;
   const x = Math.round(b.x), y = Math.round(b.y) - (b.state === 'fly' ? b.z : 0), col = frameOf(b), lit = (b === hot || b === watch) && litImg && b.state !== 'dive' && !inLens;
@@ -710,7 +717,7 @@ function follow(snap) {
   if (snap) { cam.x = tx; cam.y = ty; } else if (look <= 0 && !drag) { cam.x += clamp(tx - cam.x, -2, 2); cam.y += clamp(ty - cam.y, -2, 2); }    // steady scroll, a couple of pixels a tick
 }
 const toScreen = (x, y) => [left + (x - cam.x) * S, top + (y - cam.y) * S], toMap = (x, y) => [x / S + cam.x, y / S + cam.y];
-let placed = '';
+let placed = '', hereNow, litNow, litFar = false, litAt = 0;                 // hereNow = the place she is at, litNow = the one place that is lit, litFar = it is not where she is, litAt = the tick it lit up
 function place() {
   const key = cam.x + ',' + cam.y + ',' + S.toFixed(4) + ',' + left + ',' + top; if (key === placed) return; placed = key;
   for (const s of SECTIONS) { const p = toScreen(s.sign[0], s.sign[1]); s.el.style.transform = `translate(${Math.round(p[0])}px,${Math.round(Math.max(p[1], s.el.offsetHeight + 3))}px) translate(-50%,-100%)`; }
@@ -816,10 +823,26 @@ function step() {
   writeInk();
   tick++;
 }
+// The lit place (see markHere: the one the pointer is on, or else the one she is at, never two) gets the yellow edge that a bird
+// under the pointer gets, with a soft glow outside it (edges.png and glow.png hold the outline and the glow of every place;
+// tools/edges.py cuts them out of the painted map). The edge stays put. The glow, and the rim of the label with it, breathes:
+// full the moment the place lights up, down to faint and back every two seconds, along a sine so there is no jump anywhere.
+// That is the "press here". Nothing moves.
+// This is the one thing on the page that fades: done in two flat frames it looked like a fault.
+const BREATH = 120;
+const glow = () => reduce ? .7 : .5 + .5 * Math.cos((tick - litAt) / BREATH * 2 * Math.PI);
+function drawEdges() {
+  if (inLens || !ready(edgeImg)) return;
+  if (!litNow) return; const [x, y, w, h] = litNow.edge;
+  if (ready(glowImg)) { ctx.globalAlpha = .2 + .8 * glow(); ctx.drawImage(glowImg, x, y, w, h, x, y, w, h); ctx.globalAlpha = 1; }
+  ctx.drawImage(edgeImg, x, y, w, h, x, y, w, h);
+}
+let glowSet = '';
+function signGlow() { const v = litNow ? glow().toFixed(2) : '1'; if (v !== glowSet) signs.style.setProperty('--glow', glowSet = v); }
 // Everything on the map, back to front. The view through the binoculars draws it a second time, round the bird.
 function scene() {
   if (ready(mapImg)) ctx.drawImage(mapImg, 0, 0);
-  drawWater();
+  drawWater(); drawEdges();
   const things = birds.map(b => ({ y:b.y + (aloft(b) ? 1000 : b.kind === 'high' || b.kind === 'tree' ? 300 : 0), draw:() => drawBird(b) })); things.push({ y:ch.y, draw:drawChiara });
   if (ready(frontImg)) for (const [x, y, w, h, base] of FRONT) things.push({ y:base, draw:() => ctx.drawImage(frontImg, x, y, w, h, x, y, w, h) });
   things.sort((a, b) => a.y - b.y).forEach(o => o.draw());                                                           // back to front
@@ -830,7 +853,7 @@ function draw() {
   scene();
   if (DEBUG) { for (let y = 0; y < GR; y++) for (let x = 0; x < GC; x++) { const c = GRID[y][x]; ctx.fillStyle = c === '#' ? 'rgba(255,0,0,.35)' : c === 'p' ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,0)'; ctx.fillRect(x * C, y * C, C, C); }
     ctx.fillStyle = '#00f'; for (const s of SECTIONS) ctx.fillRect(s.stand[0] - 1, s.stand[1] - 1, 2, 2); ctx.fillStyle = '#f0f'; for (const k in SPOTS) for (const p of SPOTS[k]) ctx.fillRect(p[0], p[1], 1, 1); }
-  place();
+  place(); signGlow();
   for (const k of keyEls) k.classList.toggle('on', keys.has(k.dataset.k));
   if (bopen === 'card') drawLens();
 }
@@ -844,14 +867,25 @@ function frame(now) {
 /* ---------------------------------------------------- signs, clicks, keys, page */
 SECTIONS.forEach(s => {
   const b = document.createElement('button'); b.className = 'sign'; b.tabIndex = portrait ? -1 : 0; b.textContent = s.short || s.label; b.setAttribute('aria-label', `${s.label} (${s.name})`);
-  b.addEventListener('click', () => choose(s.id)); b.addEventListener('pointerenter', () => setHover(s)); b.addEventListener('pointerleave', () => setHover(null));
-  b.addEventListener('focus', () => setHover(s)); b.addEventListener('blur', () => setHover(null));
+  b.addEventListener('click', () => choose(s.id)); b.addEventListener('pointerenter', () => point(s)); b.addEventListener('pointerleave', () => point(null));
+  b.addEventListener('focus', () => point(s, true)); b.addEventListener('blur', () => point(null));
   signs.appendChild(b); s.el = b;
   const d = document.createElement('button'); d.textContent = s.short || s.label; d.addEventListener('click', () => choose(s.id)); dock.appendChild(d); s.chip = d;
 });
 function setHover(s) { if (hover === s) return; if (hover) hover.el.classList.remove('hot'); hover = s; if (s) s.el.classList.add('hot'); cv.style.cursor = s ? 'pointer' : ''; }
-let hereNow;                                                                 // the place she is at: its label lights up
-function markHere() { const at = nearPlace(); if (at === hereNow) return; hereNow = at; for (const s of SECTIONS) { s.el.classList.toggle('here', s === at); s.chip.classList.toggle('here', s === at); } }
+// Only one place is lit at a time, so it is plain what a click or Enter will open. The pointer picks: the place it is on (or
+// the label that has the keyboard focus) is the lit one, wherever she is. When the pointer leaves it, or has not moved for
+// IDLE ticks, or she is walked with the keys, the light snaps back to the place she is standing at. With nowhere to snap back
+// to, a place under a resting pointer stays lit. On a touch screen the place under the finger is lit while the finger is down.
+const IDLE = 180;
+let aimAt = -IDLE, aimKeep = false, keyed = false;                          // the last tick the pointer did something on a place; a focused label does not time out; a walking key was the last input
+function point(s, keep) { setHover(s); if (s) { aimAt = tick; aimKeep = !!keep; keyed = false; } }
+const aimed = () => hover && (aimKeep || (!keyed && (!hereNow || tick - aimAt < IDLE))) ? hover : null;
+function markHere() {
+  hereNow = nearPlace(); const a = aimed(), at = a || hereNow, far = !!a && a !== hereNow; if (at === litNow && far === litFar) return;
+  if (at !== litNow) litAt = tick; litNow = at; litFar = far;
+  for (const s of SECTIONS) { s.el.classList.toggle('here', s === at); s.el.classList.toggle('aim', s === at && far); s.chip.classList.toggle('here', s === at); }
+}
 const placeAt = (x, y) => SECTIONS.find(s => x >= s.box[0] && x <= s.box[0] + s.box[2] && y >= s.box[1] && y <= s.box[1] + s.box[3]);
 // the bird at a point on the map, or the nearest one within pad pixels of it
 function birdAt(x, y, pad) {
@@ -880,22 +914,25 @@ function observe(b) {
 }
 function unwatch() { watch = null; watchAt = 0; ch.scope = false; ink = null; pen.remove(); }
 const local = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-cv.addEventListener('pointerdown', e => { const [sx, sy] = local(e); drag = { sx, sy, cx:cam.x, cy:cam.y, moved:false }; try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
+cv.addEventListener('pointerdown', e => { const [sx, sy] = local(e), [x, y] = toMap(sx, sy); drag = { sx, sy, cx:cam.x, cy:cam.y, moved:false }; try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+  point(birdAt(x, y, e.pointerType === 'touch' ? 9 : 3) ? null : placeAt(x, y) || null); });   // the place under the press lights up: on a touch screen this is the only hover there is
 cv.addEventListener('pointermove', e => {
   const [sx, sy] = local(e), [x, y] = toMap(sx, sy);
   if (drag) { const dx = sx - drag.sx, dy = sy - drag.sy; if (Math.hypot(dx, dy) > 8) drag.moved = true;
+    if (drag.moved) point(null);                                          // a drag is not a press on the place
     if (drag.moved && (VW < MAPW || VH < MAPH)) { cam.x = clamp(Math.round(drag.cx - dx / S), 0, MAPW - VW); cam.y = clamp(Math.round(drag.cy - dy / S), 0, MAPH - VH); look = 240; } return; }
-  const b = e.pointerType === 'touch' ? null : birdAt(x, y, 3); hot = b; showTip(b, sx, sy); setHover(b ? null : placeAt(x, y) || null); if (b) cv.style.cursor = 'pointer';
+  const b = e.pointerType === 'touch' ? null : birdAt(x, y, 3); hot = b; showTip(b, sx, sy); point(b ? null : placeAt(x, y) || null); if (b) cv.style.cursor = 'pointer';
 });
 cv.addEventListener('pointerup', e => {
-  const d = drag; drag = null; if (!d || d.moved) return; const [sx, sy] = local(e), [x, y] = toMap(sx, sy);
+  const d = drag; drag = null; if (e.pointerType === 'touch') point(null);          // the finger is up: the light goes back to where she is
+  if (!d || d.moved) return; const [sx, sy] = local(e), [x, y] = toMap(sx, sy);
   if (watch && !bopen) unwatch();
   const b = birdAt(x, y, e.pointerType === 'touch' ? 9 : 3); if (b) { observe(b); return; }
   const s = placeAt(x, y); if (s) { choose(s.id); return; }
   look = 0; walkTo(Math.floor(x), Math.floor(y));                       // anywhere else: she walks there
 });
-cv.addEventListener('pointercancel', () => { drag = null; });
-cv.addEventListener('pointerleave', () => { showTip(null); setHover(null); hot = null; });
+cv.addEventListener('pointercancel', () => { drag = null; point(null); });
+cv.addEventListener('pointerleave', () => { showTip(null); point(null); hot = null; });
 
 // the page
 const veil = $('veil'), order = SECTIONS.map(s => s.id); let returnTo = null;
@@ -1067,8 +1104,8 @@ addEventListener('keydown', e => {
     return;
   }
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  if (KEY[e.key]) { if (!e.repeat) { keys.add(KEY[e.key]); if (document.body.classList.contains('touch')) setTouch(false); } e.preventDefault(); const f = document.activeElement; if (f && f.classList.contains('sign')) f.blur(); }   // walking by hand: Enter now means "open what she is at", not the label that last had focus
-  else if ((e.key === 'Enter' || e.key === ' ' || e.key === 'e' || e.key === 'E') && !(document.activeElement && document.activeElement.tagName === 'BUTTON')) { const s = nearPlace(), b = s ? null : birdAt(ch.x, ch.y - 10, 60); if (s) { e.preventDefault(); enter(s.id); } else if (b) { e.preventDefault(); observe(b); } }   // or, away from any place, she looks at the nearest bird
+  if (KEY[e.key]) { keyed = true; if (!e.repeat) { keys.add(KEY[e.key]); if (document.body.classList.contains('touch')) setTouch(false); } e.preventDefault(); const f = document.activeElement; if (f && f.classList.contains('sign')) f.blur(); }   // walking by hand: Enter now means "open what she is at", not the label that last had focus
+  else if ((e.key === 'Enter' || e.key === ' ' || e.key === 'e' || e.key === 'E') && !(document.activeElement && document.activeElement.tagName === 'BUTTON')) { markHere(); const s = litNow, b = s ? null : birdAt(ch.x, ch.y - 10, 60); if (s) { e.preventDefault(); if (s === hereNow) enter(s.id); else choose(s.id); } else if (b) { e.preventDefault(); observe(b); } }   // Enter opens the lit place, the one she is at or the one the pointer picked. With none lit, she looks at the nearest bird
 });
 addEventListener('keyup', e => { if (KEY[e.key]) keys.delete(KEY[e.key]); });
 addEventListener('blur', () => keys.clear());

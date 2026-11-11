@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google" content="notranslate">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light only">
+<meta name="darkreader-lock">
+<meta name="theme-color" content="#6c3b19">
+<title>Chiara Martina Casadei</title>
+<meta name="description" content="Chiara Martina Casadei. Evolutionary ecology, bioacoustics and conservation.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Pixelify Sans joins "fi" into one glyph that reads as an A, so ligatures are off. */
+*{font-variant-ligatures:none}
+:root{--wood0:#3d1f0b;--wood1:#6b3a17;--wood2:#99602c;--wood3:#d39a55;--paper:#fcebbd;--paper2:#f1d596;--ink:#43270f;--soft:#7a5630;--leaf:#3f7d3a;--pix:'Pixelify Sans',ui-monospace,monospace;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#1f4a1c;color:var(--ink);font-family:var(--body);overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+
+/* top bar */
+.bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 22px 12px;color:#fff3d2;z-index:4;
+  background:repeating-linear-gradient(180deg,#7a4520 0 11px,#6c3b19 11px 12px,#804a23 12px 23px,#6c3b19 23px 24px);
+  box-shadow:inset 0 -4px 0 var(--wood0),inset 0 3px 0 #a8672f,0 4px 0 rgba(0,0,0,.25)}
+.bar h1{font-family:var(--pix);font-weight:600;font-size:26px;line-height:1;margin:0;letter-spacing:.01em;text-shadow:2px 2px 0 var(--wood0)}
+.bar p{margin:5px 0 0;font-family:var(--pix);font-size:14px;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0)}
+.bar .hint{font-family:var(--pix);font-size:14px;line-height:1.25;color:#f1cf8e;text-shadow:1px 1px 0 var(--wood0);text-align:right;min-width:0}
+.bar > div:first-child{flex:none}
+
+/* map */
+/* beside the map the wood goes on: one tree top from the map's own border, repeated */
+.stage{position:relative;flex:1;min-height:0;overflow:hidden;background:linear-gradient(rgba(5,30,12,.55),rgba(5,30,12,.55)),#0f3a1a url(assets/canopy.png);image-rendering:pixelated}
+#cv{position:absolute;display:block;touch-action:none;box-shadow:0 0 0 4px #062a14;image-rendering:auto}
+#signs{position:absolute;inset:0;pointer-events:none}
+.sign{position:absolute;left:0;top:0;pointer-events:auto;font-family:var(--pix);font-weight:600;font-size:calc(15px*var(--k,1));line-height:1;color:var(--ink);white-space:nowrap;
+  padding:.36em .6em .44em;background:#fbe3a4;border:calc(3px*var(--k,1)) solid #b06a2c;box-shadow:0 0 0 calc(2px*var(--k,1)) var(--wood0)}
+.sign:hover,.sign.hot,.sign:focus-visible{background:#fff6d6;outline:none}
+.sign.here{background:#fffbe8;border-color:#e0791c}
+#tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font-family:var(--pix);font-size:14px;line-height:1.35;color:var(--ink);background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);padding:6px 10px 7px;visibility:hidden;max-width:260px}
+#tip.on{visibility:visible}
+#tip i{font-family:var(--body);font-size:12.5px}
+#tip small{display:block;font-size:12px;color:var(--soft)}
+
+/* section list for phones */
+.dock::-webkit-scrollbar{display:none}
+.dock{display:none;flex:none;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 12px 12px;background:#6c3b19;box-shadow:inset 0 4px 0 var(--wood0);z-index:4}
+.dock button{flex:none;font-family:var(--pix);font-weight:600;font-size:15px;padding:8px 12px 9px;background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0)}
+.dock button.here{background:#ffe9a3}
+
+/* the field notebook button, a bird's card, and the notebook's list */
+.bar .side{display:flex;align-items:center;gap:18px;min-width:0}
+.nb{flex:none;font-family:var(--pix);font-weight:600;font-size:15px;line-height:1;padding:7px 11px 8px;color:var(--ink);background:var(--paper);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0);white-space:nowrap}
+.nb:hover,.nb:focus-visible{background:#fffbe8;outline:none}
+.tools{display:flex;gap:9px;flex:none}
+.nb[aria-pressed="true"]{background:#dff0b4}
+.card.wide{width:min(760px,100%)}
+.card.wide footer{display:none}
+.card > header{align-items:flex-start;justify-content:flex-start}
+.card > header > div{flex:1;min-width:0}
+.card h2{font-size:28px}
+.card .sci{margin:7px 0 0;font-family:var(--body);font-size:14px;color:var(--soft)}
+.card .sci[hidden]{display:none}
+.veil.scope{background:rgba(6,9,7,.84)}
+.lens{flex:none;display:flex;justify-content:center;background:#000;border-bottom:3px solid var(--wood0)}
+.glass{position:relative;overflow:hidden}
+.glass > *{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.glass img{object-fit:cover}
+#lens{image-rendering:pixelated}
+.glass.photo #lens,.glass:not(.photo) img,.glass:not(.photo) #shade{visibility:hidden}
+.hand{flex:none;width:100px;height:125px;margin:-12px -4px -12px -14px;image-rendering:pixelated}
+.card.wide .lens,.card.wide .hand{display:none}
+.unwritten{visibility:hidden}
+.pen{position:relative;display:inline-block;width:0;height:0}
+.pen::after{content:'';position:absolute;left:1px;bottom:0;width:24px;height:24px;background:var(--pen) no-repeat;background-size:24px 24px;image-rendering:pixelated;pointer-events:none}
+.pen.up::after{bottom:3px}
+.card .body p{font-family:var(--body);font-size:15.5px;line-height:1.55;margin:12px 0 0}
+.card .body p.src{font-size:13px;color:var(--soft)}
+.card .body a{color:var(--leaf);font-weight:600}
+.card .body .go{font-family:var(--pix);font-weight:600;font-size:14px;padding:4px 9px 5px;margin-left:6px;color:#fff3d2;background:var(--wood2);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0)}
+.card footer button[hidden]{display:block;visibility:hidden}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;padding:14px 0 6px}
+.list button{display:flex;align-items:center;gap:8px;text-align:left;padding:5px 7px;font-family:var(--pix);font-size:13.5px;line-height:1.2;color:var(--ink);background:#fff6d6;border:3px solid #d9b876}
+.list button:hover,.list button:focus-visible{border-color:var(--wood2);outline:none}
+.list button:disabled{cursor:default;color:var(--soft);background:none;border-style:dashed;border-color:#d9b876}
+.list small{display:block;font-size:12px}
+.list canvas{flex:none;width:52px;height:40px;image-rendering:pixelated}
+@media (max-width:1180px){.bar .hint{display:none}}
+
+/* the page that opens */
+.veil{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(18,32,14,.45);visibility:hidden}
+.veil.open{visibility:visible}
+.book{position:relative;display:flex;flex-direction:column;width:min(760px,100%);max-height:min(88vh,860px);background:var(--paper);
+  border:6px solid var(--wood2);box-shadow:0 0 0 4px var(--wood0),inset 0 0 0 3px var(--wood3),0 14px 0 rgba(0,0,0,.3)}
+.book > header{flex:none;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:22px 30px 14px;border-bottom:3px dashed #d9b876}
+.book .place{font-family:var(--pix);font-size:14px;color:var(--soft);margin-bottom:4px}
+.book h2{font-family:var(--pix);font-weight:700;font-size:36px;line-height:1;margin:0;color:var(--ink)}
+.book .x{flex:none;align-self:flex-start;width:38px;height:38px;font-family:var(--pix);font-size:22px;line-height:1;color:#fff3d2;background:#b5482a;border:3px solid #7c2a14;box-shadow:0 0 0 2px var(--wood0),inset 0 2px 0 #d86f4c}
+.book figure{flex:none;margin:0 0 0 auto;display:flex;align-items:center;gap:10px;font-family:var(--pix);font-size:12.5px;line-height:1.3;color:var(--soft);text-align:right}
+.book figure[hidden]{display:none}
+.book figure img{display:block;width:108px;height:78px;image-rendering:pixelated;background:#bfe08a;border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0)}
+.book figure i{font-family:var(--body);font-size:11.5px}
+.book .x:hover,.book .x:focus-visible{background:#cf5b38;outline:none}
+.book .body{flex:1;overflow:auto;padding:8px 30px 18px;overscroll-behavior:contain}
+article{padding:16px 0;border-bottom:2px solid #ecd49a}
+article:last-child{border-bottom:0}
+article header{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+article h3{font-family:var(--body);font-weight:600;font-size:17px;line-height:1.35;margin:0}
+article .when{flex:none;font-family:var(--pix);font-size:14px;color:#2f5f2b;background:#dcebb2;border:2px solid #8fb46a;padding:1px 8px 2px;white-space:nowrap}
+article .where{font-size:14.5px;color:var(--soft);margin-top:3px;line-height:1.5}
+article p{font-size:15.5px;line-height:1.6;margin:8px 0 0}
+article ul{margin:8px 0 0;padding-left:20px;font-size:15px;line-height:1.6}
+article li{margin:3px 0}
+article li::marker{color:#b5803a}
+article a{color:#2c5f8a;font-weight:500}
+.book footer{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px 16px;border-top:3px dashed #d9b876;font-family:var(--pix)}
+.book footer button{font-family:var(--pix);font-weight:600;font-size:15px;padding:7px 12px 8px;color:#fff3d2;background:var(--wood2);border:3px solid var(--wood1);box-shadow:0 0 0 2px var(--wood0),inset 0 2px 0 var(--wood3)}
+.book footer button:hover,.book footer button:focus-visible{background:#b27434;outline:none}
+.book footer span{font-size:14px;color:var(--soft)}
+
+body.portrait .bar{padding:8px 14px 10px}
+body.portrait .bar h1{font-size:20px}
+body.portrait .bar p{font-size:12px}
+body.portrait .bar .hint{display:none}
+body.portrait .nb{font-size:13px;padding:6px 8px 7px}
+body.portrait .bar{flex-wrap:wrap;row-gap:9px}
+body.portrait .bar .side{margin-left:auto}
+body.portrait .dock{display:flex}
+@media (max-width:640px){
+  .veil{padding:10px}
+  .book{max-height:94vh}
+  .book > header{padding:16px 18px 12px}
+  .book h2{font-size:28px}
+  .book figure figcaption{display:none}
+  .book figure img{width:72px;height:52px}
+  .book .body{padding:4px 18px 14px}
+  article header{flex-direction:column;gap:6px;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div><h1>Chiara Martina Casadei</h1><p id="sub">Evolutionary ecology, bioacoustics &amp; conservation</p></div>
+  <div class="side"><div class="hint" id="hint">Arrow keys to walk · walk into a place or click it · click a bird to observe it</div><div class="tools"><button class="nb" id="snd" aria-pressed="false">Sound off</button><button class="nb" id="lang">Español</button><button class="nb" id="nb"><span id="nbl">Notebook</span> <span id="nbn"></span></button></div></div>
+</header>
+<div class="stage" id="stage"><canvas id="cv" aria-hidden="true"></canvas><nav id="signs" aria-label="Sections"></nav><div id="tip" role="status"></div></div>
+<nav class="dock" id="dock" aria-label="Sections"></nav>
+<div class="veil" id="veil">
+  <section class="book" role="dialog" aria-modal="true" aria-labelledby="title">
+    <header><div><div class="place" id="place"></div><h2 id="title"></h2></div><figure id="pic" hidden><img alt=""><figcaption></figcaption></figure><button class="x" id="close" aria-label="Close">×</button></header>
+    <div class="body" id="body"></div>
+    <footer><button id="prev"></button><span id="count"></span><button id="next"></button></footer>
+  </section>
+</div>
+<div class="veil" id="bveil">
+  <section class="book card" role="dialog" aria-modal="true" aria-labelledby="bname">
+    <div class="lens"><div class="glass" id="glass"><img id="lphoto" alt=""><canvas id="shade" width="400" height="200"></canvas><canvas id="lens" width="80" height="40"></canvas></div></div>
+    <header><canvas class="hand" id="hand" width="20" height="25"></canvas><div><div class="place" id="bflag"></div><h2 id="bname"></h2><p class="sci" id="bsub"><i id="bsci"></i> · <span id="bes"></span></p></div><button class="x" id="bclose" aria-label="Close">×</button></header>
+    <div class="body" id="bbody"></div>
+    <footer><button id="bbook">Field notebook</button><span id="bcount"></span><button hidden></button></footer>
+  </section>
+</div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id), clamp = (v, a, b) => Math.max(a, Math.min(b, v)), lerp = (a, b, t) => a + (b - a) * t;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------------------------------------------------------- language
+   English or Spanish. The Spanish is formal and Argentine: instructions are impersonal, with no tú or vos forms. The choice
+   is kept in the browser, and ?lang=es or ?lang=en in the address sets it. Without either, a browser set to Spanish gets
+   Spanish. Changing language reloads the page, because every label is made once when the page starts. */
+const ES = (() => {
+  const q = new URLSearchParams(location.search).get('lang'); let v = q === 'es' || q === 'en' ? q : null;
+  try { if (v) localStorage.setItem('chiara-lang', v); else v = localStorage.getItem('chiara-lang'); } catch (e) {}
+  if (v !== 'es' && v !== 'en') v = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+  return v === 'es';
+})();
+const L = (en, es) => ES ? es : en;
+document.documentElement.lang = ES ? 'es' : 'en';
+$('sub').textContent = L('Evolutionary ecology, bioacoustics & conservation', 'Ecología evolutiva, bioacústica y conservación');
+$('hint').textContent = L('Arrow keys to walk · walk into a place or click it · click a bird to observe it', 'Flechas para caminar · entrar a un lugar o hacer clic en él · hacer clic en un ave para observarla');
+$('nbl').textContent = L('Notebook', 'Libreta'); $('bbook').textContent = L('Field notebook', 'Libreta de campo');
+$('close').setAttribute('aria-label', L('Close', 'Cerrar')); $('bclose').setAttribute('aria-label', L('Close', 'Cerrar'));
+$('signs').setAttribute('aria-label', L('Sections', 'Secciones')); $('dock').setAttribute('aria-label', L('Sections', 'Secciones'));
+document.querySelector('meta[name=description]').content = L('Chiara Martina Casadei. Evolutionary ecology, bioacoustics and conservation.', 'Chiara Martina Casadei. Ecología evolutiva, bioacústica y conservación.');
+$('lang').textContent = L('Español', 'English'); $('lang').lang = ES ? 'en' : 'es';
+$('lang').addEventListener('click', () => {
+  try { localStorage.setItem('chiara-lang', ES ? 'en' : 'es'); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.delete('lang'); if (u.href === location.href) location.reload(); else location.replace(u.href);
+});
+/* ------------------------------------------------------------ content */
+const entry = (t, where, when, items = [], note = '') =>
+  `<article><header><h3>${t}</h3>${when ? `<span class="when">${when}</span>` : ''}</header>` +
+  (where ? `<div class="where">${where}</div>` : '') + (note ? `<p>${note}</p>` : '') +
+  (items.length ? `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>` : '') + `</article>`;
+
+const SECTIONS_EN = [
+ { id:'about', label:'About', html:
+    entry('Chiara Martina Casadei', 'Buenos Aires, Argentina', '', [], 'Biological Sciences student at the University of Buenos Aires (FCEyN-UBA), specializing in Ecology and Evolutionary Biology. Undergraduate researcher at the Division of Ornithology, MACN-CONICET.') +
+    entry('Languages', '', '', ['Spanish (native)', 'English (fluent)', 'Italian (basic)']) },
+ { id:'education', label:'Education', html:
+    entry('Licentiate in Biological Sciences', 'Faculty of Exact and Natural Sciences, University of Buenos Aires (FCEyN-UBA)', '2021 – present',
+      ['Specialization: Ecology and Evolutionary Biology', 'Core coursework: Population Genetics, Evolutionary Theory, Systematics & Phylogenetics, Community Ecology, Experimental Design, coding in R and Python']) +
+    entry('Licentiate thesis project', 'Advisor: Dr. Gustavo S. Cabanne (MACN-CONICET)', 'Expected Feb 2027',
+      ['<i>Impact of Habitat Specialization on the Evolution of Open-Area Organisms: A Study on the Straight-billed Reedhaunter (Limnoctites rectirostris)</i>', 'Birdsong and morphological divergence in threatened species and fragmented ecosystems']) },
+ { id:'experience', label:'Research & experience', short:'Research', html:
+    entry('Undergraduate Researcher', 'Division of Ornithology, Bernardino Rivadavia Natural Sciences Museum (MACN-CONICET)', '2025 – present',
+      ['Bioacoustic analysis using Raven Pro: spectral and structural song parameters across geographic populations', 'Museum specimen preparation, anatomical measurements and ornithological collection curation', 'Technical assistant in scientific bird-banding and mist-netting training workshops']) +
+    entry('Environmental Promoter & Field Restoration Crew', 'Socio-Environmental Program (ProSa), FCEyN-UBA / RECUCN', '2026 – present',
+      ['Habitat restoration in urban ecological reserves: manual control of invasive plant species, native flora planting and biodiversity monitoring', 'Public educational tours for school groups and design of environmental outreach materials']) +
+    entry('Field Sampling Intern', 'ECoMa Lab, Dept. of Ecology, Genetics & Evolution, FCEyN-UBA', '2023',
+      ['Field sampling of avian species, systematic bird censusing and field data logging']) +
+    entry('Wildlife Rehabilitation', 'SO.CO.BIO.MA, Maldonado, Uruguay', 'Upcoming, Jan – Feb 2027',
+      ['Wildlife center team: hands-on animal care, diet preparation, enclosure maintenance, species rehabilitation and public environmental education']) },
+ { id:'presentations', label:'Presentations', html:
+    entry('Poster: Geographic song differentiation in <i>Poecilotriccus plumbeiceps</i> suggests recognizing two species', 'XXI Argentine Ornithology Meeting, UNMdP, Mar del Plata, Argentina', '2026',
+      ['Bioacoustics, PCA, statistical tests and taxonomic revision']) },
+ { id:'memberships', label:'Memberships', html:
+    entry('Aves Argentinas', '', '', ['Active member and volunteer']) +
+    entry('COA-RECUCN', 'Bird watchers\' club', '', ['RECUCN avian conservation research, population monitoring and field data logging']) },
+ { id:'outreach', label:'Outreach', html:
+    entry('Museum Night & Science Night', 'FCEyN-UBA', '2023 – 2024', ['Demonstration speaker at the Climate Change, Native and Invasive Mammals and Avian Ecology stands']) +
+    entry('Earth Science Week', 'RECUCN ecological reserve', '2026', ['Tour guide']) +
+    entry('Educational Recreation Instructor', 'Government of Buenos Aires', '2018', ['Coordinated educational activities for primary school children']) },
+ { id:'skills', label:'Skills', html:
+    entry('Field & lab techniques', '', '', ['Mist-netting, bird banding and data collection', 'Specimen preparation and museum collection maintenance (MACN-CONICET)', 'Flora restoration and invasive species control at RECUCN (ProSa, UBA)']) +
+    entry('Bioacoustics', '', '', ['Raven Pro: spectral and structural song parameters']) +
+    entry('Phylogenetic & evolutionary inference', '', '', ['Phylogenetic tree reconstruction and ancestral character mapping with Parsimony, Maximum Likelihood and Bayesian inference']) +
+    entry('Data management & statistical modeling', '', '', ['Dataset generation, statistical analysis, data modeling and custom visualization in R and Python']) +
+    entry('Outdoor & field experience', 'Fieldwork and Scout Movement', '2012 – 2018', ['Six years including long-duration wilderness camping, heavy physical work, trekking, team coordination and adverse weather']) +
+    entry('Training', '', '2018', ['English language immersion, Sprachcaffe, New York']) },
+ { id:'contact', label:'Contact', html:
+    entry('Email', '', '', [], '<a href="mailto:cmcasadei22@gmail.com">cmcasadei22@gmail.com</a>') +
+    entry('Location', '', '', [], 'Buenos Aires, Argentina') },
+];
+/* The same pages in Spanish. Names of institutions and events are the ones they use themselves. Titles of the thesis and the
+   poster are translated from the English CV, so Chiara should replace them with the titles as registered. */
+const SECTIONS_ES = [
+ { id:'about', label:'Perfil', html:
+    entry('Chiara Martina Casadei', 'Buenos Aires, Argentina', '', [], 'Estudiante de Ciencias Biológicas en la Universidad de Buenos Aires (FCEyN-UBA), con orientación en Ecología y Biología Evolutiva. Tesista de licenciatura en la División Ornitología, MACN-CONICET.') +
+    entry('Idiomas', '', '', ['Español (nativo)', 'Inglés (fluido)', 'Italiano (básico)']) },
+ { id:'education', label:'Formación', html:
+    entry('Licenciatura en Ciencias Biológicas', 'Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires (FCEyN-UBA)', '2021 – actualidad',
+      ['Orientación: Ecología y Biología Evolutiva', 'Materias principales: Genética de Poblaciones, Teoría Evolutiva, Sistemática y Filogenética, Ecología de Comunidades, Diseño Experimental, programación en R y Python']) +
+    entry('Proyecto de tesis de licenciatura', 'Director: Dr. Gustavo S. Cabanne (MACN-CONICET)', 'Prevista para feb. de 2027',
+      ['<i>Impacto de la especialización de hábitat en la evolución de organismos de áreas abiertas: un estudio sobre la pajonalera pico recto (Limnoctites rectirostris)</i>', 'Canto y divergencia morfológica en especies amenazadas y ecosistemas fragmentados']) },
+ { id:'experience', label:'Investigación y experiencia', short:'Investigación', html:
+    entry('Tesista de licenciatura', 'División Ornitología, Museo Argentino de Ciencias Naturales «Bernardino Rivadavia» (MACN-CONICET)', '2025 – actualidad',
+      ['Análisis bioacústico con Raven Pro: parámetros espectrales y estructurales del canto en distintas poblaciones geográficas', 'Preparación de especímenes de museo, mediciones anatómicas y curaduría de la colección ornitológica', 'Asistente técnica en talleres de capacitación en anillado científico de aves y redes de niebla']) +
+    entry('Promotora ambiental e integrante del equipo de restauración a campo', 'Programa Socioambiental (ProSa), FCEyN-UBA / RECUCN', '2026 – actualidad',
+      ['Restauración de hábitat en reservas ecológicas urbanas: control manual de especies vegetales invasoras, plantación de flora nativa y monitoreo de biodiversidad', 'Visitas educativas para grupos escolares y diseño de materiales de divulgación ambiental']) +
+    entry('Pasante de muestreo a campo', 'Laboratorio ECoMa, Departamento de Ecología, Genética y Evolución, FCEyN-UBA', '2023',
+      ['Muestreo de aves a campo, censos sistemáticos de aves y registro de datos de campo']) +
+    entry('Rehabilitación de fauna silvestre', 'SO.CO.BIO.MA, Maldonado, Uruguay', 'Próximamente, ene. – feb. de 2027',
+      ['Equipo del centro de fauna: cuidado directo de animales, preparación de dietas, mantenimiento de recintos, rehabilitación de especies y educación ambiental para el público']) },
+ { id:'presentations', label:'Presentaciones', html:
+    entry('Póster: La diferenciación geográfica del canto en <i>Poecilotriccus plumbeiceps</i> sugiere reconocer dos especies', 'XXI Reunión Argentina de Ornitología, UNMdP, Mar del Plata, Argentina', '2026',
+      ['Bioacústica, análisis de componentes principales (PCA), pruebas estadísticas y revisión taxonómica']) },
+ { id:'memberships', label:'Membresías', html:
+    entry('Aves Argentinas', '', '', ['Socia activa y voluntaria']) +
+    entry('COA-RECUCN', 'Club de Observadores de Aves', '', ['Investigación para la conservación de las aves de la RECUCN, monitoreo de poblaciones y registro de datos de campo']) },
+ { id:'outreach', label:'Divulgación', html:
+    entry('Noche de los Museos y Noche de la Ciencia', 'FCEyN-UBA', '2023 – 2024', ['Expositora en los stands de Cambio Climático, Mamíferos Nativos e Invasores y Ecología de Aves']) +
+    entry('Semana de las Ciencias de la Tierra', 'Reserva ecológica RECUCN', '2026', ['Guía de visitas']) +
+    entry('Instructora de recreación educativa', 'Gobierno de Buenos Aires', '2018', ['Coordinación de actividades educativas para niños de escuela primaria']) },
+ { id:'skills', label:'Habilidades', html:
+    entry('Técnicas de campo y de laboratorio', '', '', ['Redes de niebla, anillado de aves y toma de datos', 'Preparación de especímenes y mantenimiento de colecciones de museo (MACN-CONICET)', 'Restauración de flora y control de especies invasoras en la RECUCN (ProSa, UBA)']) +
+    entry('Bioacústica', '', '', ['Raven Pro: parámetros espectrales y estructurales del canto']) +
+    entry('Inferencia filogenética y evolutiva', '', '', ['Reconstrucción de árboles filogenéticos y mapeo de caracteres ancestrales con parsimonia, máxima verosimilitud e inferencia bayesiana']) +
+    entry('Gestión de datos y modelado estadístico', '', '', ['Generación de conjuntos de datos, análisis estadístico, modelado de datos y visualización a medida en R y Python']) +
+    entry('Experiencia de campo y al aire libre', 'Trabajo de campo y Movimiento Scout', '2012 – 2018', ['Seis años, con campamentos prolongados en áreas agrestes, trabajo físico intenso, trekking, coordinación de equipos y clima adverso']) +
+    entry('Capacitación', '', '2018', ['Inmersión en idioma inglés, Sprachcaffe, Nueva York']) },
+ { id:'contact', label:'Contacto', html:
+    entry('Correo electrónico', '', '', [], '<a href="mailto:cmcasadei22@gmail.com">cmcasadei22@gmail.com</a>') +
+    entry('Ubicación', '', '', [], 'Buenos Aires, Argentina') },
+];
+const SECTIONS = ES ? SECTIONS_ES : SECTIONS_EN;
+
+/* ------------------------------------------------------------ the reserve
+   One pixel grid for everything: the map is 384 x 256 real pixels (24 x 16 tiles of 16) and the sprites are drawn at that
+   pixel size. Nothing is scaled, rotated, faded or eased; positions are whole pixels on a fixed 60-per-second tick.
+   GRID is where she can walk, in 8-pixel cells, read off the painted map by tools/mask.py: p trail, stage floor or steps, . grass, # shut. */
+const MAPW = 384, MAPH = 256, C = 8, GC = MAPW / C, GR = MAPH / C;
+const GRID = [
+  '################################################',
+  '################################################',
+  '####.##.....####..##...##.##....#######.##..####',
+  '###.......########..........#.###########...####',
+  '###.#.....########..#...#.....##ppppppppp#.#####',
+  '###.......########..#####.....#########pp#..####',
+  '####......########..#####.###.#########pp#..####',
+  '###.......########..##################.pp...####',
+  '###.......########..#...#####.#########.....#.##',
+  '###...pppppppppppppppppppppppppppppppppppp...###',
+  '#####.pppppppppppppppppppppppppppppppppppp..####',
+  '######pp.......############.........pp.#########',
+  '######pp....##################..#...pp#######.##',
+  '######pp...#####################....pp#######.##',
+  '######pp..######################....pppppppp#.##',
+  '##.##.pp..#######################...pppppppp####',
+  '####..pp..#######################...pppppppp#.##',
+  '####..pp.##########################.pp#######.##',
+  '######pp###########################.pp#######.##',
+  '######pp###########################.pp..####..##',
+  '######pp#################....#######pp..####..##',
+  '######pp################.....#######pp..###...##',
+  '######pp#################....#######pp.......###',
+  '######pp################..#..####.##pp.......###',
+  '######pp################.##..#######pp.#...##.##',
+  '#####.pp#################.#..#######pp....######',
+  '######pp#######...######..#..#.####.pp....######',
+  '######pppppppppppppppppppppppppppppppp....######',
+  '######.....#....##..pp....##..##....##..#.######',
+  '######....##....##..#p....##..##....##..########',
+  '#####################p##########################',
+  '#####################p##########################'
+];
+// Each place is a different kind of thing, and each is what that part of her CV is. She takes her part when she gets there: up to
+// the schoolhouse door, onto the stage to face the audience, behind the counter of the discovery stand, to the work table in the
+// research tent, home to her cabin.
+// box = the thing on the map (click area, and what she can walk into), sign = where its label sits (on top of the thing),
+// stand = where she stands, face = which way she looks, floor = ground that is part of the place itself
+const PLACES = {
+  about:         { name:'Cabin',                      box:[144, 150, 50, 62],  sign:[169, 154], stand:[169, 220], face:'up' },
+  education:     { name:'Schoolhouse',                box:[82, 2, 60, 74],     sign:[56, 46],   stand:[111, 79],  face:'up' },
+  experience:    { name:'Research camp',              box:[66, 134, 80, 78],   sign:[95, 161],  stand:[95, 220],  face:'up' },
+  presentations: { name:'Conference',                 box:[244, 8, 88, 68],    sign:[283, 10],  stand:[312, 38],  face:'down', floor:[256, 32, 73, 10] },
+  memberships:   { name:'Bird club watchtower',       box:[224, 132, 62, 80],  sign:[259, 135], stand:[258, 220], face:'up' },
+  outreach:      { name:'Discovery stand',            box:[308, 93, 52, 80],   sign:[334, 94],  stand:[335, 133], face:'down', floor:[320, 110, 34, 27] },
+  skills:        { name:'Mist net and banding table', box:[160, 33, 74, 40],   sign:[197, 32],  stand:[219, 80],  face:'up' },
+  contact:       { name:'Mailbox',                    box:[204, 188, 16, 24],  sign:[212, 188], stand:[212, 223], face:'up' },
+};
+SECTIONS.forEach(s => Object.assign(s, PLACES[s.id]));
+const PLACE_ES = { about:'Cabaña', education:'Escuela', experience:'Campamento de investigación', presentations:'Congreso', memberships:'Mirador del club de observadores de aves', outreach:'Stand de divulgación', skills:'Red de niebla y mesa de anillado', contact:'Buzón' };
+if (ES) SECTIONS.forEach(s => { s.name = PLACE_ES[s.id]; });
+const byId = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
+const img = src => { const i = new Image(); i.src = src; return i; };
+const mapImg = img('assets/map.png'), girl = img('assets/chiara.png'), birdImg = img('assets/birds.png'), frontImg = img('assets/front.png');
+const ready = i => i.complete && i.naturalWidth > 0, dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+const cellAt = (x, y) => (x < 0 || y < 0 || x >= MAPW || y >= MAPH) ? '#' : GRID[y >> 3][x >> 3];
+// cells she can actually get to from the gate; a click anywhere else sends her to the nearest of these
+const START = [172, 252], reach = new Set();
+{ const todo = [[START[0] >> 3, START[1] >> 3]]; reach.add(todo[0][1] * GC + todo[0][0]);
+  while (todo.length) { const [cx, cy] = todo.pop(); for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = cx + dx, ny = cy + dy, k = ny * GC + nx;
+    if (nx >= 0 && ny >= 0 && nx < GC && ny < GR && GRID[ny][nx] !== '#' && !reach.has(k)) { reach.add(k); todo.push([nx, ny]); } } } }
+// shortest way between two cells: trail is cheap, grass costs more, and every turn costs a little so she doesn't zigzag
+const DIRS = [[1, 0, 'right'], [-1, 0, 'left'], [0, 1, 'down'], [0, -1, 'up']];
+function findPath(from, to) {
+  const key = (x, y, d) => (y * GC + x) * 4 + d, best = new Map(), prev = new Map(), open = [];
+  for (let d = 0; d < 4; d++) { best.set(key(from[0], from[1], d), 0); open.push([0, from[0], from[1], d]); }
+  let end = null;
+  while (open.length) {
+    let bi = 0; for (let i = 1; i < open.length; i++) if (open[i][0] < open[bi][0]) bi = i;
+    const [cost, x, y, d] = open.splice(bi, 1)[0]; if (cost > best.get(key(x, y, d))) continue;
+    if (x === to[0] && y === to[1]) { end = key(x, y, d); break; }
+    for (let nd = 0; nd < 4; nd++) { const nx = x + DIRS[nd][0], ny = y + DIRS[nd][1]; if (nx < 0 || ny < 0 || nx >= GC || ny >= GR) continue; const c = GRID[ny][nx]; if (c === '#') continue;
+      const nc = cost + (c === 'p' ? 1 : 2.4) + (nd === d ? 0 : .7), k = key(nx, ny, nd); if (nc < (best.get(k) ?? Infinity)) { best.set(k, nc); prev.set(k, key(x, y, d)); open.push([nc, nx, ny, nd]); } }
+  }
+  if (end === null) return null;
+  const cells = []; for (let k = end; k !== undefined; k = prev.get(k)) { const c = k >> 2; cells.unshift([c % GC, (c / GC) | 0]); }
+  return cells;
+}
+let tick = 0;
+// front.png (tools/front.py) holds the parts of the map she can be behind: the discovery stand's awning, posts and counter.
+// Each piece is drawn in the same back-to-front order as she and the birds are; base = the line on the ground it stands on.
+const FRONT = [[306, 93, 56, 60, 153]];
+// the one thing drawn in code rather than from a sheet: the shadow under her and under the walking birds
+const stamp = (rows, x, y, col) => { ctx.fillStyle = col; rows.forEach((r, j) => { for (let i = 0; i < r.length; i++) if (r[i] === '#') ctx.fillRect(x + i, y + j, 1, 1); }); };
+const SHADOW = ['  ######  ', '##########', '  ######  '], SHADOW_S = [' ### ', '#####'], SHADE = 'rgba(20,50,16,.32)';
+
+/* -------------------------------------------------------------- Chiara
+   Sheet: 5 frames across (stand, step, stand, step, eyes shut), rows = facing down, left, up; right is the left row mirrored.
+   tools/rig.py builds it so that everything above her hips is the same pixels in every frame of a row.
+   She moves one pixel a tick. The arrow keys or WASD walk her; a click sends her along the shortest way. */
+const GW = 20, GH = 25, FEET = [23, 23, 22], ROW = { down:0, left:1, right:1, up:2 }, STRIDE = 6;
+const ch = { x:START[0], y:START[1], dir:'up', route:[], walked:0, moving:false, push:0, goal:null, seen:null, blink:300 };
+const keys = new Set();
+// her feet: a box 8 wide and 4 tall. A spot is free if none of the cells under the box is shut.
+const free = (x, y) => cellAt(x - 4, y - 3) !== '#' && cellAt(x + 3, y - 3) !== '#' && cellAt(x - 4, y) !== '#' && cellAt(x + 3, y) !== '#';
+function walkTo(px, py, goal) {
+  ch.goal = goal || null;
+  let tc = [px >> 3, py >> 3];
+  if (!reach.has(tc[1] * GC + tc[0])) { let bd = 1e9, b = null; for (const k of reach) { const x = k % GC, y = (k / GC) | 0, d = Math.hypot(x * C + 4 - px, y * C + 4 - py); if (d < bd) { bd = d; b = [x, y]; } } tc = b; px = b[0] * C + 4; py = b[1] * C + 5; }
+  const cells = findPath([ch.x >> 3, ch.y >> 3], tc); if (!cells) return;
+  // way-points: the middle of each cell on the way, then the exact spot. Feet sit a little below a cell's middle so the box stays inside it.
+  ch.route = cells.map(([cx, cy]) => [cx * C + 4, cy * C + 5]); ch.route.push([px, py]);
+  if (reduce) { ch.x = px; ch.y = py; ch.route = []; arrive(); }
+}
+function arrive() { ch.moving = false; ch.walked = 0; if (ch.goal) { ch.dir = byId[ch.goal].face; if (ch.goal === 'experience') cueSong(); } ch.goal = null; markHere(); }
+// Up against a corner with the way clear a few pixels to one side: step sideways toward the gap, as old top-down games do,
+// so she doesn't snag on a corner or miss the stage steps by a pixel.
+function slip(dx, dy) {
+  for (let k = 1; k <= 5; k++) for (const s of [-1, 1]) {
+    const sx = dy ? s : 0, sy = dx ? s : 0; if (!free(ch.x + sx * k + dx, ch.y + sy * k + dy)) continue;
+    let clear = true; for (let j = 1; j <= k && clear; j++) clear = free(ch.x + sx * j, ch.y + sy * j);
+    if (clear) { ch.x += sx; ch.y += sy; return true; }
+  }
+  return false;
+}
+// Walking by hand, a place opens the moment she walks into it: up against any part of it from any side, or onto its floor
+// (the stage, the ground behind the stand's counter). The page shows at once and she goes on to her spot in the scene behind it.
+// A place that has just been open (ch.seen) does not open again while she is still at it, so closing the page never traps her
+// against it: it takes a firm push, or a few steps away and back.
+const NEAR = 12, PUSH = 20;
+const gap = (s, x, y) => Math.hypot(Math.max(s.box[0] - x, 0, x - s.box[0] - s.box[2]), Math.max(s.box[1] - y, 0, y - s.box[1] - s.box[3]));
+const onFloor = (s, x, y) => !!s.floor && x >= s.floor[0] && x <= s.floor[0] + s.floor[2] && y >= s.floor[1] && y <= s.floor[1] + s.floor[3];
+function nearPlace() { let best = null, bd = NEAR + .5; for (const s of SECTIONS) { const d = onFloor(s, ch.x, ch.y) ? -1 : gap(s, ch.x, ch.y); if (d < bd) { bd = d; best = s; } } return best; }
+// what she is up against: the place that owns the shut ground one pixel ahead of her feet. Head-on means the middle of her feet
+// meets it; with only a corner caught she is brushing past, and slips round it instead (see slip).
+function ahead(dx, dy, headOn) {
+  const ex = ch.x + (dx < 0 ? -5 : 4), ey = ch.y + (dy < 0 ? -4 : 1);
+  const pts = headOn ? [dx ? [ex, ch.y - 1] : [ch.x, ey]] : dx ? [[ex, ch.y - 3], [ex, ch.y]] : [[ch.x - 4, ey], [ch.x + 3, ey]];
+  for (const [x, y] of pts) if (cellAt(x, y) === '#') { const s = SECTIONS.find(s => gap(s, x, y) <= 4); if (s) return s; }
+  return null;
+}
+function enter(id) { ch.moving = false; ch.walked = 0; ch.push = 0; ch.seen = id; show(id); choose(id); }
+function stepChiara() {
+  if (ch.scope) { if (keys.size && !bopen) unwatch(); else return; }             // she holds still while she has the binoculars up
+  if (--ch.blink < -7) ch.blink = rint(150, 420);                              // standing still she blinks every few seconds
+  if (ch.seen && ch.goal !== ch.seen && !(pending && pending.id === ch.seen)) { const s = byId[ch.seen]; if (!onFloor(s, ch.x, ch.y) && gap(s, ch.x, ch.y) > NEAR) ch.seen = null; }
+  let dx = 0, dy = 0;
+  if (!current) { if (keys.has('left')) dx--; if (keys.has('right')) dx++; if (keys.has('up')) dy--; if (keys.has('down')) dy++; }
+  if (dx || dy) {                                                            // walking by hand
+    ch.dir = dx && !dy ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+    let moved = false;
+    if (dx && free(ch.x + dx, ch.y)) { ch.x += dx; moved = true; }
+    if (dy && free(ch.x, ch.y + dy)) { ch.y += dy; moved = true; }
+    const one = !(dx && dy); let hit = !moved && one ? ahead(dx, dy, true) : null;
+    if (hit && hit.id !== ch.seen) { enter(hit.id); return; }                // walked into a place
+    if (!moved && one) moved = slip(dx, dy);
+    if (moved) {
+      ch.route = []; ch.goal = null; pending = null; ch.push = 0; ch.walked++; ch.moving = true;
+      const f = SECTIONS.find(s => onFloor(s, ch.x, ch.y)); if (f && f.id !== ch.seen) enter(f.id);   // stepped onto its floor
+      return;
+    }
+    if (!ch.route.length) {                                                  // up against something, and no way round
+      if (ch.moving) { ch.moving = false; ch.walked = 0; }
+      if (one && !hit) hit = ahead(dx, dy, false);
+      if (hit && (hit.id !== ch.seen || ++ch.push === PUSH)) enter(hit.id);  // a firm push opens the place she is still at
+      return;
+    }
+  } else ch.push = 0;
+  if (!ch.route.length) { if (ch.moving) arrive(); return; }
+  if (!ch.moving) { ch.moving = true; markHere(); }
+  const t = ch.route[0], ex = t[0] - ch.x, ey = t[1] - ch.y;
+  if (ex) { ch.x += Math.sign(ex); ch.dir = ex < 0 ? 'left' : 'right'; } else if (ey) { ch.y += Math.sign(ey); ch.dir = ey < 0 ? 'up' : 'down'; }
+  ch.walked++;
+  if (ch.x === t[0] && ch.y === t[1]) { ch.route.shift(); while (ch.route.length && ch.route[0][0] === ch.x && ch.route[0][1] === ch.y) ch.route.shift(); if (!ch.route.length) arrive(); }
+}
+const placeHere = () => SECTIONS.find(s => Math.abs(s.stand[0] - ch.x) <= 6 && Math.abs(s.stand[1] - ch.y) <= 6);
+function drawChiara() {
+  const row = ROW[ch.dir], f = ch.scope ? 5 : ch.moving ? (1 + Math.floor(ch.walked / STRIDE)) % 4 : ch.blink < 0 && !reduce ? 4 : 0, top = ch.y - FEET[row];
+  stamp(SHADOW, ch.x - 5, ch.y - 1, SHADE);
+  if (!ready(girl)) return;
+  if (ch.dir === 'right') { ctx.save(); ctx.translate(ch.x, 0); ctx.scale(-1, 1); ctx.drawImage(girl, f * GW, row * GH, GW, GH, -GW / 2, top, GW, GH); ctx.restore(); }
+  else ctx.drawImage(girl, f * GW, row * GH, GW, GH, ch.x - GW / 2, top, GW, GH);
+}
+
+/* ---------------------------------------------------------------- birds
+   Sheet (tools/birds.py, drawn by hand): one row per species in the order of SP, 26 x 20 cells with the feet at column 13,
+   row 18. Columns: at rest, wings up, wings down, pecking (or a diver's ring), singing (or a second step, or a second bob).
+   Each kind keeps to its own part of the reserve: reed birds in the reedbed, perching birds on posts and roofs, ground birds
+   on the lawn (they fly off when she walks up), walkers on their strip of grass, ducks and divers on the lagoon, herons at its
+   edge, the swallow over the water, the caracara across the sky, the hummingbird at the flowers. All of it is whole pixels
+   and whole ticks. A bird under the pointer, or one she is watching, keeps still and gets a light edge.
+   23 of the species have research-grade iNaturalist records within 600 m of the Ciudad Universitaria-Costanera Norte reserve
+   (n is the count in November 2026). The other two are the species she studies. The notes are from each Wikipedia introduction. */
+const BW = 26, BH = 20, AX = 13, AY = 18, FLY = 2, FLAP = 6;
+const SP = [
+ {"en": "Straight-billed Reedhaunter", "sci": "Limnoctites rectirostris", "es": "Pajonalera pico recto", "kind": "reed", "hint": "In the reeds", "note": "A South American bird in the ovenbird family, Furnariidae.", "n": 0, "wiki": "Straight-billed_reedhaunter", "inat": 72986, "ph": ["Diego Caballero", "CC BY-NC", 105401861], "box": [-7, -7, 5, 0], "star": ["education", "Chiara's licentiate thesis is a study of this species.", "Thesis species"], "noteEs": "Ave sudamericana de la familia de los horneros, Furnariidae.", "starEs": ["La tesis de licenciatura de Chiara estudia esta especie.", "Especie de la tesis"]},
+ {"en": "Ochre-faced Tody-Flycatcher", "sci": "Poecilotriccus plumbeiceps", "es": "Mosqueta cabeza canela", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher found in Argentina, Bolivia, Brazil, Paraguay, Peru and Uruguay.", "n": 0, "wiki": "Ochre-faced_tody-flycatcher", "inat": 17050, "ph": ["Juan Diego Döke", "CC BY-NC", 89733641], "box": [-6, -7, 3, -1], "star": ["presentations", "Chiara's 2026 poster is on the song of this species.", "Poster species"], "noteEs": "Tiránido presente en Argentina, Bolivia, Brasil, Paraguay, Perú y Uruguay.", "starEs": ["El póster de Chiara de 2026 trata sobre el canto de esta especie.", "Especie del póster"]},
+ {"en": "Rufous Hornero", "sci": "Furnarius rufus", "es": "Hornero", "kind": "ground", "hint": "On the ground", "note": "A medium-sized ovenbird and the national bird of Argentina. It is common in pastures, scrub and farmland, and lives close to people.", "n": 142, "wiki": "Rufous_hornero", "inat": 11275, "ph": ["Ron Knight", "CC BY", 182076045], "box": [-7, -7, 3, 0], "noteEs": "Furnárido de tamaño mediano y ave nacional de la Argentina. Es común en pasturas, matorrales y campos cultivados, y vive cerca de las personas."},
+ {"en": "Rufous-collared Sparrow", "sci": "Zonotrichia capensis", "es": "Chingolo", "kind": "ground", "hint": "On the ground", "note": "A sparrow found from the south-east of Mexico to Tierra del Fuego, often near people. Its varied songs have been studied closely since the 1970s, including by researchers at UBA.", "n": 216, "wiki": "Rufous-collared_sparrow", "inat": 9183, "ph": ["Esteban Poveda", "CC BY", 112061150], "box": [-7, -7, 3, 0], "noteEs": "Paseriforme presente desde el sudeste de México hasta Tierra del Fuego, a menudo cerca de las personas. Sus variados cantos se estudian en detalle desde la década de 1970, también por investigadores de la UBA."},
+ {"en": "Eared Dove", "sci": "Zenaida auriculata", "es": "Torcaza común", "kind": "ground", "hint": "On the ground", "note": "A dove that breeds across South America, from Colombia to southern Argentina and Chile. It moves around with its food supply.", "n": 93, "wiki": "Eared_dove", "inat": 3439, "ph": ["Juan Felipe Restrepo Mesa", "CC BY", 237159], "box": [-7, -7, 4, 0], "noteEs": "Paloma que nidifica en toda Sudamérica, desde Colombia hasta el sur de la Argentina y Chile. Se desplaza según la disponibilidad de alimento."},
+ {"en": "Chalk-browed Mockingbird", "sci": "Mimus saturninus", "es": "Calandria grande", "kind": "ground", "hint": "On the ground", "note": "A mockingbird found in Brazil, Bolivia, Argentina, Paraguay, Suriname and Uruguay.", "n": 258, "wiki": "Chalk-browed_mockingbird", "inat": 14878, "ph": ["Quentin Vandemoortele", "CC BY-NC", 197389027], "box": [-8, -8, 4, 0], "noteEs": "Ave de la familia de las calandrias, Mimidae, presente en Brasil, Bolivia, Argentina, Paraguay, Surinam y Uruguay."},
+ {"en": "Southern Lapwing", "sci": "Vanellus chilensis", "es": "Tero", "kind": "stroll", "hint": "Walking on the grass", "note": "A wader that is common and widespread across South America. In Argentina and Uruguay it is called the tero.", "n": 35, "wiki": "Southern_lapwing", "inat": 4867, "ph": ["Vitor C. Dias Gonçalves", "CC BY-NC", 563410180], "box": [-7, -11, 5, 0], "noteEs": "Ave limícola común y de amplia distribución en Sudamérica. En la Argentina y Uruguay se la conoce como tero."},
+ {"en": "Great Kiskadee", "sci": "Pitangus sulphuratus", "es": "Benteveo", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher and the only member of its genus. It is found from the far south of the United States to Argentina, in open woodland and around houses.", "n": 269, "wiki": "Great_kiskadee", "inat": 16956, "ph": ["Gregory \"Slobirdr\" Smith", "CC BY-SA", 1766283], "box": [-7, -8, 4, 0], "noteEs": "Tiránido, único miembro de su género. Se encuentra desde el extremo sur de los Estados Unidos hasta la Argentina, en bosques abiertos y cerca de las viviendas."},
+ {"en": "Vermilion Flycatcher", "sci": "Pyrocephalus rubinus", "es": "Churrinche", "kind": "high", "hint": "On posts and roofs", "note": "A small tyrant flycatcher. Males have a bright red crown, chest and underparts with brownish wings and tail. Females lack the red.", "n": 155, "wiki": "Vermilion_flycatcher", "inat": 16447, "ph": ["davy", "CC BY-NC", 13441277], "box": [-7, -7, 3, 0], "noteEs": "Tiránido pequeño. El macho tiene la corona, el pecho y las partes inferiores de color rojo intenso, con alas y cola parduscas. La hembra carece de rojo."},
+ {"en": "Red-crested Cardinal", "sci": "Paroaria coronata", "es": "Cardenal copete rojo", "kind": "high", "hint": "On posts and roofs", "note": "A bird of the tanager family. Despite the name it is not closely related to the true cardinals.", "n": 162, "wiki": "Red-crested_cardinal", "inat": 10254, "ph": ["GUSTAVO PASCUAS", "CC BY-NC", 313854459], "box": [-7, -8, 3, 0], "noteEs": "Ave de la familia de los tráupidos. A pesar de su nombre, no está estrechamente emparentada con los cardenales verdaderos."},
+ {"en": "Saffron Finch", "sci": "Sicalis flaveola", "es": "Jilguero dorado", "kind": "high", "hint": "On posts and roofs", "note": "A tanager that is common in open and semi-open lowlands of South America outside the Amazon Basin.", "n": 333, "wiki": "Saffron_finch", "inat": 9864, "ph": ["Alejandro Bayer Tamayo", "CC BY-SA", 220765971], "box": [-7, -7, 3, 0], "noteEs": "Tráupido común en tierras bajas abiertas y semiabiertas de Sudamérica, fuera de la cuenca amazónica."},
+ {"en": "Fork-tailed Flycatcher", "sci": "Tyrannus savana", "es": "Tijereta", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher named for its long forked tail, which is longest in males. It watches from an open perch and flies out to catch insects.", "n": 104, "wiki": "Fork-tailed_flycatcher", "inat": 16793, "ph": ["Guilherme Cameis Freda", "CC BY-SA", 596460001], "box": [-13, -7, 3, 1], "noteEs": "Tiránido que debe su nombre a la larga cola ahorquillada, más larga en los machos. Vigila desde una percha expuesta y sale en vuelo para atrapar insectos."},
+ {"en": "Monk Parakeet", "sci": "Myiopsitta monachus", "es": "Cotorra", "kind": "high", "hint": "On posts and roofs", "note": "A bright green parrot with a greyish breast, from temperate and subtropical South America. Feral populations now live in North America and Europe.", "n": 99, "wiki": "Monk_parakeet", "inat": 19349, "ph": ["Juan Emilio", "CC BY-SA", 159010359], "box": [-8, -8, 3, 0], "noteEs": "Loro de color verde brillante y pecho grisáceo, propio de las zonas templadas y subtropicales de Sudamérica. Hoy existen poblaciones asilvestradas en América del Norte y Europa."},
+ {"en": "Spectacled Tyrant", "sci": "Hymenops perspicillatus", "es": "Pico de plata", "kind": "reed", "hint": "In the reeds", "note": "A tyrant flycatcher found in Argentina, Bolivia, Brazil, Chile, Paraguay and Uruguay.", "n": 76, "wiki": "Spectacled_tyrant", "inat": 17253, "ph": ["Lip Kee", "CC BY-SA", 386914], "box": [-7, -7, 3, 0], "noteEs": "Tiránido presente en Argentina, Bolivia, Brasil, Chile, Paraguay y Uruguay."},
+ {"en": "Yellow-billed Teal", "sci": "Anas flavirostris", "es": "Pato Barcino", "kind": "swim", "hint": "On the lagoon", "note": "A South American duck of freshwater wetlands. It prefers marshes to rivers.", "n": 502, "wiki": "Yellow-billed_teal", "inat": 6947, "ph": ["Gonzalo González Mora", "CC BY", 452559360], "box": [-6, -5, 7, 0], "noteEs": "Pato sudamericano de humedales de agua dulce. Prefiere los bañados a los ríos."},
+ {"en": "Neotropic Cormorant", "sci": "Nannopterum brasilianum", "wikiEs": "Phalacrocorax_brasilianus", "es": "Biguá", "kind": "swim", "hint": "On the lagoon", "note": "A medium-sized cormorant of coasts and inland waters, found from the southern United States to southern South America. Biguá is its indigenous name.", "n": 385, "wiki": "Neotropic_cormorant", "inat": 1289601, "ph": ["Daniel Onea", "CC BY-NC", 256314790], "box": [-6, -5, 8, 0], "noteEs": "Cormorán de tamaño mediano, de costas y aguas interiores, presente desde el sur de los Estados Unidos hasta el sur de Sudamérica. Biguá es su nombre indígena."},
+ {"en": "Great Grebe", "sci": "Podiceps major", "es": "Macá grande", "kind": "swim", "hint": "On the lagoon", "note": "The largest grebe in the world. Its main range runs from the far south-east of Brazil to Patagonia and central Chile.", "n": 136, "wiki": "Great_grebe", "inat": 4229, "ph": ["Daniele Colombo", "CC BY-NC-SA", 4901168], "box": [-6, -7, 8, 0], "noteEs": "El macá más grande del mundo. Su área principal de distribución se extiende desde el extremo sudeste de Brasil hasta la Patagonia y el centro de Chile."},
+ {"en": "Common Gallinule", "sci": "Gallinula galeata", "es": "Pollona negra", "kind": "swim", "hint": "On the lagoon", "note": "A rail of well-vegetated marshes, ponds and canals in the Americas. It was split from the Common Moorhen in 2011.", "n": 145, "wiki": "Common_gallinule", "inat": 144479, "ph": ["Kakalotli", "CC BY-NC", 6178797], "box": [-6, -5, 7, 0], "noteEs": "Rálido de bañados, lagunas y canales con abundante vegetación, en América. Se la separó de la gallineta común en 2011."},
+ {"en": "Cocoi Heron", "sci": "Ardea cocoi", "es": "Garza mora", "kind": "shore", "hint": "At the water's edge", "note": "A long-legged heron found across South America. It is mostly pale grey with a darker crest, and hunts fish and crustaceans in shallow water.", "n": 437, "wiki": "Cocoi_heron", "inat": 4952, "ph": ["andriy", "CC BY-NC", 2999891], "box": [-7, -15, 6, 0], "noteEs": "Garza de patas largas presente en toda Sudamérica. Es en su mayor parte gris pálida, con el copete más oscuro, y caza peces y crustáceos en aguas poco profundas."},
+ {"en": "Great Egret", "sci": "Ardea alba", "es": "Garza blanca", "kind": "shore", "hint": "At the water's edge", "note": "A large egret found across the tropical and warmer temperate parts of the world. It nests in colonies in trees close to water.", "n": 314, "wiki": "Great_egret", "inat": 144455, "ph": ["daverowe", "CC BY-NC", 56653891], "box": [-7, -14, 6, 0], "noteEs": "Garza grande presente en las zonas tropicales y templadas cálidas de todo el mundo. Nidifica en colonias, en árboles cercanos al agua."},
+ {"en": "Limpkin", "sci": "Aramus guarauna", "es": "Carau", "kind": "stroll", "hint": "By the lagoon", "note": "A large wading bird related to rails and cranes, and the only living member of its family. It eats mostly apple snails. Its name comes from its limping walk.", "n": 505, "wiki": "Limpkin", "inat": 7, "ph": ["JeffreyGammon", "CC BY-NC", 99420301], "box": [-8, -11, 7, 0], "noteEs": "Ave zancuda grande, emparentada con los rálidos y las grullas, y único miembro viviente de su familia. Se alimenta sobre todo de caracoles del género Pomacea. Su nombre en inglés, limpkin, alude a su andar, que parece rengo."},
+ {"en": "Wattled Jacana", "sci": "Jacana jacana", "es": "Jacana", "kind": "shore", "hint": "On the lily pads", "note": "A wader found across much of South America east of the Andes. Long toes and claws let it walk on floating plants. Females are larger than males.", "n": 44, "wiki": "Wattled_jacana", "inat": 4580, "ph": ["Greg Lasley", "CC BY-NC", 9867610], "box": [-6, -9, 5, 0], "noteEs": "Ave limícola presente en gran parte de Sudamérica al este de los Andes. Sus largos dedos y uñas le permiten caminar sobre plantas flotantes. Las hembras son más grandes que los machos."},
+ {"en": "White-rumped Swallow", "sci": "Tachycineta leucorrhoa", "es": "Golondrina ceja blanca", "kind": "air", "hint": "Flying over the lagoon", "note": "A swallow first described by Vieillot in 1817. A white streak above the lores tells it from the Chilean Swallow.", "n": 70, "wiki": "White-rumped_swallow", "inat": 11936, "ph": ["Diana Fuentes", "CC BY-NC", 28096412], "box": [-5, -7, 3, -2], "noteEs": "Golondrina descripta por Vieillot en 1817. Una línea blanca sobre los lores la distingue de la golondrina patagónica."},
+ {"en": "Crested Caracara", "sci": "Caracara plancus", "es": "Carancho", "kind": "soar", "hint": "Soaring over the reserve", "note": "A bird of prey in the falcon family, found from the southern United States through most of Latin America.", "n": 336, "wiki": "Crested_caracara", "inat": 4715, "ph": ["Juan Cruzado Cortés", "CC BY", 344678876], "box": [-8, -16, 7, 0], "noteEs": "Ave rapaz de la familia de los halcones, presente desde el sur de los Estados Unidos y en la mayor parte de América Latina."},
+ {"en": "Glittering-bellied Emerald", "sci": "Chlorostilbon lucidus", "es": "Picaflor verde", "kind": "hover", "hint": "At the flowers", "note": "A hummingbird found in Argentina, Bolivia, Brazil, Paraguay and Uruguay.", "n": 101, "wiki": "Glittering-bellied_emerald", "inat": 6085, "ph": ["Carlos Schmidtutz", "CC BY-NC", 103160769], "box": [-3, -5, 5, 0], "noteEs": "Picaflor presente en Argentina, Bolivia, Brasil, Paraguay y Uruguay."},
+ {"en": "Tropical Parula", "sci": "Setophaga pitiayumi", "es": "Pitiayumí", "kind": "high", "hint": "On posts and roofs", "note": "A New World warbler found from Texas and Mexico through Central America, and in every mainland South American country.", "n": 50, "wiki": "Tropical_parula", "inat": 145234, "box": [-7, -7, 3, 0], "ph": ["Oswaldo Hernández", "CC BY-NC", 115454163], "noteEs": "Parúlido presente desde Texas y México, a través de América Central, y en todos los países continentales de Sudamérica."},
+ {"en": "Blue-billed Black-Tyrant", "sci": "Knipolegus cyanirostris", "es": "Viudita pico celeste", "kind": "high", "hint": "On posts and roofs", "note": "A tyrant flycatcher found in Argentina, Brazil, Paraguay and Uruguay.", "n": 26, "wiki": "Blue-billed_black_tyrant", "inat": 16828, "box": [-7, -7, 3, 0], "ph": ["Diego Carús", "CC0", 26406838], "noteEs": "Tiránido presente en Argentina, Brasil, Paraguay y Uruguay."},
+ {"en": "Lesson's Motmot", "sci": "Momotus lessonii", "es": "Momoto corona negra", "kind": "tree", "hint": "In the trees", "note": "Also called the blue-diademed motmot. A colourful bird of forests and woodlands from southern Mexico to western Panama.", "n": 0, "far": 1, "wiki": "Lesson's_motmot", "inat": 509025, "box": [-9, -10, 5, 0], "ph": ["Ramón Trinchan", "CC BY-NC", 277771108], "noteEs": "También llamado momoto diademado. Ave colorida de bosques y arboledas, desde el sur de México hasta el oeste de Panamá."},
+ {"en": "Resplendent Quetzal", "sci": "Pharomachrus mocinno", "es": "Quetzal mesoamericano", "kind": "tree", "hint": "In the trees", "note": "A bird of the trogon family found in southern Mexico and Central America. It lives in tropical forests, particularly montane cloud forests.", "n": 0, "far": 1, "wiki": "Resplendent_quetzal", "inat": 20856, "box": [-10, -10, 3, 0], "ph": ["Ad Konings", "CC BY-NC", 177769323], "noteEs": "Ave de la familia de los trogones presente en el sur de México y América Central. Vive en bosques tropicales, en especial en bosques nubosos de montaña."}
+];
+/* Each card leads with the name in the page's language and gives the other one beside the scientific name. */
+const HINT_ES = {"In the reeds": "En el totoral", "On posts and roofs": "En postes y techos", "On the ground": "En el suelo", "Walking on the grass": "Caminando por el pasto", "On the lagoon": "En la laguna", "At the water's edge": "En la orilla", "By the lagoon": "Junto a la laguna", "On the lily pads": "Sobre las plantas flotantes", "Flying over the lagoon": "Volando sobre la laguna", "Soaring over the reserve": "Planeando sobre la reserva", "At the flowers": "En las flores", "In the trees": "En los árboles"};
+SP.forEach(s => { s.name = ES ? s.es : s.en; s.other = ES ? s.en : s.es; if (ES) { s.note = s.noteEs; s.hint = HINT_ES[s.hint]; if (s.star) { s.star[1] = s.starEs[0]; s.star[2] = s.starEs[1]; } } });
+const SPOTS = {
+  reed:[[72, 150], [84, 144], [98, 140], [112, 142], [126, 146], [140, 152], [132, 166], [142, 180], [124, 158], [76, 158]],
+  high:[[83, 45], [141, 45], [161, 35], [197, 35], [266, 11], [300, 11], [318, 95], [350, 95], [259, 134], [233, 138], [169, 153], [182, 154], [95, 160], [130, 184], [65, 242], [126, 242], [226, 242], [299, 242]],
+  ground:[[40, 40], [60, 56], [150, 56], [340, 68], [84, 100], [272, 100], [280, 130], [318, 190], [326, 204], [50, 234], [112, 234], [270, 236], [150, 232], [130, 84], [296, 160], [56, 120], [250, 222], [200, 84], [330, 84]],
+  tree:[[31, 100], [42, 92], [365, 36], [356, 28], [29, 219], [351, 215]],
+  flower:[[75, 100], [270, 107], [351, 179], [135, 21], [287, 25]],
+};
+const PORTRAIT = { education:['reedhaunter', 0], presentations:['tody', 1] };     // the two pages about a bird show it
+const PECKS = new Set([0, 1, 2, 3, 4]), DIVES = new Set([15, 16]);
+const taken = new Set(), birds = [], rint = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+function pick(kind, far) { const l = SPOTS[kind].filter(p => !taken.has(p) && (!far || dist(p, [ch.x, ch.y]) > 70)); return l[rint(0, l.length - 1)] || SPOTS[kind][0]; }
+function addBird(sp, kind, p) { p = p || pick(kind); taken.add(p); birds.push({ sp, kind, spot:p, x:p[0], y:p[1], z:0, state:'sit', t:rint(60, 400), n:0, flip:Math.random() < .5, peck:false, to:null }); }
+function put(sp, x, y, more) { birds.push(Object.assign({ sp, kind:SP[sp].kind, x, y, z:0, state:'sit', t:rint(60, 300), n:0, flip:Math.random() < .5, peck:false, to:null }, more)); }
+addBird(0, 'reed', SPOTS.reed[2]); addBird(0, 'reed'); addBird(13, 'reed');
+addBird(1, 'high', SPOTS.high[4]); [7, 8, 9, 10, 11, 12, 25, 26].forEach(sp => addBird(sp, 'high')); addBird(27, 'tree'); addBird(28, 'tree');
+[2, 2, 3, 4, 5].forEach(sp => addBird(sp, 'ground'));
+put(14, 128, 122); put(15, 168, 108); put(16, 196, 134); put(17, 152, 142);                    // on the lagoon
+put(18, 247, 106, { flip:true }); put(19, 92, 126, { flip:false }); put(21, 222, 112);          // heron on the bank, egret in the shallows, jacana on a lily pad
+put(6, 50, 66, { zone:[30, 74] }); put(20, 214, 170, { zone:[198, 230] });                     // lapwing on the school lawn, limpkin along the shore
+put(22, 170, 120, { to:[120, 100] }); put(23, 0, 0, { state:'away', t:rint(240, 700) });       // swallow, caracara
+put(24, 75, 100, { spot:SPOTS.flower[0] });
+const notes = [];
+let water = null, hot = null, watch = null, watchAt = 0;                       // hot = the bird under the pointer, watch = the one she has her binoculars on
+const wet = (x, y) => water && x >= 0 && y >= 0 && x < MAPW && y < MAPH && water[y * MAPW + x];
+const floats = (x, y) => wet(x - 7, y) && wet(x + 8, y) && wet(x - 7, y + 2) && wet(x + 8, y + 2) && wet(x, y - 3);
+function cueSong() { const b = birds.find(b => b.sp === 0 && b.state === 'sit'); if (b && !reduce) { b.cue = true; b.t = Math.min(b.t, 25); } }
+function launch(b, far) { const to = pick(b.kind, far); taken.delete(b.spot); taken.add(to); b.spot = to; b.to = to; b.state = 'fly'; b.peck = false; b.flip = to[0] < b.x; }
+const pecks = (b, lo, hi) => { if (--b.t <= 0) { b.peck = !b.peck; b.t = b.peck ? 10 : 14; if (!b.peck && --b.n <= 0) { b.state = 'sit'; b.t = rint(lo, hi); } } };
+const sings = (b, lo, hi) => { if (b.t % 26 === 0 && b.n-- > 0) { notes.push({ x:b.x + (b.flip ? -6 : 6), y:b.y - 11, v:b.n & 1, age:0 }); sfx('chirp'); } if (++b.t > 26 * 4) { b.state = 'sit'; b.t = rint(lo, hi); } };
+// Through the binoculars a sitting bird stays where it is and goes on with what it does: the reedhaunter sings, the ground birds
+// peck, the others look the other way now and then.
+function pose(b) {
+  if (reduce || b.state === 'fly' || !(b.kind === 'ground' || b.kind === 'reed' || b.kind === 'high' || b.kind === 'tree')) return;
+  if (b.state === 'peck') pecks(b, 40, 120); else if (b.state === 'sing') sings(b, 60, 160);
+  else if (--b.t <= 0) {
+    if (b.sp === 0) { b.state = 'sing'; b.t = 0; b.n = 3; }
+    else if (b.kind === 'ground' && PECKS.has(b.sp)) { b.state = 'peck'; b.n = rint(2, 4); b.peck = true; b.t = 10; }
+    else { b.flip = !b.flip; b.t = rint(90, 240); }
+  }
+}
+function stepBirds() {
+  for (let i = notes.length; i--;) if (++notes[i].age >= 60) notes.splice(i, 1);
+  for (const b of birds) {
+    if (b === watch) { if (bopen === 'card') pose(b); continue; }
+    if (b === hot) continue;                                                 // held still while the pointer is on it
+    const k = b.kind;
+    if (k === 'soar') {                                                      // across the sky in a straight line, then gone for a while
+      if (b.state === 'away') { if (reduce || --b.t > 0) continue; b.flip = Math.random() < .5; b.x = b.flip ? MAPW + 12 : -12; b.y = rint(40, 200); b.state = 'sit'; b.n = 0; continue; }
+      if (++b.n & 1) b.x += b.flip ? -1 : 1;
+      if (b.x < -14 || b.x > MAPW + 14) { b.state = 'away'; b.t = rint(900, 2400); }
+      continue;
+    }
+    if (reduce && b.state !== 'fly') continue;
+    if (k === 'air') {                                                       // the swallow never lands
+      const dx = b.to[0] - b.x, dy = b.to[1] - b.y, d = Math.hypot(dx, dy);
+      if (d <= 2) { b.to = [rint(70, 300), rint(60, 190)]; b.flip = b.to[0] < b.x; } else { b.x += dx / d * 2; b.y += dy / d * 2; }
+      continue;
+    }
+    if (k === 'hover') {                                                     // hangs at a flower, then darts to another
+      if (b.to) { const dx = b.to[0] - b.x, dy = b.to[1] - b.y, d = Math.hypot(dx, dy); if (d <= 3) { b.x = b.to[0]; b.y = b.to[1]; b.to = null; b.t = rint(150, 420); } else { b.x += dx / d * 3; b.y += dy / d * 3; } }
+      else if (--b.t <= 0) { const l = SPOTS.flower.filter(p => p !== b.spot); b.spot = l[rint(0, l.length - 1)]; b.to = b.spot; b.flip = b.to[0] < b.x; }
+      continue;
+    }
+    if (k === 'shore') { if (--b.t <= 0) { if (b.sp === 21) b.flip = !b.flip; b.t = rint(300, 900); } continue; }
+    if (k === 'stroll') {                                                    // back and forth along its strip, a pixel every six ticks
+      if (b.state === 'walk') { if (--b.t <= 0) { const nx = b.x + (b.flip ? -1 : 1); if (nx < b.zone[0] || nx > b.zone[1] || --b.n <= 0) { b.state = 'sit'; b.t = rint(90, 360); } else { b.x = nx; b.t = 6; } } }
+      else if (--b.t <= 0) { if (b.x <= b.zone[0] + 2) b.flip = false; else if (b.x >= b.zone[1] - 2) b.flip = true; else if (Math.random() < .5) b.flip = !b.flip; b.state = 'walk'; b.n = rint(8, 24); b.t = 6; }
+      continue;
+    }
+    if (k === 'swim') {
+      if (b.state === 'dive') { if (--b.t <= 0) { for (let i = 0; i < 12; i++) { const x = b.x + rint(-30, 30), y = b.y + rint(-14, 14); if (floats(x, y)) { b.x = x; b.y = y; break; } } b.state = 'sit'; b.t = rint(200, 500); } continue; }
+      if (--b.t > 0) continue;
+      if (b.to) {                                                            // paddles a pixel at a time, more across than up and down
+        const sx = Math.sign(b.to[0] - b.x), sy = b.n++ % 3 ? 0 : Math.sign(b.to[1] - b.y), nx = b.x + sx, ny = b.y + sy;
+        if ((!sx && b.y === b.to[1]) || !floats(nx, ny)) { b.to = null; b.t = rint(120, 420); } else { b.x = nx; b.y = ny; b.t = 5; }
+      } else if (DIVES.has(b.sp) && Math.random() < .35) { b.state = 'dive'; b.t = 110; }
+      else for (let i = 0; i < 12 && !b.to; i++) { const x = rint(88, 252), y = rint(94, 158); if (floats(x, y) && Math.abs(x - b.x) > 12) { b.to = [x, y]; b.flip = x < b.x; b.n = 0; b.t = 5; } }
+      continue;
+    }
+    if (b.state === 'fly') {
+      const dx = b.to[0] - b.x, dy = b.to[1] - b.y, d = Math.hypot(dx, dy);
+      if (k === 'ground') b.z = Math.min(12, b.z + 1, Math.floor(d / 2));              // ground to ground: climb, level off, come down
+      if (d <= FLY) { b.x = b.to[0]; b.y = b.to[1]; b.z = 0; b.state = 'sit'; b.t = rint(120, 500); } else { b.x += dx / d * FLY; b.y += dy / d * FLY; }
+      continue;
+    }
+    if (k === 'ground' && ch.moving && dist([b.x, b.y], [ch.x, ch.y]) < 22) { launch(b, true); continue; }
+    if (b.state === 'peck') { pecks(b, 40, 200); continue; }
+    if (b.state === 'walk') { if (--b.t <= 0) { const nx = b.x + (b.flip ? -1 : 1); if (cellAt(nx + (b.flip ? -4 : 4), b.y) === '#' || --b.n <= 0) { b.state = 'sit'; b.t = rint(30, 160); } else { b.x = nx; b.t = 5; } } continue; }
+    if (b.state === 'sing') { sings(b, 200, 600); continue; }
+    if (--b.t > 0) continue;
+    if (b.sp === 0 && (b.cue || Math.random() < .35)) { b.cue = false; b.state = 'sing'; b.t = 0; b.n = rint(2, 3); continue; }
+    const r = Math.random();
+    if (k === 'ground') {
+      if (r < .45 && PECKS.has(b.sp)) { b.state = 'peck'; b.n = rint(2, 4); b.peck = true; b.t = 10; }
+      else if (r < .85) { if (Math.random() < .5) b.flip = !b.flip; b.state = 'walk'; b.n = rint(5, 14); b.t = 5; }
+      else launch(b);
+    } else if (r < .6) { b.flip = !b.flip; b.t = rint(90, 420); }
+    else launch(b);
+  }
+}
+const aloft = b => b.state === 'fly' || b.kind === 'air' || b.kind === 'soar' || b.kind === 'hover';
+function frameOf(b) {
+  const k = b.kind;
+  if (k === 'swim') return b.state === 'dive' ? 3 : ((tick + b.sp * 17) / 40 | 0) & 1 ? 4 : 0;
+  if (k === 'stroll') return b.state === 'walk' && (b.x >> 1 & 1) ? 4 : 0;
+  if (k === 'hover') return 1 + (tick / 3 & 1);
+  if (k === 'air') return 1 + (tick / 5 & 1);
+  if (k === 'soar' || k === 'shore') return 0;
+  return b.state === 'fly' ? 1 + (Math.floor(tick / FLAP) & 1) : b.peck ? 3 : b.state === 'sing' && b.t % 26 < 15 ? 4 : 0;
+}
+// the sheet again with every pixel one colour: yellow for the edge round a bird that is being looked at, brown for the notebook's unseen birds
+let litImg = null, darkImg = null;
+function tint(colour) { const c = document.createElement('canvas'); c.width = birdImg.naturalWidth; c.height = birdImg.naturalHeight; const g = c.getContext('2d'); g.drawImage(birdImg, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = colour; g.fillRect(0, 0, c.width, c.height); return c; }
+birdImg.addEventListener('load', () => { litImg = tint('#ffe66a'); darkImg = tint('#b98d4f'); });
+function drawBird(b) {
+  if (!ready(birdImg) || b.state === 'away') return;
+  const x = Math.round(b.x), y = Math.round(b.y) - (b.state === 'fly' ? b.z : 0), col = frameOf(b), lit = (b === hot || b === watch) && litImg && b.state !== 'dive' && !inLens;
+  if (b.kind === 'ground' || b.kind === 'stroll') stamp(SHADOW_S, x - 2, Math.round(b.y) - 1, SHADE);
+  const at = (im, ox, oy) => ctx.drawImage(im, col * BW, b.sp * BH, BW, BH, ox - AX, y - AY + oy, BW, BH);
+  ctx.save(); ctx.translate(x, 0); if (b.flip) ctx.scale(-1, 1);
+  if (lit) { at(litImg, 1, 0); at(litImg, -1, 0); at(litImg, 0, 1); at(litImg, 0, -1); }
+  at(birdImg, 0, 0); ctx.restore();
+}
+
+function drawNotes() { if (ready(birdImg)) for (const q of notes) ctx.drawImage(birdImg, q.v * BW, SP.length * BH, BW, BH, Math.round(q.x) - 4 + ((q.age / 15 | 0) & 1), Math.round(q.y) - 5 - (q.age / 6 | 0), BW, BH); }
+
+/* --------------------------------------------------------------- water
+   The painter put short light dashes on the lagoon. They are read off the map when it loads, and each one sits a pixel to the
+   right for a second, then goes back, half of them at a time: the two-frame water of an old handheld game. */
+const DEEP = '#2183d3', dashes = [];
+mapImg.addEventListener('load', () => {
+  const c = document.createElement('canvas'); c.width = MAPW; c.height = MAPH; const g = c.getContext('2d'); g.drawImage(mapImg, 0, 0);
+  const px = g.getImageData(0, 0, MAPW, MAPH).data, is = (x, y, r, gr, b) => { const o = (y * MAPW + x) * 4; return Math.abs(px[o] - r) < 4 && Math.abs(px[o + 1] - gr) < 4 && Math.abs(px[o + 2] - b) < 4; };
+  const deep = (x, y) => is(x, y, 33, 131, 211), light = (x, y) => is(x, y, 58, 158, 208) || is(x, y, 91, 183, 220);
+  water = new Uint8Array(MAPW * MAPH); for (let y = 0; y < MAPH; y++) for (let x = 0; x < MAPW; x++) if (deep(x, y) || light(x, y) || is(x, y, 24, 109, 183)) water[y * MAPW + x] = 1;   // where the ducks can go
+  for (let y = 90; y < 164; y++) for (let x = 84; x < 260; x++) {
+    if (!light(x, y) || !deep(x - 1, y)) continue; let len = 1; while (light(x + len, y)) len++;
+    if (len <= 4 && deep(x + len, y) && deep(x + len + 1, y)) dashes.push({ x, y, len, c:`rgb(${px[(y * MAPW + x) * 4]},${px[(y * MAPW + x) * 4 + 1]},${px[(y * MAPW + x) * 4 + 2]})` });
+  }
+});
+function drawWater() {
+  if (reduce) return;
+  dashes.forEach((d, i) => { if (!(((tick / 64 | 0) + i) & 1)) return; ctx.fillStyle = DEEP; ctx.fillRect(d.x, d.y, 1, 1); ctx.fillStyle = d.c; ctx.fillRect(d.x + d.len, d.y, 1, 1); });
+}
+
+/* ------------------------------------------------------ view and drawing */
+const stage = $('stage'), cv = $('cv'), signs = $('signs'), dock = $('dock'), tip = $('tip');
+let ctx = cv.getContext('2d'), inLens = false;
+const DEBUG = new URLSearchParams(location.search).has('grid');
+const TICK = 1000 / 60;
+let W = 0, H = 0, S = 1, n = 1, VW = MAPW, VH = MAPH, left = 0, top = 0, portrait = false, cam = { x:0, y:0 }, drag = null, look = 0, hover = null, last = 0, acc = 0, pending = null, current = null;
+function resize() {
+  const DPR = Math.min(3, devicePixelRatio || 1);
+  portrait = innerWidth < 700 || innerWidth / innerHeight < .9; document.body.classList.toggle('portrait', portrait);
+  W = stage.clientWidth; H = stage.clientHeight;
+  const fit = Math.min(W / MAPW, H / MAPH); S = portrait ? Math.max(fit, Math.min(H / MAPH, W / 176)) : fit;      // phones zoom in and the view follows her
+  VW = Math.min(MAPW, Math.ceil(W / S)); VH = Math.min(MAPH, Math.ceil(H / S)); left = Math.round((W - VW * S) / 2); top = Math.round((H - VH * S) / 2);
+  // draw at a whole number of screen pixels per game pixel, then let the browser fit that to the window: pixels stay even and sharp
+  n = Math.max(1, Math.ceil(S * DPR)); cv.width = VW * n; cv.height = VH * n;
+  cv.style.width = VW * S + 'px'; cv.style.height = VH * S + 'px'; cv.style.left = left + 'px'; cv.style.top = top + 'px';
+  signs.style.setProperty('--k', clamp(S / 2.9, .7, 1.2).toFixed(3));
+  stage.style.backgroundSize = `auto, ${28 * S}px ${24 * S}px`; stage.style.backgroundPosition = `0 0, ${left}px ${top}px`;
+  follow(true); place();
+}
+function follow(snap) {
+  const tx = clamp(ch.x - (VW >> 1), 0, MAPW - VW), ty = clamp(clamp(ch.y, 0, MAPH) - 10 - (VH >> 1), 0, MAPH - VH);
+  if (snap) { cam.x = tx; cam.y = ty; } else if (look <= 0 && !drag) { cam.x += clamp(tx - cam.x, -2, 2); cam.y += clamp(ty - cam.y, -2, 2); }    // steady scroll, a couple of pixels a tick
+}
+const toScreen = (x, y) => [left + (x - cam.x) * S, top + (y - cam.y) * S], toMap = (x, y) => [x / S + cam.x, y / S + cam.y];
+let placed = '';
+function place() {
+  const key = cam.x + ',' + cam.y + ',' + S.toFixed(4) + ',' + left + ',' + top; if (key === placed) return; placed = key;
+  for (const s of SECTIONS) { const p = toScreen(s.sign[0], s.sign[1]); s.el.style.transform = `translate(${Math.round(p[0])}px,${Math.round(Math.max(p[1], s.el.offsetHeight + 3))}px) translate(-50%,-100%)`; }
+}
+/* ---------------------------------------------------------------- sound
+   Off until the visitor turns it on, and off again on the next visit. Nothing is downloaded: the tune and the effects are
+   made in the browser from plain oscillators and filtered noise. The tune was written for this page. It is sixteen bars
+   in G major at 92 beats a minute, a plucked melody over broken chords, then four bars of the chords alone before it
+   comes round again. Each bar below is its chord and eight quavers of melody (MIDI note numbers, 0 for none). */
+const audio = { on:false, ctx:null, out:null, music:null, fx:null, hiss:null, timer:0, next:0, pos:0 };
+const QUAVER = 60 / 92 / 2;
+const CHORD = { G:[55, 59, 62], Df:[54, 57, 62], Em:[52, 55, 59], C:[48, 52, 55], D:[50, 54, 57] };
+const TUNE = [
+  ['G',  [71, 0, 74, 0, 79, 0, 74, 71]], ['Df', [69, 0, 0, 74, 0, 69, 0, 0]], ['Em', [67, 0, 71, 0, 76, 0, 71, 67]], ['C', [76, 0, 0, 79, 0, 76, 0, 0]],
+  ['G',  [74, 0, 71, 0, 74, 0, 79, 0]],  ['D',  [81, 0, 78, 0, 74, 0, 69, 0]], ['C',  [67, 0, 72, 0, 76, 0, 79, 0]],  ['D', [78, 0, 0, 76, 0, 74, 0, 0]],
+  ['Em', [76, 0, 0, 71, 0, 76, 79, 0]],  ['C',  [79, 0, 76, 0, 72, 0, 76, 0]], ['G',  [74, 0, 0, 71, 0, 74, 79, 0]],  ['D', [81, 0, 78, 0, 74, 0, 0, 0]],
+  ['Em', [71, 0, 76, 0, 79, 0, 76, 0]],  ['C',  [72, 0, 76, 0, 79, 0, 76, 72]], ['D', [74, 0, 78, 0, 81, 0, 78, 74]], ['G', [79, 0, 0, 74, 0, 71, 67, 0]],
+  ['G', 0], ['Em', 0], ['C', 0], ['D', 0],
+];
+// One plucked note: it starts at once and dies away.
+function tone(bus, t, midi, gain, dur, type) {
+  const c = audio.ctx, o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.value = 440 * 2 ** ((midi - 69) / 12);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(gain, t + .008); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g); g.connect(bus); o.start(t); o.stop(t + dur + .05);
+}
+// A short burst of noise through a narrow filter: a footstep on grass, a pencil stroke, the click of the binoculars.
+function hiss(t, dur, freq, q, gain) {
+  const c = audio.ctx, n = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); n.buffer = audio.hiss; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+  g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur); n.connect(f); f.connect(g); g.connect(audio.fx); n.start(t, Math.random() * .8, dur + .02);
+}
+// The tune is queued a third of a second ahead, so a busy frame cannot make it stumble.
+function playAhead(until) {
+  const c = audio.ctx;
+  if (until === undefined) { if (!audio.on || c.state !== 'running') return; if (audio.next < c.currentTime) audio.next = c.currentTime + .06; until = c.currentTime + .33; }
+  while (audio.next < until) {
+    const bar = TUNE[Math.floor(audio.pos / 8) % TUNE.length], i = audio.pos % 8, t = audio.next, cd = CHORD[bar[0]], m = bar[1] && bar[1][i];
+    tone(audio.music, t, [cd[0], cd[2], cd[1] + 12, cd[2]][i % 4], .06, .5, 'sine');
+    if (!i) tone(audio.music, t, cd[0], .09, 2, 'triangle');
+    if (m) { tone(audio.music, t, m, .15, .9, 'triangle'); tone(audio.music, t, m + 12, .035, .4, 'sine'); }
+    audio.next += QUAVER; audio.pos++;
+  }
+}
+// The tune and the effects each have their own level. The tune also goes through a quiet echo, and a limiter guards the output.
+function wire(c) {
+  const limit = c.createDynamicsCompressor(), echo = c.createDelay(1), back = c.createGain(), wet = c.createGain(); audio.ctx = c;
+  limit.threshold.value = -6; limit.knee.value = 6; limit.ratio.value = 8;
+  audio.out = c.createGain(); audio.out.gain.value = 0; audio.out.connect(limit); limit.connect(c.destination);
+  audio.music = c.createGain(); audio.music.gain.value = 1.2; audio.music.connect(audio.out); audio.fx = c.createGain(); audio.fx.connect(audio.out);
+  echo.delayTime.value = QUAVER * 3; back.gain.value = .3; wet.gain.value = .25; audio.music.connect(echo); echo.connect(back); back.connect(echo); echo.connect(wet); wet.connect(audio.out);
+  audio.hiss = c.createBuffer(1, c.sampleRate, c.sampleRate); const d = audio.hiss.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function soundOn() {
+  if (!audio.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return false; wire(new C()); }
+  audio.on = true; audio.ctx.resume(); audio.out.gain.setTargetAtTime(1, audio.ctx.currentTime, .15); clearInterval(audio.timer); audio.timer = setInterval(playAhead, 50); return true;
+}
+function soundOff() {
+  audio.on = false; clearInterval(audio.timer); if (!audio.ctx) return;
+  audio.out.gain.setTargetAtTime(0, audio.ctx.currentTime, .05); setTimeout(() => { if (!audio.on) audio.ctx.suspend(); }, 400);
+}
+function sfx(kind) {
+  if (!audio.on || audio.ctx.state !== 'running') return; const c = audio.ctx, t = c.currentTime + .01, fx = audio.fx;
+  if (kind === 'step') hiss(t, .07, 700 + Math.random() * 500, .9, .05);
+  else if (kind === 'pencil') hiss(t, .04, 2600 + Math.random() * 1800, 2, .025);
+  else if (kind === 'open') { tone(fx, t, 76, .1, .18, 'triangle'); tone(fx, t + .07, 83, .1, .25, 'triangle'); }
+  else if (kind === 'close') { tone(fx, t, 83, .08, .15, 'triangle'); tone(fx, t + .07, 76, .08, .22, 'triangle'); }
+  else if (kind === 'page') tone(fx, t, 79, .08, .15, 'triangle');
+  else if (kind === 'look') { hiss(t, .03, 3200, 3, .07); hiss(t + .09, .03, 2400, 3, .05); }
+  else if (kind === 'found') [79, 83, 86, 91].forEach((m, i) => tone(fx, t + i * .09, m, .12, .5, 'triangle'));
+  else if (kind === 'known') [83, 86].forEach((m, i) => tone(fx, t + i * .09, m, .1, .35, 'triangle'));
+  else if (kind === 'chirp') {                                                // one rising and falling whistle for each note the reedhaunter sings
+    const o = c.createOscillator(), g = c.createGain(); o.frequency.setValueAtTime(3100, t); o.frequency.linearRampToValueAtTime(4300, t + .05); o.frequency.linearRampToValueAtTime(3500, t + .11);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.035, t + .015); g.gain.linearRampToValueAtTime(0, t + .12); o.connect(g); g.connect(fx); o.start(t); o.stop(t + .14);
+  }
+}
+function setSound(on) {
+  const ok = on && soundOn(); if (!ok) soundOff();
+  $('snd').textContent = ok ? L('Sound on', 'Con sonido') : L('Sound off', 'Sin sonido'); $('snd').setAttribute('aria-pressed', ok ? 'true' : 'false');
+  try { sessionStorage.setItem('chiara-sound', ok ? '1' : ''); } catch (e) {}
+}
+$('snd').textContent = L('Sound off', 'Sin sonido'); $('snd').addEventListener('click', () => setSound(!audio.on));
+// A browser only lets sound start from a click or a key. After a change of language the page reloads with the sound still
+// chosen, so it starts again at the first one.
+const wake = () => { if (audio.on && audio.ctx.state !== 'running' && !document.hidden) audio.ctx.resume(); };
+addEventListener('pointerdown', wake); addEventListener('keydown', wake);
+document.addEventListener('visibilitychange', () => { if (audio.on) { if (document.hidden) audio.ctx.suspend(); else audio.ctx.resume(); } });
+try { if (sessionStorage.getItem('chiara-sound') === '1') setSound(true); } catch (e) {}
+
+// For the tests: with ?still, a "sound" event plays the first twenty seconds of the tune into memory instead of the speakers
+// and reports how loud it came out.
+if (new URLSearchParams(location.search).has('still')) document.addEventListener('sound', async () => {
+  const c = new OfflineAudioContext(1, 44100 * 20, 44100); wire(c); audio.out.gain.value = 1; audio.next = .1; audio.pos = 0; playAhead(19.5);
+  const d = (await c.startRendering()).getChannelData(0); let peak = 0, sq = 0; for (let i = 0; i < d.length; i++) { peak = Math.max(peak, Math.abs(d[i])); sq += d[i] * d[i]; }
+  document.documentElement.dataset.sound = `peak ${peak.toFixed(3)} rms ${Math.sqrt(sq / d.length).toFixed(3)} quavers ${audio.pos}`; audio.ctx = null; audio.pos = 0; audio.next = 0;
+});
+
+let foot = 0;
+function step() {
+  stepChiara();
+  { const f = ch.moving ? Math.floor(ch.walked / STRIDE) & 1 : 0; if (f && !foot) sfx('step'); foot = f; }
+  markHere(); stepBirds(); if (look > 0) look--; follow(false);
+  if (watch && watchAt && tick >= watchAt) { watchAt = 0; showBird(watch.sp, true); }      // a beat with the binoculars up, then the view through them
+  writeInk();
+  if (pending && (tick >= pending.at || (!ch.moving && placeHere() === byId[pending.id]))) { const id = pending.id; pending = null; if (location.hash.slice(1) === id) show(id); }
+  tick++;
+}
+// Everything on the map, back to front. The view through the binoculars draws it a second time, round the bird.
+function scene() {
+  if (ready(mapImg)) ctx.drawImage(mapImg, 0, 0);
+  drawWater();
+  const things = birds.map(b => ({ y:b.y + (aloft(b) ? 1000 : b.kind === 'high' || b.kind === 'tree' ? 300 : 0), draw:() => drawBird(b) })); things.push({ y:ch.y, draw:drawChiara });
+  if (ready(frontImg)) for (const [x, y, w, h, base] of FRONT) things.push({ y:base, draw:() => ctx.drawImage(frontImg, x, y, w, h, x, y, w, h) });
+  things.sort((a, b) => a.y - b.y).forEach(o => o.draw());                                                           // back to front
+  drawNotes();
+}
+function draw() {
+  ctx.setTransform(n, 0, 0, n, -cam.x * n, -cam.y * n); ctx.imageSmoothingEnabled = false;
+  scene();
+  if (DEBUG) { for (let y = 0; y < GR; y++) for (let x = 0; x < GC; x++) { const c = GRID[y][x]; ctx.fillStyle = c === '#' ? 'rgba(255,0,0,.35)' : c === 'p' ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,0)'; ctx.fillRect(x * C, y * C, C, C); }
+    ctx.fillStyle = '#00f'; for (const s of SECTIONS) ctx.fillRect(s.stand[0] - 1, s.stand[1] - 1, 2, 2); ctx.fillStyle = '#f0f'; for (const k in SPOTS) for (const p of SPOTS[k]) ctx.fillRect(p[0], p[1], 1, 1); }
+  place();
+  if (bopen === 'card') drawLens();
+}
+function frame(now) {
+  acc += Math.min(100, now - (last || now)); last = now;
+  // whole ticks only, with a few milliseconds of give: a 60 Hz screen then gets exactly one tick a frame, never 0 one frame and 2 the next
+  let k = Math.floor((acc + 3) / TICK); acc = Math.max(-3, acc - k * TICK); while (k-- > 0) step();
+  draw(); requestAnimationFrame(frame);
+}
+
+/* ---------------------------------------------------- signs, clicks, keys, page */
+SECTIONS.forEach(s => {
+  const b = document.createElement('button'); b.className = 'sign'; b.textContent = s.short || s.label; b.setAttribute('aria-label', `${s.label} (${s.name})`);
+  b.addEventListener('click', () => choose(s.id)); b.addEventListener('pointerenter', () => setHover(s)); b.addEventListener('pointerleave', () => setHover(null));
+  b.addEventListener('focus', () => setHover(s)); b.addEventListener('blur', () => setHover(null));
+  signs.appendChild(b); s.el = b;
+  const d = document.createElement('button'); d.textContent = s.short || s.label; d.addEventListener('click', () => choose(s.id)); dock.appendChild(d); s.chip = d;
+});
+function setHover(s) { if (hover === s) return; if (hover) hover.el.classList.remove('hot'); hover = s; if (s) s.el.classList.add('hot'); cv.style.cursor = s ? 'pointer' : ''; }
+let hereNow;                                                                 // the place she is at: its label lights up
+function markHere() { const at = nearPlace(); if (at === hereNow) return; hereNow = at; for (const s of SECTIONS) { s.el.classList.toggle('here', s === at); s.chip.classList.toggle('here', s === at); } }
+const placeAt = (x, y) => SECTIONS.find(s => x >= s.box[0] && x <= s.box[0] + s.box[2] && y >= s.box[1] && y <= s.box[1] + s.box[3]);
+// the bird at a point on the map, or the nearest one within pad pixels of it
+function birdAt(x, y, pad) {
+  let best = null, bd = pad;
+  for (const b of birds) {
+    if (b.state === 'away' || b.state === 'dive') continue;
+    const [x0, y0, x1, y1] = SP[b.sp].box, bx = Math.round(b.x), by = Math.round(b.y) - (b.state === 'fly' ? b.z : 0);
+    const l = b.flip ? bx - x1 - 1 : bx + x0, r = b.flip ? bx - x0 - 1 : bx + x1, d = Math.max(l - x, x - r - 1, by + y0 - y, y - by - y1 - 1);
+    if (d <= bd) { bd = d; best = b; }
+  }
+  return best;
+}
+function showTip(b, sx, sy) {
+  if (!b) { tip.classList.remove('on'); return; } const s = SP[b.sp];
+  tip.innerHTML = seen.has(b.sp) ? `${s.name}<br><i>${s.sci}</i>` : L('Click to observe', 'Clic para observar'); tip.classList.add('on');
+  tip.style.transform = `translate(${Math.round(clamp(left + sx + 14, 6, W - 270))}px,${Math.round(Math.max(6, top + sy - 78))}px)`;
+}
+// Clicking a bird: she stops, turns to it and raises her binoculars. After a beat the screen cuts to what she sees through them,
+// and then she writes the bird up in her notebook. The bird stays where it is meanwhile.
+function observe(b) {
+  if (current || bopen) return;
+  sfx('look'); watch = b; watchAt = tick + (reduce ? 1 : 24); aim(b.sp); showTip(null); pending = null; look = 0; keys.clear();
+  ch.route = []; ch.goal = null; ch.moving = false; ch.walked = 0; ch.push = 0; ch.scope = true;
+  const dx = b.x - ch.x, dy = (b.y - (b.state === 'fly' ? b.z : 0) - 5) - (ch.y - 14);
+  ch.dir = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down';
+}
+function unwatch() { watch = null; watchAt = 0; ch.scope = false; ink = null; pen.remove(); }
+const local = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+cv.addEventListener('pointerdown', e => { const [sx, sy] = local(e); drag = { sx, sy, cx:cam.x, cy:cam.y, moved:false }; try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
+cv.addEventListener('pointermove', e => {
+  const [sx, sy] = local(e), [x, y] = toMap(sx, sy);
+  if (drag) { const dx = sx - drag.sx, dy = sy - drag.sy; if (Math.hypot(dx, dy) > 8) drag.moved = true;
+    if (drag.moved && (VW < MAPW || VH < MAPH)) { cam.x = clamp(Math.round(drag.cx - dx / S), 0, MAPW - VW); cam.y = clamp(Math.round(drag.cy - dy / S), 0, MAPH - VH); look = 240; } return; }
+  const b = e.pointerType === 'touch' ? null : birdAt(x, y, 3); hot = b; showTip(b, sx, sy); setHover(b ? null : placeAt(x, y) || null); if (b) cv.style.cursor = 'pointer';
+});
+cv.addEventListener('pointerup', e => {
+  const d = drag; drag = null; if (!d || d.moved) return; const [sx, sy] = local(e), [x, y] = toMap(sx, sy);
+  if (watch && !bopen) unwatch();
+  const b = birdAt(x, y, e.pointerType === 'touch' ? 9 : 3); if (b) { observe(b); return; }
+  const s = placeAt(x, y); if (s) { choose(s.id); return; }
+  look = 0; pending = null; walkTo(Math.floor(x), Math.floor(y));                       // anywhere else: she walks there
+});
+cv.addEventListener('pointercancel', () => { drag = null; });
+cv.addEventListener('pointerleave', () => { showTip(null); setHover(null); hot = null; });
+
+// the page
+const veil = $('veil'), order = SECTIONS.map(s => s.id); let returnTo = null;
+function show(id) {
+  const s = byId[id], i = order.indexOf(id), p = byId[order[(i + order.length - 1) % order.length]], nx = byId[order[(i + 1) % order.length]];
+  $('place').textContent = s.name; $('title').textContent = s.label; $('body').innerHTML = s.html; $('body').scrollTop = 0;
+  $('prev').textContent = '‹ ' + (p.short || p.label); $('prev').onclick = () => choose(p.id); $('next').textContent = (nx.short || nx.label) + ' ›'; $('next').onclick = () => choose(nx.id);
+  $('count').textContent = `${i + 1} / ${order.length}`;
+  const pic = $('pic'), sp = PORTRAIT[id]; pic.hidden = !sp;
+  if (sp) { pic.firstChild.src = `assets/${sp[0]}.png`; pic.firstChild.alt = SP[sp[1]].name; pic.lastChild.innerHTML = `${SP[sp[1]].name}<br><i>${SP[sp[1]].sci}</i><br>${SP[sp[1]].star[2]}`; }
+  sfx(current ? 'page' : 'open');
+  if (!current) { returnTo = document.activeElement; veil.classList.add('open'); setTimeout(() => $('close').focus({ preventScroll:true }), 60); }
+  current = id; keys.clear(); document.title = `${s.label} · Chiara Martina Casadei`;
+}
+function hide() { if (!current) return; sfx('close'); current = null; veil.classList.remove('open'); document.title = 'Chiara Martina Casadei'; if (returnTo && returnTo.focus) returnTo.focus({ preventScroll:true }); }
+// ---- the field notebook: which species have been observed (kept in the browser), a card for each, and the list of all of them
+const bveil = $('bveil'), seen = new Set(); let bopen = null, bback = null;
+try { for (const i of JSON.parse(localStorage.getItem('chiara-birds') || '[]')) if (SP[i]) seen.add(i); } catch (e) {}
+const tally = () => { $('nbn').textContent = `${seen.size}/${SP.length}`; }; tally();
+function paint(c, sp, dark) { const g = c.getContext('2d'); g.imageSmoothingEnabled = false; g.clearRect(0, 0, BW, BH); const im = dark ? darkImg : birdImg; if (im && ready(birdImg)) g.drawImage(im, 0, sp * BH, BW, BH, 0, 0, BW, BH); }
+function openB(mode) { bveil.firstElementChild.classList.toggle('wide', mode === 'book'); bveil.classList.toggle('scope', mode === 'card'); if (!bopen) { bback = document.activeElement; bveil.classList.add('open'); setTimeout(() => $('bclose').focus({ preventScroll:true }), 60); } bopen = mode; keys.clear(); $('bbody').scrollTop = 0; }
+function closeB() { if (!bopen) return; sfx('close'); bopen = null; bveil.classList.remove('open'); unwatch(); if (bback && bback.focus) bback.focus({ preventScroll:true }); }
+function showBird(sp, fresh) {
+  const s = SP[sp], isNew = !seen.has(sp);
+  if (isNew) { seen.add(sp); tally(); try { localStorage.setItem('chiara-birds', JSON.stringify([...seen])); } catch (e) {} }
+  if (!fresh) {                                                              // opened from the notebook's list: the lens finds one on the map
+    unwatch(); const b = birds.find(b => b.sp === sp);
+    if (b.state === 'away') { b.state = 'sit'; b.x = rint(150, 230); b.y = rint(115, 150); }   // the caracara comes over the lagoon else if (b.state === 'dive') { b.state = 'sit'; b.t = 200; }
+    watch = b;
+  }
+  if (watch.state === 'sit') watch.t = Math.min(watch.t, 30);
+  const k = clamp(Math.min(Math.floor((innerWidth - 60) / LW), Math.floor(innerHeight * .36 / LH)), 3, 8); glass.style.width = LW * k + 'px'; glass.style.height = LH * k + 'px'; aim(sp);
+  bveil.firstElementChild.style.width = LW * k + 12 + 'px';                    // the card is as wide as the view, so the view has no bars beside it
+  $('bflag').textContent = !fresh ? L('Field notebook', 'Libreta de campo') : isNew ? L('New in the notebook', 'Nueva en la libreta') : L('Seen before', 'Ya observada'); $('bname').textContent = s.name; if (fresh) sfx(isNew ? 'found' : 'known');
+  $('bsub').hidden = false; $('bsub').innerHTML = '<i id="bsci"></i> · <span id="bes"></span>'; $('bsci').textContent = s.sci; $('bes').textContent = s.other;
+  $('bbody').innerHTML = `<p>${s.note}</p>` + (s.star ? `<p><b>${s.star[1]}</b><button class="go" data-go="${s.star[0]}">${byId[s.star[0]].label} ›</button></p>` : '') +
+    `<p class="src">${s.n ? L(`${s.n} research-grade records on iNaturalist within 600 m of the RECUCN reserve, Buenos Aires (November 2026).`, `${s.n} registros con grado de investigación en iNaturalist a menos de 600 m de la reserva RECUCN, Buenos Aires (noviembre de 2026).`)
+      : L('No records at the RECUCN reserve. ', 'Sin registros en la reserva RECUCN. ') + (s.far ? L('This is a Central American species.', 'Es una especie de América Central.') : L('It is on this map as one of Chiara\'s study species.', 'Figura en este mapa por ser una de las especies que estudia Chiara.'))} ` +
+    `<a href="https://${ES ? 'es' : 'en'}.wikipedia.org/wiki/${ES ? s.wikiEs || s.sci.replace(/ /g, '_') : s.wiki}" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.inaturalist.org/taxa/${s.inat}" target="_blank" rel="noopener">iNaturalist</a> · <a href="https://www.inaturalist.org/photos/${s.ph[2]}" target="_blank" rel="noopener">${L('Photo', 'Foto')} © ${s.ph[0]}, ${s.ph[1]}</a></p>`;
+  $('bcount').textContent = L(`${seen.size} of ${SP.length} seen`, `${seen.size} de ${SP.length} observadas`); $('bbook').hidden = false; openB('card'); startInk(!fresh || reduce);
+}
+
+/* ------------------------------------------------- through the binoculars
+   The top of the card is what she sees, inside the two rounds of a pair of binoculars: first the map drawn again round the bird,
+   larger, and then, as she starts to write, a photograph of the species. Outside the rounds the view is only dimmed.
+   Beside the notes is Chiara herself, first with the binoculars up and then writing. */
+const LW = 80, LH = 40, lens = $('lens'), lctx = lens.getContext('2d'), hand = $('hand'), hctx = hand.getContext('2d'), glass = $('glass'), lphoto = $('lphoto');
+// the photograph is fetched as soon as she looks, so it is there by the time she writes
+function aim(sp) { if (lphoto.dataset.sp !== String(sp)) { lphoto.dataset.sp = sp; lphoto.alt = SP[sp].name + L(', photograph', ', fotografía'); lphoto.src = 'assets/photos/' + SP[sp].inat + '.jpg'; } }
+(() => {                                                                     // the same two rounds for the photograph, with a soft edge
+  const g = $('shade').getContext('2d'); g.fillStyle = 'rgba(0,0,0,.72)'; g.fillRect(0, 0, 400, 200); g.globalCompositeOperation = 'destination-out';
+  for (const cx of [125, 275]) { const r = g.createRadialGradient(cx, 100, 0, cx, 100, 100); r.addColorStop(0, '#000'); r.addColorStop(.93, '#000'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 400, 200); }
+})();
+const lensMask = (() => {
+  const c = document.createElement('canvas'); c.width = LW; c.height = LH; const g = c.getContext('2d');
+  for (let y = 0; y < LH; y++) for (let x = 0; x < LW; x++) { const d = Math.min(Math.hypot(x - 24.5, y - 19.5), Math.hypot(x - 54.5, y - 19.5)); if (d > 18.4) { g.fillStyle = d > 19.5 ? 'rgba(0,0,0,.72)' : 'rgba(0,0,0,.36)'; g.fillRect(x, y, 1, 1); } }
+  return c;
+})();
+function drawLens() {
+  const b = watch; if (!b) return;
+  hctx.imageSmoothingEnabled = false; hctx.clearRect(0, 0, GW, GH); if (ready(girl)) hctx.drawImage(girl, (!ink ? 6 : ink.wait > 0 ? 5 : 6 + (tick >> 3 & 1)) * GW, 0, GW, GH, 0, 0, GW, GH);
+  const photo = !(ink && ink.wait > 0) && lphoto.dataset.sp === String(b.sp) && lphoto.complete && lphoto.naturalWidth > 0; glass.classList.toggle('photo', photo); if (photo) return;
+  const [x0, y0, x1, y1] = SP[b.sp].box, mx = (x0 + x1) / 2, bx = Math.round(b.x) + (b.flip ? -mx - 1 : mx), by = Math.round(b.y) - (b.state === 'fly' ? b.z : 0) + (y0 + y1) / 2;
+  const main = ctx; lctx.setTransform(1, 0, 0, 1, 0, 0); lctx.imageSmoothingEnabled = false; lctx.fillStyle = '#0b2a14'; lctx.fillRect(0, 0, LW, LH);
+  lctx.setTransform(1, 0, 0, 1, -Math.round(bx - LW / 2), -Math.round(by - LH / 2)); ctx = lctx; inLens = true; scene(); inLens = false; ctx = main;
+  lctx.setTransform(1, 0, 0, 1, 0, 0); lctx.drawImage(lensMask, 0, 0);
+}
+
+/* ------------------------------------------------- writing the card
+   Every letter of the card is on the page from the start, unseen, so nothing shifts while the pencil goes along. Each tick the
+   pencil uncovers the next letter or two. A click on the page writes the rest at once. */
+let ink = null; const pen = document.createElement('i'); pen.className = 'pen';
+(() => {
+  const art = ['.....opp', '....oyyp', '...oyyo.', '..oyyo..', '.oyyo...', '.wyo....', 'kww.....', 'k.......'], key = { o:'#9a6a14', y:'#f0be28', p:'#e58a8a', w:'#e8c898', k:'#33302c' };
+  const c = document.createElement('canvas'); c.width = c.height = 8; const g = c.getContext('2d');
+  art.forEach((row, y) => [...row].forEach((ch, x) => { if (key[ch]) { g.fillStyle = key[ch]; g.fillRect(x, y, 1, 1); } }));
+  document.documentElement.style.setProperty('--pen', `url(${c.toDataURL()})`);
+})();
+function startInk(instant) {
+  ink = null; pen.remove(); const parts = [];
+  for (const root of [$('bflag'), $('bname'), $('bsub'), $('bbody')]) {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), l = []; while (w.nextNode()) l.push(w.currentNode);
+    for (const t of l) {
+      if (!t.data.trim()) continue;
+      const a = document.createElement('span'), r = document.createElement('span'), box = t.parentNode.closest('.go'), text = t.data;
+      r.className = 'unwritten'; r.textContent = text; t.replaceWith(a, r); if (box) box.style.visibility = 'hidden'; parts.push({ a, r, text, n:0, box });
+    }
+  }
+  ink = { parts, i:0, wait:45 }; if (instant) finishInk();
+}
+function writeInk() {
+  if (!ink) return;
+  if (ink.wait > 0) { ink.wait--; return; }                                  // the page stays empty while she is still looking
+  const p = ink.parts[ink.i]; if (!p) { finishInk(); return; }
+  if (!p.n) { if (p.box) p.box.style.visibility = ''; p.a.after(pen); }
+  p.n = Math.min(p.text.length, p.n + (ink.i < 5 ? 1 : 2)); p.a.textContent = p.text.slice(0, p.n); p.r.textContent = p.text.slice(p.n);
+  pen.classList.toggle('up', (tick >> 2 & 1) === 1); if (!(tick & 3)) sfx('pencil');
+  if (p.n >= p.text.length) ink.i++;
+}
+function finishInk() { if (!ink) return; for (const p of ink.parts) { p.a.textContent = p.text; p.r.textContent = ''; if (p.box) p.box.style.visibility = ''; } pen.remove(); ink = null; }
+bveil.addEventListener('click', e => { if (ink && !e.target.closest('button,a')) finishInk(); });
+function showBook() {
+  sfx(bopen ? 'page' : 'open'); unwatch(); bveil.firstElementChild.style.width = ''; $('bsub').hidden = true; $('bflag').textContent = L(`${seen.size} of ${SP.length} species seen`, `${seen.size} de ${SP.length} especies observadas`); $('bname').textContent = L('Field notebook', 'Libreta de campo');
+  $('bbody').innerHTML = `<p class="src">${L(`${SP.filter(s => s.n).length} species recorded at the RECUCN reserve in Buenos Aires, the two species Chiara studies and two from Central America. Click a bird on the map to observe it.`, `${SP.filter(s => s.n).length} especies registradas en la reserva RECUCN de Buenos Aires, las dos especies que estudia Chiara y dos de América Central. Hacer clic en un ave del mapa para observarla.`)}</p><div class="list">` +
+    SP.map((s, i) => `<button data-sp="${i}"${seen.has(i) ? '' : ' disabled'}><canvas width="${BW}" height="${BH}"></canvas><span>${seen.has(i) ? s.name : L('Not seen yet', 'Aún no observada') + '<small>' + s.hint + '</small>'}</span></button>`).join('') + '</div>';
+  $('bbody').querySelectorAll('canvas').forEach((c, i) => paint(c, i, !seen.has(i)));
+  $('bcount').textContent = ''; $('bbook').hidden = true; openB('book');
+}
+$('nb').addEventListener('click', showBook); $('bbook').addEventListener('click', showBook); $('bclose').addEventListener('click', closeB);
+bveil.addEventListener('pointerdown', e => { if (e.target === bveil) closeB(); });
+$('bbody').addEventListener('click', e => { const go = e.target.closest('[data-go]'), sp = e.target.closest('[data-sp]'); if (go) { closeB(); choose(go.dataset.go); } else if (sp && !sp.disabled) showBird(+sp.dataset.sp, false); });
+// Choosing a place sends her there at her normal pace. The page opens when she arrives, or after a short beat if it is a long walk,
+// so nobody waits on the walk. With a page already open, the next one shows at once.
+function choose(id) { if (location.hash.slice(1) === id) visit(id); else location.hash = id; }
+function visit(id, instant) {
+  const s = byId[id]; look = 0; showTip(null); unwatch();
+  if (instant) { ch.x = s.stand[0]; ch.y = s.stand[1]; ch.route = []; ch.goal = id; ch.seen = id; arrive(); follow(true); show(id); return; }
+  walkTo(s.stand[0], s.stand[1], id); ch.seen = id;
+  if (current) show(id); else pending = { id, at:tick + 90 };
+}
+function route(first) { const id = location.hash.slice(1); if (byId[id]) visit(id, first === true); else { pending = null; hide(); } }
+const home = () => { history.pushState(null, '', location.pathname + location.search); route(); };
+$('close').addEventListener('click', home);
+veil.addEventListener('pointerdown', e => { if (e.target === veil) home(); });
+addEventListener('hashchange', () => route()); addEventListener('popstate', () => route());
+const KEY = { ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down', a:'left', d:'right', w:'up', s:'down', A:'left', D:'right', W:'up', S:'down' };
+addEventListener('keydown', e => {
+  if (bopen) {
+    if (e.key === 'Escape') closeB(); else if (KEY[e.key] || e.key === ' ') { if (!(document.activeElement && document.activeElement.tagName === 'BUTTON' && e.key === ' ')) e.preventDefault(); }
+    else if (e.key === 'Tab') { const f = [...bveil.querySelectorAll('button:not([disabled]):not([hidden]),a[href]')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
+    return;
+  }
+  if (current) {
+    if (e.repeat) { if (KEY[e.key]) e.preventDefault(); return; }             // a key still held from walking into the place must not start turning pages
+    if (e.key === 'Escape') home(); else if (e.key === 'ArrowRight') $('next').click(); else if (e.key === 'ArrowLeft') $('prev').click();
+    else if (e.key === 'Tab') { const f = [...veil.querySelectorAll('button,a[href]')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
+    return;
+  }
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (KEY[e.key]) { if (!e.repeat) keys.add(KEY[e.key]); e.preventDefault(); const f = document.activeElement; if (f && f.classList.contains('sign')) f.blur(); }   // walking by hand: Enter now means "open what she is at", not the label that last had focus
+  else if ((e.key === 'Enter' || e.key === ' ' || e.key === 'e' || e.key === 'E') && !(document.activeElement && document.activeElement.tagName === 'BUTTON')) { const s = nearPlace(), b = s ? null : birdAt(ch.x, ch.y - 10, 60); if (s) { e.preventDefault(); enter(s.id); } else if (b) { e.preventDefault(); observe(b); } }   // or, away from any place, she looks at the nearest bird
+});
+addEventListener('keyup', e => { if (KEY[e.key]) keys.delete(KEY[e.key]); });
+addEventListener('blur', () => keys.clear());
+addEventListener('resize', resize);
+
+resize();
+if (byId[location.hash.slice(1)]) route(true); else if (reduce) { ch.x = 169; ch.y = 220; arrive(); } else walkTo(169, 220);      // in through the gate and up to her own door
+follow(true);
+// ?still stops the clock so single frames can be checked: set <html data-run="ticks" data-keys="left up"> and fire a "run" event on document
+if (new URLSearchParams(location.search).has('still')) document.addEventListener('run', () => { const r = document.documentElement, k = +r.dataset.run || 1; keys.clear(); (r.dataset.keys || '').split(' ').filter(Boolean).forEach(x => keys.add(x));
+  for (let i = 0; i < k; i++) step(); draw(); keys.clear();
+  r.dataset.at = ch.x + ',' + ch.y + ',' + ch.dir + ',' + (ch.moving ? 1 : 0) + ',' + ch.blink; r.dataset.fx = notes.length + ' notes, ' + dashes.length + ' dashes'; r.dataset.birds = birds.map(b => [b.sp, b.state, Math.round(b.x), Math.round(b.y), b.flip ? 1 : 0].join(':')).join(' '); r.dataset.watch = (watch ? watch.sp : '') + ',' + (ch.scope ? 1 : 0) + ',' + (bopen || ''); });
+else requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
